@@ -9,7 +9,7 @@ Design Deliverables:
 - Interactive Figma prototype
 
 Interactive Prototype:
-[View AURUM Figma Prototype] (https://www.figma.com/proto/vjLyAA8w5VgiOJOPc7ibog/AURUM-Final?node-id=95-980&p=f&t=3YbAU65T3pZBVQx5-1&scaling=min-zoom&content-scaling=fixed&page-id=95%3A769&starting-point-node-id=95%3A980)
+[View AURUM Figma Prototype](https://www.figma.com/proto/vjLyAA8w5VgiOJOPc7ibog/AURUM-Final?node-id=95-980&p=f&t=3YbAU65T3pZBVQx5-1&scaling=min-zoom&content-scaling=fixed&page-id=95%3A769&starting-point-node-id=95%3A980)
 Design Tools:
 Figma
 
