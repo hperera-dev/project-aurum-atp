@@ -4,6 +4,14 @@
  * with Web3Forms backend integration and immediate Viva Examiner audit logging.
  */
 
+// Global Configuration
+// Get your team's free live Web3Forms access key at https://web3forms.com in 10 seconds
+// or enter your Formspree endpoint / Supabase REST endpoint here.
+const AURUM_CONFIG = {
+  web3formsAccessKey: "a1b2c3d4-test-key-or-examiner", // REPLACE with real Web3Forms key for live Viva email dispatch
+  enableConsoleAudit: true
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   /* ========================================================
      1. ACCESSIBLE MOBILE NAVIGATION DRAWER
@@ -44,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       badgeText: "AUTHENTICATED CUSTOMER OWNER VIEW",
       title: "22K Heritage Bridal Bangle (AU-000452)",
       rows: [
-        ["Vault Access", "Full cross-shop visibility (Vogue + Raja pieces together)"],
+        ["Vault Access", "Full cross-shop visibility (Swarna + Raja pieces together)"],
         ["Net Gold Mass", "16.400 g • 916 Hallmark (Declared & Verified)"],
         ["Private Note", "\"Wedding gift from Amma — Dec 2026\" (Hidden from all shops)"],
         ["Attached Docs", "Original VAT Invoice PDF (AES-256 encrypted, customer-only)"],
@@ -53,11 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     shopA: {
       badgeClass: "badge-shop",
-      badgeText: "ISSUING JEWELLER VIEW (SHOP A — VOGUE)",
+      badgeText: "ISSUING JEWELLER VIEW (SHOP A — SWARNA JEWELLERS)",
       title: "Stock & Service Record: AU-000452",
       rows: [
         ["Tenant Scope", "Shop A Ledger Only (Competitor Shop B records invisible)"],
-        ["Item Data", "16.400 g • 22K (916‰) • Issued on Invoice #VG-2026-0421"],
+        ["Item Data", "16.400 g • 22K (916‰) • Issued on Invoice #SW-2026-0421"],
         ["Buyer Identity", "Masked after checkout (Customer present unlock required for service)"],
         ["Permitted Actions", "Record maintenance, polish weight audit, damage re-issue"],
         ["Competitor Barrier", "PostgreSQL Row-Level Security blocks cross-shop surveillance"]
@@ -66,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     blocked: {
       badgeClass: "badge-blocked",
       badgeText: "UNAUTHORISED SCAN / COMPETITOR SHOP B VIEW",
-      title: "ACCESS DENIED (Zero Public Leakage)",
+      title: "ACCESS DENIED (Strict Tenant Isolation)",
       rows: [
         ["Item Existence", "Not Confirmed by Server (HTTP 403 Forbidden)"],
         ["Customer Identity", "Zero bytes returned (No Name, No NIC, No Contact)"],
@@ -241,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let backendSuccess = false;
       try {
         const formData = new FormData();
-        formData.append("access_key", "a1b2c3d4-test-key-or-examiner"); // Free public demo key
+        formData.append("access_key", AURUM_CONFIG.web3formsAccessKey);
         formData.append("name", fullName);
         formData.append("email", email);
         formData.append("user_type", userType);
@@ -299,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fullName: sampleNames[randomIdx],
         email: sampleEmails[randomIdx],
         userType: randomIdx % 2 === 0 ? "customer" : "retailer",
-        shopName: randomIdx % 2 === 0 ? null : "Vogue Jewellers Colombo",
+        shopName: randomIdx % 2 === 0 ? null : "Swarna Jewellers Colombo",
         timestamp: new Date().toISOString(),
         client: "Viva Quick Test Trigger"
       };
