@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 504" width="100%" height="100%">
+  <defs>
+    <linearGradient id="newsHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#185844"/>
+      <stop offset="100%" stop-color="#102F27"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Phone Frame Background (Ivory #F2EBDD) -->
+  <rect width="360" height="504" rx="28" fill="#F2EBDD" stroke="#CFD8CD" stroke-width="2.5"/>
+
+  <!-- Notch / Status Bar -->
+  <rect x="130" y="8" width="100" height="14" rx="7" fill="#E6EDE7"/>
+  <text x="32" y="22" fill="#4E685B" font-size="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">9:41</text>
+  <text x="306" y="22" fill="#4E685B" font-size="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">5G 100%</text>
+
+  <!-- Header -->
+  <text x="24" y="52" fill="#102F27" font-size="13" font-family="Georgia, serif" font-weight="700" letter-spacing="1.5">AURUM INTELLIGENCE</text>
+  <rect x="264" y="38" width="72" height="20" rx="10" fill="#185844"/>
+  <text x="274" y="52" fill="#FFFFFF" font-size="8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">LIVE CBSL</text>
+
+  <!-- Daily Rates Widget (Emerald Card #185844) -->
+  <rect x="20" y="66" width="320" height="88" rx="12" fill="url(#newsHeader)" stroke="#B08A4F" stroke-width="1"/>
+  <text x="34" y="86" fill="#CFD8CD" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" letter-spacing="1">CENTRAL BANK OF SRI LANKA (CBSL) TODAY</text>
+  
+  <!-- 22K (916) Sovereign -->
+  <text x="34" y="112" fill="#FFFFFF" font-size="19" font-family="Georgia, serif" font-weight="700">Rs. 215,400</text>
+  <text x="34" y="128" fill="#CFD8CD" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">22K / 8g Sovereign (Pavan)</text>
+
+  <!-- 24K Gram -->
+  <text x="194" y="112" fill="#E5C78D" font-size="19" font-family="Georgia, serif" font-weight="700">Rs. 29,350</text>
+  <text x="194" y="128" fill="#CFD8CD" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">24K Bullion / Gram</text>
+  <text x="34" y="146" fill="#E8F5EE" font-size="8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Official Gazette Reference • Zero Retail Ad Markup</text>
+
+  <!-- Care Reminder Milestone (White #FFFFFF) -->
+  <rect x="20" y="164" width="320" height="52" rx="10" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <text x="34" y="184" fill="#B08A4F" font-size="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">🔔 Milestone Care Reminder</text>
+  <text x="34" y="202" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Swarna Bangle AU-000452 is due for 1-Year Complimentary Prong Check</text>
+
+  <!-- Curated News Cards (White #FFFFFF) -->
+  <text x="24" y="236" fill="#102F27" font-size="10.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" letter-spacing="0.5">CURATED INDUSTRY BULLETINS</text>
+  
+  <rect x="20" y="246" width="320" height="66" rx="10" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <text x="34" y="266" fill="#102F27" font-size="11.5" font-family="Georgia, serif" font-weight="700">NGJA Gazette: Assaying &amp; Hallmarking Rules</text>
+  <text x="34" y="282" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">National Gem &amp; Jewellery Authority issues mandatory guidelines...</text>
+  <text x="34" y="298" fill="#B08A4F" font-size="8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">Daily FT • Nov 2026 • Verified Regulation</text>
+
+  <!-- Multilingual RAG AI Hallmark Assistant (Forest #102F27 Card) -->
+  <rect x="20" y="322" width="320" height="114" rx="12" fill="#102F27" stroke="#B08A4F" stroke-width="1"/>
+  <text x="34" y="342" fill="#E5C78D" font-size="10.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">🤖 Multilingual RAG AI Assistant</text>
+  
+  <!-- Chat Bubble User (Mist on Forest) -->
+  <rect x="120" y="352" width="206" height="24" rx="8" fill="#185844"/>
+  <text x="130" y="368" fill="#FFFFFF" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">"Why does 22K show 916 on the stamp?"</text>
+
+  <!-- Chat Bubble AI -->
+  <rect x="34" y="382" width="260" height="44" rx="8" fill="#0D2620" stroke="#185844" stroke-width="1"/>
+  <text x="44" y="398" fill="#E6EDE7" font-size="8.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">916 means 91.6% pure gold (22 parts gold, 2 alloy).</text>
+  <text x="44" y="412" fill="#CFD8CD" font-size="7.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Source: NGJA Assaying Standard Part II • Zero Investment Advice</text>
+
+  <!-- Bottom Navigation Bar (Ivory #F2EBDD) -->
+  <rect x="0" y="450" width="360" height="54" fill="#F2EBDD" stroke="#CFD8CD" stroke-width="1"/>
+  <text x="42" y="474" fill="#4E685B" font-size="13">🪙</text>
+  <text x="36" y="489" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Vault</text>
+
+  <text x="132" y="474" fill="#102F27" font-size="13">📰</text>
+  <text x="126" y="489" fill="#102F27" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">News</text>
+
+  <text x="222" y="474" fill="#4E685B" font-size="13">⚡</text>
+  <text x="214" y="489" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Activity</text>
+
+  <text x="306" y="474" fill="#4E685B" font-size="13">👤</text>
+  <text x="300" y="489" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Profile</text>
+</svg>

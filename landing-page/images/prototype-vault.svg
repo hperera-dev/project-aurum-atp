@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 504" width="100%" height="100%">
+  <defs>
+    <linearGradient id="emGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#185844"/>
+      <stop offset="100%" stop-color="#102F27"/>
+    </linearGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5C78D"/>
+      <stop offset="100%" stop-color="#B08A4F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Phone Frame Background (Ivory #F2EBDD) -->
+  <rect width="360" height="504" rx="28" fill="#F2EBDD" stroke="#CFD8CD" stroke-width="2.5"/>
+  
+  <!-- Notch / Status Bar -->
+  <rect x="130" y="8" width="100" height="14" rx="7" fill="#E6EDE7"/>
+  <text x="32" y="22" fill="#4E685B" font-size="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">9:41</text>
+  <text x="306" y="22" fill="#4E685B" font-size="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">5G 100%</text>
+
+  <!-- App Header: AURUM Serif Brand -->
+  <text x="24" y="52" fill="#102F27" font-size="13" font-family="Georgia, serif" font-weight="700" letter-spacing="2">AURUM</text>
+  <circle cx="330" cy="48" r="14" fill="#E6EDE7" stroke="#CFD8CD" stroke-width="1"/>
+  <circle cx="330" cy="45" r="5" fill="#4E685B"/>
+  <path d="M322 55 Q330 49 338 55" stroke="#4E685B" stroke-width="2" fill="none"/>
+
+  <!-- Screen Title (Serif) -->
+  <text x="24" y="80" fill="#102F27" font-size="20" font-family="Georgia, serif" font-weight="700">My jewellery vault</text>
+
+  <!-- Emerald Total Balance Card (Screen C09 Replica) -->
+  <rect x="20" y="96" width="320" height="112" rx="14" fill="url(#emGrad)" stroke="#B08A4F" stroke-width="1"/>
+  <text x="36" y="118" fill="#CFD8CD" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" letter-spacing="1">TOTAL NET GOLD BALANCE</text>
+  <text x="36" y="148" fill="#FFFFFF" font-size="25" font-family="Georgia, serif" font-weight="700">LKR 1,420,000</text>
+  <text x="36" y="172" fill="#E6EDE7" font-size="11" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">48.250 g Pure 916 Gold • 4 Pieces</text>
+  <text x="36" y="192" fill="#CFD8CD" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">CBSL Daily Reference Rate • Verified</text>
+  <rect x="238" y="160" width="88" height="24" rx="6" fill="#102F27" stroke="#B08A4F" stroke-width="0.8"/>
+  <text x="248" y="176" fill="#E5C78D" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700">🔒 RLS Vault</text>
+
+  <!-- Add Existing Jewellery Quick Bar -->
+  <rect x="20" y="218" width="320" height="36" rx="8" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <circle cx="38" cy="236" r="9" fill="#185844"/>
+  <text x="34" y="240" fill="#FFFFFF" font-size="12" font-weight="700">+</text>
+  <text x="56" y="240" fill="#102F27" font-size="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700">Add existing jewellery</text>
+  <text x="175" y="240" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">(Owner-reported / Free)</text>
+
+  <!-- Filter Pills -->
+  <rect x="20" y="264" width="76" height="24" rx="12" fill="#102F27"/>
+  <text x="33" y="280" fill="#FFFFFF" font-size="9.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700">All items (4)</text>
+  
+  <rect x="104" y="264" width="112" height="24" rx="12" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <text x="114" y="280" fill="#102F27" font-size="9.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Retailer-verified (3)</text>
+  
+  <rect x="224" y="264" width="116" height="24" rx="12" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <text x="234" y="280" fill="#4E685B" font-size="9.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Owner-reported (1)</text>
+
+  <!-- Item Card 1 (Heritage Bridal Bangle) -->
+  <rect x="20" y="298" width="320" height="68" rx="10" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <circle cx="54" cy="332" r="22" fill="#E6EDE7"/>
+  <circle cx="54" cy="332" r="13" fill="none" stroke="url(#goldAccent)" stroke-width="3"/>
+  <text x="86" y="322" fill="#102F27" font-size="12" font-family="Georgia, serif" font-weight="700">22K Heritage Bridal Bangle</text>
+  <text x="86" y="338" fill="#4E685B" font-size="9.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">16.400 g Net Gold • 916 Hallmark</text>
+  <rect x="86" y="344" width="86" height="16" rx="3" fill="#E8F5EE"/>
+  <text x="91" y="355" fill="#185844" font-size="8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">RETAILER-VERIFIED</text>
+  <rect x="254" y="320" width="76" height="24" rx="6" fill="#102F27"/>
+  <text x="264" y="335" fill="#FFFFFF" font-size="8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700">Passport ↗</text>
+
+  <!-- Item Card 2 (Classic Rope Chain) -->
+  <rect x="20" y="374" width="320" height="66" rx="10" fill="#FFFFFF" stroke="#CFD8CD" stroke-width="1"/>
+  <circle cx="54" cy="407" r="22" fill="#E6EDE7"/>
+  <circle cx="54" cy="407" r="14" fill="none" stroke="url(#goldAccent)" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="86" y="398" fill="#102F27" font-size="12" font-family="Georgia, serif" font-weight="700">22K Classic Sovereign Chain</text>
+  <text x="86" y="414" fill="#4E685B" font-size="9.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">24.150 g Net Gold • Sea Street</text>
+  <rect x="86" y="420" width="86" height="16" rx="3" fill="#E8F5EE"/>
+  <text x="91" y="431" fill="#185844" font-size="8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">RETAILER-VERIFIED</text>
+
+  <!-- Bottom Navigation Bar (Ivory #F2EBDD) -->
+  <rect x="0" y="450" width="360" height="54" fill="#F2EBDD" stroke="#CFD8CD" stroke-width="1"/>
+  <text x="42" y="474" fill="#102F27" font-size="13">🪙</text>
+  <text x="36" y="489" fill="#102F27" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800">Vault</text>
+
+  <text x="132" y="474" fill="#4E685B" font-size="13">📰</text>
+  <text x="126" y="489" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">News</text>
+
+  <text x="222" y="474" fill="#4E685B" font-size="13">⚡</text>
+  <text x="214" y="489" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Activity</text>
+
+  <text x="306" y="474" fill="#4E685B" font-size="13">👤</text>
+  <text x="300" y="489" fill="#4E685B" font-size="9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600">Profile</text>
+</svg>
