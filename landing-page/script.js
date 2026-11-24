@@ -1,16 +1,8 @@
 /**
- * PROJECT AURUM — Landing Page Interactions & Working Call to Action
- * Handles accessible mobile menu, security simulator, and live waitlist submission
- * with Web3Forms backend integration and immediate Viva Examiner audit logging.
+ * PROJECT AURUM — Landing Page Interactions
+ * Handles accessible mobile navigation, zero-knowledge role simulator,
+ * Netlify Forms waitlist submission, and accessible prototype lightbox.
  */
-
-// Global Configuration
-// Get your team's free live Web3Forms access key at https://web3forms.com in 10 seconds
-// or enter your Formspree endpoint / Supabase REST endpoint here.
-const AURUM_CONFIG = {
-  web3formsAccessKey: "a1b2c3d4-test-key-or-examiner", // REPLACE with real Web3Forms key for live Viva email dispatch
-  enableConsoleAudit: true
-};
 
 document.addEventListener("DOMContentLoaded", () => {
   /* ========================================================
@@ -117,174 +109,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ========================================================
-     3. WORKING WAITLIST CALL TO ACTION & VIVA EXAMINER LOG
+     3. EARLY ACCESS WAITLIST (NETLIFY FORMS INTEGRATION)
      ======================================================== */
   const waitlistForm = document.getElementById("waitlist-form");
   const formFeedback = document.getElementById("form-feedback");
   const userTypeSelect = document.getElementById("user-type");
   const shopGroup = document.getElementById("shop-field-group");
-  const liveTableBody = document.getElementById("live-entries-body");
-  const liveCountBadge = document.getElementById("live-count-badge");
-  const btnQuickViva = document.getElementById("btn-quick-viva");
-  const btnClearLogs = document.getElementById("btn-clear-logs");
-  const btnExportData = document.getElementById("btn-export-data");
 
-  const STORAGE_KEY = "aurum_waitlist_records";
-
-  // Toggle Retailer Shop input
+  // Toggle Retailer Showroom Name input
   if (userTypeSelect && shopGroup) {
     userTypeSelect.addEventListener("change", () => {
       const isRetailer = userTypeSelect.value === "retailer";
       shopGroup.classList.toggle("is-hidden", !isRetailer);
       const shopInput = document.getElementById("shop-name");
       if (shopInput) shopInput.required = isRetailer;
-    });
-  }
-
-  // Load existing records from localStorage
-  function getStoredRecords() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
-      return [];
-    }
-  }
-
-  // Render the Viva Examiner Live Table
-  function renderLiveTable() {
-    if (!liveTableBody) return;
-    const records = getStoredRecords();
-    if (liveCountBadge) liveCountBadge.textContent = String(records.length);
-
-    if (records.length === 0) {
-      liveTableBody.innerHTML = `
-        <tr>
-          <td colspan="5" class="empty-log">
-            No submissions recorded yet. Submit the form above or click "Test Viva Submission" to record a live test entry.
-          </td>
-        </tr>
-      `;
-      return;
-    }
-
-    liveTableBody.innerHTML = records
-      .slice(-6)
-      .reverse()
-      .map(
-        (r, idx) => `
-        <tr>
-          <td><code>#AUR-${String(records.length - idx).padStart(3, "0")}</code></td>
-          <td><strong>${escapeHtml(r.fullName)}</strong></td>
-          <td>${escapeHtml(r.email)}</td>
-          <td><span class="proto-badge">${escapeHtml(r.userType === "retailer" ? (r.shopName ? "Jeweller: " + r.shopName : "Retail Jeweller") : "Customer")}</span></td>
-          <td><small>${new Date(r.timestamp).toLocaleTimeString()}</small></td>
-        </tr>
-      `
-      )
-      .join("");
-  }
-
-  function escapeHtml(str) {
-    if (!str) return "";
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  // Initial table render
-  renderLiveTable();
-
-  // Form submission handler
-  if (waitlistForm) {
-    waitlistForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      formFeedback.className = "form-feedback";
-      formFeedback.style.display = "none";
-
-      const fullName = document.getElementById("full-name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const userType = userTypeSelect.value;
-      const shopName = document.getElementById("shop-name") ? document.getElementById("shop-name").value.trim() : "";
-      const consent = document.getElementById("privacy-consent").checked;
-      const submitBtn = waitlistForm.querySelector("button[type='submit']");
-
-      // Validation
-      if (fullName.length < 2) {
-        showFeedback("Please enter your full name (minimum 2 characters).", "is-error");
-        document.getElementById("full-name").focus();
-        return;
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showFeedback("Please enter a valid email address.", "is-error");
-        document.getElementById("email").focus();
-        return;
-      }
-
-      if (!consent) {
-        showFeedback("You must agree to the Privacy Notice before submitting personal data.", "is-error");
-        document.getElementById("privacy-consent").focus();
-        return;
-      }
-
-      const originalBtnText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Recording Submission...";
-
-      const newRecord = {
-        id: "AUR-" + Date.now().toString(36).toUpperCase(),
-        fullName,
-        email,
-        userType,
-        shopName: userType === "retailer" ? shopName : null,
-        timestamp: new Date().toISOString(),
-        client: "Project AURUM First Commit Web Client"
-      };
-
-      // 1. Send to Web3Forms Free Backend Endpoint
-      let backendSuccess = false;
-      try {
-        const formData = new FormData();
-        formData.append("access_key", AURUM_CONFIG.web3formsAccessKey);
-        formData.append("name", fullName);
-        formData.append("email", email);
-        formData.append("user_type", userType);
-        formData.append("shop_name", shopName || "N/A");
-        formData.append("subject", "New Project AURUM Waitlist Entry: " + fullName);
-        formData.append("from_name", "AURUM Pilot Portal");
-
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData
-        });
-        const resJson = await response.json().catch(() => null);
-        if (response.ok && resJson && resJson.success) {
-          backendSuccess = true;
-        }
-      } catch (err) {
-        console.warn("Backend API request fallback (offline or network mode):", err);
-      }
-
-      // 2. Persist to Local Audit Log (Viva Examiner guarantee)
-      const currentRecords = getStoredRecords();
-      currentRecords.push(newRecord);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(currentRecords));
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalBtnText;
-
-      const successNotice = backendSuccess
-        ? `✓ Success! Thank you ${fullName}. Your entry (${email}) has been transmitted to our backend and verified in the live audit log.`
-        : `✓ Recorded! Thank you ${fullName}. Your entry (${email}) is securely recorded in the local Viva audit ledger (#${newRecord.id}).`;
-
-      showFeedback(successNotice, "is-success");
-      renderLiveTable();
-      waitlistForm.reset();
-      if (shopGroup) shopGroup.classList.add("is-hidden");
     });
   }
 
@@ -295,53 +133,101 @@ document.addEventListener("DOMContentLoaded", () => {
     formFeedback.style.display = "block";
   }
 
-  // Viva Examiner Quick Testing Button
-  if (btnQuickViva) {
-    btnQuickViva.addEventListener("click", () => {
-      const sampleNames = ["Dr. Examiner (Viva Lead)", "Prof. Academic Evaluator", "Industry Assayer (NGJA)", "Showroom Manager"];
-      const sampleEmails = ["examiner@example.edu", "evaluator@example.ac.lk", "assayer@example.gov.lk", "partner@aurum.lk"];
-      const randomIdx = Math.floor(Math.random() * sampleNames.length);
-
-      const quickRecord = {
-        id: "VIVA-" + Math.floor(1000 + Math.random() * 9000),
-        fullName: sampleNames[randomIdx],
-        email: sampleEmails[randomIdx],
-        userType: randomIdx % 2 === 0 ? "customer" : "retailer",
-        shopName: randomIdx % 2 === 0 ? null : "Swarna Jewellers Colombo",
-        timestamp: new Date().toISOString(),
-        client: "Viva Quick Test Trigger"
-      };
-
-      const records = getStoredRecords();
-      records.push(quickRecord);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-      renderLiveTable();
-      showFeedback(`✓ Live Viva test entry created for ${quickRecord.fullName} (${quickRecord.email})!`, "is-success");
-    });
-  }
-
-  // Clear Logs
-  if (btnClearLogs) {
-    btnClearLogs.addEventListener("click", () => {
-      if (confirm("Reset the Viva examiner waitlist log for a clean test?")) {
-        localStorage.removeItem(STORAGE_KEY);
-        renderLiveTable();
-        showFeedback("Audit logs cleared. Ready for fresh examiner submissions.", "is-success");
+  if (waitlistForm) {
+    waitlistForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (formFeedback) {
+        formFeedback.className = "form-feedback";
+        formFeedback.style.display = "none";
       }
-    });
-  }
 
-  // Export Data JSON
-  if (btnExportData) {
-    btnExportData.addEventListener("click", () => {
-      const records = getStoredRecords();
-      const blob = new Blob([JSON.stringify(records, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `aurum_waitlist_export_${Date.now()}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const fullNameInput = document.getElementById("full-name");
+      const emailInput = document.getElementById("email");
+      const shopInput = document.getElementById("shop-name");
+      const consentInput = document.getElementById("privacy-consent");
+      const submitBtn = waitlistForm.querySelector("button[type='submit']");
+
+      const fullName = fullNameInput.value.trim();
+      const email = emailInput.value.trim();
+      const userType = userTypeSelect ? userTypeSelect.value : "customer";
+      const shopName = shopInput ? shopInput.value.trim() : "";
+      const consent = consentInput ? consentInput.checked : false;
+
+      if (fullName.length < 2) {
+        showFeedback("Please enter your full name (minimum 2 characters).", "is-error");
+        fullNameInput.focus();
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showFeedback("Please enter a valid email address.", "is-error");
+        emailInput.focus();
+        return;
+      }
+
+      if (userType === "retailer" && shopName.length < 2) {
+        showFeedback("Please enter your jewellery brand or showroom name.", "is-error");
+        if (shopInput) shopInput.focus();
+        return;
+      }
+
+      if (!consent) {
+        showFeedback("Please accept the Privacy Notice before registering.", "is-error");
+        if (consentInput) consentInput.focus();
+        return;
+      }
+
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting Request...";
+
+      try {
+        const formData = new FormData(waitlistForm);
+        if (!formData.get("form-name")) {
+          formData.set("form-name", "waitlist");
+        }
+        if (userType !== "retailer") {
+          formData.set("shop_name", "N/A");
+        }
+
+        const response = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+          showFeedback(
+            `✓ Thank you, ${fullName}. Your early-access request (${email}) has been received—we will contact you ahead of our Colombo pilot launch.`,
+            "is-success"
+          );
+          waitlistForm.reset();
+          if (shopGroup) shopGroup.classList.add("is-hidden");
+          if (shopInput) shopInput.required = false;
+        } else {
+          throw new Error(`HTTP ${response.status}`);
+        }
+      } catch (err) {
+        const isLocalPreview = window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        if (isLocalPreview) {
+          showFeedback(
+            `✓ Local preview validated for ${fullName} (${email}). Live form submissions are recorded automatically on Netlify HTTPS.`,
+            "is-success"
+          );
+          waitlistForm.reset();
+          if (shopGroup) shopGroup.classList.add("is-hidden");
+          if (shopInput) shopInput.required = false;
+        } else {
+          showFeedback(
+            "Unable to submit right now. Please try again or email us directly at aurumteam25@gmail.com.",
+            "is-error"
+          );
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
     });
   }
 
