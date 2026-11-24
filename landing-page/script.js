@@ -1,43 +1,25 @@
-/**
- * PROJECT AURUM — Landing Page Interactions
- * Handles accessible mobile navigation, zero-knowledge role simulator,
- * Netlify Forms waitlist submission, and accessible prototype lightbox.
- */
-
+// Project AURUM — Landing Page Interactions
 document.addEventListener("DOMContentLoaded", () => {
-  /* ========================================================
-     1. ACCESSIBLE MOBILE NAVIGATION DRAWER
-     ======================================================== */
+  // 1. Mobile Navigation Drawer
   const navToggle = document.querySelector(".nav-toggle");
   const primaryNav = document.querySelector(".primary-nav");
+  const closeNav = (returnFocus = false) => {
+    if (!navToggle || !primaryNav) return;
+    navToggle.setAttribute("aria-expanded", "false");
+    primaryNav.classList.remove("is-open");
+    if (returnFocus) navToggle.focus();
+  };
 
   if (navToggle && primaryNav) {
     navToggle.addEventListener("click", () => {
-      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
-      navToggle.setAttribute("aria-expanded", String(!isExpanded));
-      primaryNav.classList.toggle("is-open", !isExpanded);
+      const open = navToggle.getAttribute("aria-expanded") !== "true";
+      navToggle.setAttribute("aria-expanded", String(open));
+      primaryNav.classList.toggle("is-open", open);
     });
-
-    // Close menu when navigation link is clicked or Escape is pressed
-    primaryNav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navToggle.setAttribute("aria-expanded", "false");
-        primaryNav.classList.remove("is-open");
-      });
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && primaryNav.classList.contains("is-open")) {
-        navToggle.setAttribute("aria-expanded", "false");
-        primaryNav.classList.remove("is-open");
-        navToggle.focus();
-      }
-    });
+    primaryNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => closeNav()));
   }
 
-  /* ========================================================
-     2. ZERO-KNOWLEDGE PRIVACY & SECURITY SIMULATOR
-     ======================================================== */
+  // 2. Zero-Knowledge Role Simulator
   const simData = {
     customer: {
       badgeClass: "badge-owner",
@@ -79,216 +61,125 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const simBtns = document.querySelectorAll(".sim-btn");
   const simScreen = document.getElementById("sim-screen");
-
-  if (simBtns.length && simScreen) {
-    simBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const role = btn.dataset.role;
-        const view = simData[role];
-        if (!view) return;
-
-        simBtns.forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-
-        const rowsHtml = view.rows
-          .map(
-            ([dt, dd]) =>
-              `<tr><td>${dt}</td><td><strong>${dd}</strong></td></tr>`
-          )
-          .join("");
-
-        simScreen.innerHTML = `
-          <div class="sim-badge ${view.badgeClass}">${view.badgeText}</div>
-          <h3 style="color:#ffffff; margin: 0.35rem 0 0.85rem; font-size:1.15rem;">${view.title}</h3>
-          <table class="sim-table">
-            <tbody>${rowsHtml}</tbody>
-          </table>
-        `;
+  simBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const view = simData[btn.dataset.role];
+      if (!view || !simScreen) return;
+      simBtns.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-selected", String(active));
       });
+      const rows = view.rows.map(([k, v]) => `<tr><td>${k}</td><td><strong>${v}</strong></td></tr>`).join("");
+      simScreen.innerHTML = `<div class="sim-badge ${view.badgeClass}">${view.badgeText}</div><h3 class="sim-title">${view.title}</h3><table class="sim-table"><tbody>${rows}</tbody></table>`;
     });
-  }
+  });
 
-  /* ========================================================
-     3. EARLY ACCESS WAITLIST (NETLIFY FORMS INTEGRATION)
-     ======================================================== */
-  const waitlistForm = document.getElementById("waitlist-form");
-  const formFeedback = document.getElementById("form-feedback");
-  const userTypeSelect = document.getElementById("user-type");
+  // 3. Early Access Waitlist (Netlify Forms)
+  const form = document.getElementById("waitlist-form");
+  const feedback = document.getElementById("form-feedback");
   const shopGroup = document.getElementById("shop-field-group");
+  const setFeedback = (msg, state = "") => {
+    if (!feedback) return;
+    feedback.textContent = msg;
+    feedback.className = state ? `form-feedback ${state}` : "form-feedback";
+  };
 
-  // Toggle Retailer Showroom Name input
-  if (userTypeSelect && shopGroup) {
-    userTypeSelect.addEventListener("change", () => {
-      const isRetailer = userTypeSelect.value === "retailer";
+  if (form) {
+    const { full_name, email, user_type, shop_name, privacy_consent } = form.elements;
+    const submitBtn = form.querySelector("button[type='submit']");
+    const syncRoleField = () => {
+      const isRetailer = user_type.value === "retailer";
       shopGroup.classList.toggle("is-hidden", !isRetailer);
-      const shopInput = document.getElementById("shop-name");
-      if (shopInput) shopInput.required = isRetailer;
-    });
-  }
+      shop_name.required = isRetailer;
+    };
+    user_type.addEventListener("change", syncRoleField);
 
-  function showFeedback(msg, typeClass) {
-    if (!formFeedback) return;
-    formFeedback.textContent = msg;
-    formFeedback.className = `form-feedback ${typeClass}`;
-    formFeedback.style.display = "block";
-  }
-
-  if (waitlistForm) {
-    waitlistForm.addEventListener("submit", async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (formFeedback) {
-        formFeedback.className = "form-feedback";
-        formFeedback.style.display = "none";
-      }
+      setFeedback("");
+      const nameVal = full_name.value.trim();
+      const emailVal = email.value.trim();
+      const isRetailer = user_type.value === "retailer";
 
-      const fullNameInput = document.getElementById("full-name");
-      const emailInput = document.getElementById("email");
-      const shopInput = document.getElementById("shop-name");
-      const consentInput = document.getElementById("privacy-consent");
-      const submitBtn = waitlistForm.querySelector("button[type='submit']");
+      if (nameVal.length < 2) return setFeedback("Please enter your full name (minimum 2 characters).", "is-error"), full_name.focus();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) return setFeedback("Please enter a valid email address.", "is-error"), email.focus();
+      if (isRetailer && shop_name.value.trim().length < 2) return setFeedback("Please enter your jewellery brand or showroom name.", "is-error"), shop_name.focus();
+      if (!privacy_consent.checked) return setFeedback("Please accept the Privacy Notice before registering.", "is-error"), privacy_consent.focus();
 
-      const fullName = fullNameInput.value.trim();
-      const email = emailInput.value.trim();
-      const userType = userTypeSelect ? userTypeSelect.value : "customer";
-      const shopName = shopInput ? shopInput.value.trim() : "";
-      const consent = consentInput ? consentInput.checked : false;
-
-      if (fullName.length < 2) {
-        showFeedback("Please enter your full name (minimum 2 characters).", "is-error");
-        fullNameInput.focus();
-        return;
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showFeedback("Please enter a valid email address.", "is-error");
-        emailInput.focus();
-        return;
-      }
-
-      if (userType === "retailer" && shopName.length < 2) {
-        showFeedback("Please enter your jewellery brand or showroom name.", "is-error");
-        if (shopInput) shopInput.focus();
-        return;
-      }
-
-      if (!consent) {
-        showFeedback("Please accept the Privacy Notice before registering.", "is-error");
-        if (consentInput) consentInput.focus();
-        return;
-      }
-
-      const originalBtnText = submitBtn.textContent;
+      const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting Request...";
 
       try {
-        const formData = new FormData(waitlistForm);
-        if (!formData.get("form-name")) {
-          formData.set("form-name", "waitlist");
-        }
-        if (userType !== "retailer") {
-          formData.set("shop_name", "N/A");
-        }
-
-        const response = await fetch("/", {
+        const data = new FormData(form);
+        if (!isRetailer) data.set("shop_name", "N/A");
+        const res = await fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData).toString()
+          body: new URLSearchParams(data).toString()
         });
-
-        if (response.ok) {
-          showFeedback(
-            `✓ Thank you, ${fullName}. Your early-access request (${email}) has been received—we will contact you ahead of our Colombo pilot launch.`,
-            "is-success"
-          );
-          waitlistForm.reset();
-          if (shopGroup) shopGroup.classList.add("is-hidden");
-          if (shopInput) shopInput.required = false;
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        setFeedback(`✓ Thank you, ${nameVal}. Your early-access request (${emailVal}) has been received—we will contact you ahead of our Colombo pilot launch.`, "is-success");
+        form.reset();
+        syncRoleField();
+      } catch {
+        const isLocal = ["file:", ""].includes(location.protocol) || ["localhost", "127.0.0.1"].includes(location.hostname);
+        if (isLocal) {
+          setFeedback(`✓ Local preview validated for ${nameVal} (${emailVal}). Live submissions are recorded automatically on Netlify HTTPS.`, "is-success");
+          form.reset();
+          syncRoleField();
         } else {
-          throw new Error(`HTTP ${response.status}`);
-        }
-      } catch (err) {
-        const isLocalPreview = window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-        if (isLocalPreview) {
-          showFeedback(
-            `✓ Local preview validated for ${fullName} (${email}). Live form submissions are recorded automatically on Netlify HTTPS.`,
-            "is-success"
-          );
-          waitlistForm.reset();
-          if (shopGroup) shopGroup.classList.add("is-hidden");
-          if (shopInput) shopInput.required = false;
-        } else {
-          showFeedback(
-            "Unable to submit right now. Please try again or email us directly at aurumteam25@gmail.com.",
-            "is-error"
-          );
+          setFeedback("Unable to submit right now. Please try again or email us directly at aurumteam25@gmail.com.", "is-error");
         }
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
+        submitBtn.textContent = originalLabel;
       }
     });
   }
 
-  /* ========================================================
-     5. ACCESSIBLE PROTOTYPE LIGHTBOX MODAL
-     ======================================================== */
+  // 4. Prototype Full-Resolution Lightbox
   const lightbox = document.getElementById("prototype-lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
   const lightboxTitle = document.getElementById("lightbox-title");
   const lightboxCaption = document.getElementById("lightbox-caption");
-  const lightboxCloseBtn = document.getElementById("lightbox-close-btn");
-  const zoomTriggers = document.querySelectorAll(".proto-zoom-trigger");
-  let lastFocusedTrigger = null;
+  const lightboxClose = document.getElementById("lightbox-close-btn");
+  let activeTrigger = null;
 
-  function openLightbox(trigger) {
-    if (!lightbox || !lightboxImg) return;
-    const src = trigger.getAttribute("data-lightbox-src");
-    const title = trigger.getAttribute("data-lightbox-title") || "Prototype Screen";
-    const caption = trigger.getAttribute("data-lightbox-caption") || "";
-    const innerImg = trigger.querySelector("img");
-
-    lastFocusedTrigger = trigger;
-    lightboxImg.src = src;
-    lightboxImg.alt = innerImg ? innerImg.alt : title;
-    if (lightboxTitle) lightboxTitle.textContent = title;
-    if (lightboxCaption) lightboxCaption.textContent = caption;
-
-    lightbox.hidden = false;
-    document.body.style.overflow = "hidden";
-    if (lightboxCloseBtn) lightboxCloseBtn.focus();
-  }
-
-  function closeLightbox() {
+  const closeLightbox = () => {
     if (!lightbox || lightbox.hidden) return;
     lightbox.hidden = true;
     document.body.style.overflow = "";
-    if (lightboxImg) lightboxImg.src = "";
-    if (lastFocusedTrigger) {
-      lastFocusedTrigger.focus();
-      lastFocusedTrigger = null;
-    }
+    lightboxImg.src = "";
+    activeTrigger?.focus();
+    activeTrigger = null;
+  };
+
+  if (lightbox && lightboxImg) {
+    document.querySelectorAll(".proto-zoom-trigger").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const card = trigger.closest("article");
+        const img = trigger.querySelector("img");
+        if (!img) return;
+        activeTrigger = trigger;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxTitle.textContent = card?.querySelector("h3")?.textContent || "";
+        lightboxCaption.textContent = card?.querySelector("p")?.textContent || "";
+        lightbox.hidden = false;
+        document.body.style.overflow = "hidden";
+        lightboxClose?.focus();
+      });
+    });
+    lightboxClose?.addEventListener("click", closeLightbox);
+    lightbox.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
   }
 
-  if (lightbox && zoomTriggers.length > 0) {
-    zoomTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => openLightbox(trigger));
-    });
-
-    if (lightboxCloseBtn) {
-      lightboxCloseBtn.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeNav(primaryNav?.classList.contains("is-open"));
+      closeLightbox();
     }
-
-    lightbox.querySelectorAll("[data-lightbox-close]").forEach((el) => {
-      el.addEventListener("click", closeLightbox);
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !lightbox.hidden) {
-        closeLightbox();
-      }
-    });
-  }
+  });
 });
-

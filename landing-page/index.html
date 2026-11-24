@@ -7,12 +7,10 @@
   <meta name="description" content="Project AURUM is Sri Lanka's privacy-first digital jewellery network linking physical gold pieces to a tamper-proof digital passport via consent-based POS handover and strictly isolated shop ledgers.">
   <meta name="theme-color" content="#102F27">
 
-  <!-- Google Fonts: Luxury High-Jewellery Serif + Humanist Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Open Graph / Social Sharing Meta -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Project AURUM — Never lose a gram of proof from the showroom counter to the next generation.">
   <meta property="og:description" content="Private cross-shop gold vault, isolated retailer ledgers, atomic POS handover, and verified Central Bank of Sri Lanka gold rates.">
@@ -21,18 +19,13 @@
   <link rel="canonical" href="https://project-aurum.netlify.app/">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicon & Touch Icon -->
   <link rel="icon" type="image/jpeg" href="images/theLogo.jpg">
   <link rel="apple-touch-icon" href="images/theLogo.jpg">
-
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Accessible Skip Navigation -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- Header / Navigation Bar -->
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a href="#top" class="brand" aria-label="Project AURUM Home">
@@ -43,14 +36,12 @@
         </div>
       </a>
 
-      <!-- Mobile Navigation Hamburger -->
       <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation menu">
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
       </button>
 
-      <!-- Primary Navigation Links (Zero Dead Links) -->
       <nav class="primary-nav" aria-label="Primary navigation">
         <ul>
           <li><a href="#problem">The Problem</a></li>
@@ -66,109 +57,86 @@
   </header>
 
   <main id="main-content">
-    <!-- Hero Section (Clear 3-Second Value Proposition & Right-Side Showcase) -->
+    <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container">
-        <div class="hero-grid">
-          <!-- Left Column: Copy & Value Proposition -->
-          <div class="hero-left">
-            <span class="eyebrow eyebrow-light">SRI LANKA MULTI-RETAILER DIGITAL JEWELLERY NETWORK</span>
-            <h1 id="hero-title">
-              <span class="hero-line">Never lose a gram of proof—</span>
-              <span class="hero-line">from the showroom counter</span>
-              <span class="hero-line text-gold-light">to the next generation.</span>
-            </h1>
-            <p class="hero-lead">
-              Project AURUM links physical gold jewellery to a private, customer-owned digital passport through consent-based point-of-sale handovers—strictly isolating shop ledgers with PostgreSQL Row-Level Security while curating official Sri Lankan gold intelligence.
-            </p>
-            <div class="hero-actions">
-              <a href="#waitlist" class="btn btn-gold">Request Early Access / Waitlist</a>
-              <a href="#problem" class="btn btn-outline-light">Why AURUM?</a>
-            </div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow eyebrow-light">SRI LANKA MULTI-RETAILER DIGITAL JEWELLERY NETWORK</span>
+          <h1 id="hero-title">
+            <span class="hero-line">Never lose a gram of proof—</span>
+            <span class="hero-line">from the showroom counter</span>
+            <span class="hero-line text-gold-light">to the next generation.</span>
+          </h1>
+          <p class="hero-lead">
+            Project AURUM links physical gold jewellery to a private, customer-owned digital passport through consent-based point-of-sale handovers—strictly isolating shop ledgers with PostgreSQL Row-Level Security while curating official Sri Lankan gold intelligence.
+          </p>
+          <div class="hero-actions">
+            <a href="#waitlist" class="btn btn-gold">Request Early Access / Waitlist</a>
+            <a href="#problem" class="btn btn-outline-light">Why AURUM?</a>
+          </div>
 
-            <!-- Trust Strip / Architectural Guarantees -->
-            <div class="hero-trust-strip" role="list" aria-label="Core architectural guarantees">
-              <div class="trust-badge" role="listitem">
-                <span class="trust-icon" aria-hidden="true">🔒</span>
-                <span><strong>Zero Home Addresses</strong> Stored in Cloud</span>
-              </div>
-              <div class="trust-badge" role="listitem">
-                <span class="trust-icon" aria-hidden="true">🛡️</span>
-                <span><strong>PostgreSQL RLS</strong> Tenant Isolation</span>
-              </div>
-              <div class="trust-badge" role="listitem">
-                <span class="trust-icon" aria-hidden="true">⚡</span>
-                <span><strong>Atomic Handover</strong> (Buyer Consent)</span>
-              </div>
-              <div class="trust-badge" role="listitem">
-                <span class="trust-icon" aria-hidden="true">📈</span>
-                <span><strong>CBSL &amp; NGJA</strong> Verified Daily Rates</span>
-              </div>
+          <ul class="hero-trust-strip" aria-label="Core architectural guarantees">
+            <li class="trust-badge"><span class="trust-icon" aria-hidden="true">🔒</span><span><strong>Zero Home Addresses</strong> Stored in Cloud</span></li>
+            <li class="trust-badge"><span class="trust-icon" aria-hidden="true">🛡️</span><span><strong>PostgreSQL RLS</strong> Tenant Isolation</span></li>
+            <li class="trust-badge"><span class="trust-icon" aria-hidden="true">⚡</span><span><strong>Atomic Handover</strong> (Buyer Consent)</span></li>
+            <li class="trust-badge"><span class="trust-icon" aria-hidden="true">📈</span><span><strong>CBSL &amp; NGJA</strong> Verified Daily Rates</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-vault-card" aria-label="Project AURUM Digital Vault Preview">
+          <div class="vault-card-header">
+            <div class="vault-badge-live">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span>LIVE CBSL NETWORK</span>
+            </div>
+            <span class="vault-chip">RLS ENCLAVE</span>
+          </div>
+
+          <div class="vault-balance-block">
+            <span class="vault-label">VERIFIED FAMILY GOLD VAULT</span>
+            <div class="vault-amount">LKR 1,420,000</div>
+            <div class="vault-sub">
+              <span class="vault-weight">48.250 g Pure 916 Gold</span>
+              <span class="vault-trend">▲ +LKR 45,000 this month</span>
             </div>
           </div>
 
-          <!-- Right Column: First Topic Right Side Luxury Vault Showcase -->
-          <div class="hero-right">
-            <div class="hero-vault-card" aria-label="Project AURUM Digital Vault Preview">
-              <div class="vault-card-header">
-                <div class="vault-badge-live">
-                  <span class="pulse-dot" aria-hidden="true"></span>
-                  <span>LIVE CBSL NETWORK</span>
-                </div>
-                <span class="vault-chip">RLS ENCLAVE</span>
+          <ul class="vault-items-preview" aria-label="Cross-shop items co-existing in one vault">
+            <li class="vault-item-row">
+              <span class="vault-item-icon" aria-hidden="true">💍</span>
+              <div class="vault-item-details">
+                <div class="vault-item-name">22K Heritage Bridal Bangle</div>
+                <div class="vault-item-shop">Issued by Swarna Jewellers • 16.400 g</div>
               </div>
-
-              <div class="vault-balance-block">
-                <span class="vault-label">VERIFIED FAMILY GOLD VAULT</span>
-                <div class="vault-amount">LKR 1,420,000</div>
-                <div class="vault-sub">
-                  <span class="vault-weight">48.250 g Pure 916 Gold</span>
-                  <span class="vault-trend">▲ +LKR 45,000 this month</span>
-                </div>
+              <span class="vault-item-pill">RLS Locked</span>
+            </li>
+            <li class="vault-item-row">
+              <span class="vault-item-icon" aria-hidden="true">📿</span>
+              <div class="vault-item-details">
+                <div class="vault-item-name">22K Classic Sovereign Rope Chain</div>
+                <div class="vault-item-shop">Issued by Raja Jewellers • 24.150 g</div>
               </div>
-
-              <div class="vault-items-preview" role="list" aria-label="Cross-shop items co-existing in one vault">
-                <div class="vault-item-row" role="listitem">
-                  <div class="vault-item-icon" aria-hidden="true">💍</div>
-                  <div class="vault-item-details">
-                    <div class="vault-item-name">22K Heritage Bridal Bangle</div>
-                    <div class="vault-item-shop">Issued by Swarna Jewellers • 16.400 g</div>
-                  </div>
-                  <span class="vault-item-pill">RLS Locked</span>
-                </div>
-
-                <div class="vault-item-row" role="listitem">
-                  <div class="vault-item-icon" aria-hidden="true">📿</div>
-                  <div class="vault-item-details">
-                    <div class="vault-item-name">22K Classic Sovereign Rope Chain</div>
-                    <div class="vault-item-shop">Issued by Raja Jewellers • 24.150 g</div>
-                  </div>
-                  <span class="vault-item-pill">RLS Locked</span>
-                </div>
-
-                <div class="vault-item-row" role="listitem">
-                  <div class="vault-item-icon" aria-hidden="true">✨</div>
-                  <div class="vault-item-details">
-                    <div class="vault-item-name">18K Solitaire Ring</div>
-                    <div class="vault-item-shop">Issued by Devi Jewellers • 7.700 g</div>
-                  </div>
-                  <span class="vault-item-pill">RLS Locked</span>
-                </div>
+              <span class="vault-item-pill">RLS Locked</span>
+            </li>
+            <li class="vault-item-row">
+              <span class="vault-item-icon" aria-hidden="true">✨</span>
+              <div class="vault-item-details">
+                <div class="vault-item-name">18K Solitaire Ring</div>
+                <div class="vault-item-shop">Issued by Devi Jewellers • 7.700 g</div>
               </div>
+              <span class="vault-item-pill">RLS Locked</span>
+            </li>
+          </ul>
 
-              <div class="vault-card-footer">
-                <div class="vault-guarantee">
-                  <span class="guarantee-icon" aria-hidden="true">🛡️</span>
-                  <span><strong>Lifetime Gold Provenance:</strong> Competitor shops cannot view other retailer records. Only the verified family holds unbroken cross-shop proof.</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <p class="vault-guarantee">
+            <span aria-hidden="true">🛡️</span>
+            <span><strong>Lifetime Gold Provenance:</strong> Competitor shops cannot view other retailer records. Only the verified family holds unbroken cross-shop proof.</span>
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- The 3-Part Problem & How AURUM Solves It -->
+    <!-- 3-Part Problem & Zero-Knowledge Role Simulator -->
     <section class="section section-cream" id="problem" aria-labelledby="problem-title">
       <div class="container">
         <div class="section-header">
@@ -180,8 +148,7 @@
         </div>
 
         <div class="problem-grid">
-          <!-- Problem 1 -->
-          <article class="problem-card">
+          <article class="problem-card surface-card">
             <div class="problem-num" aria-hidden="true">1</div>
             <h3>Fragmented Paper Receipts</h3>
             <p class="problem-desc">
@@ -189,14 +156,11 @@
             </p>
             <div class="solution-box">
               <div class="solution-label">AURUM Solution</div>
-              <p class="solution-desc">
-                <strong>Private Cross-Shop Vault:</strong> A single, unified lifetime digital wallet where all purchased items from any participating jeweller appear side-by-side with untouched original invoice PDFs locked in AES-256 encrypted storage.
-              </p>
+              <p class="solution-desc"><strong>Private Cross-Shop Vault:</strong> A single, unified lifetime digital wallet where all purchased items from any participating jeweller appear side-by-side with untouched original invoice PDFs locked in AES-256 encrypted storage.</p>
             </div>
           </article>
 
-          <!-- Problem 2 -->
-          <article class="problem-card">
+          <article class="problem-card surface-card">
             <div class="problem-num" aria-hidden="true">2</div>
             <h3>Retailer Surveillance Fear</h3>
             <p class="problem-desc">
@@ -204,14 +168,11 @@
             </p>
             <div class="solution-box">
               <div class="solution-label">AURUM Solution</div>
-              <p class="solution-desc">
-                <strong>Isolated Shop Ledgers &amp; Atomic Handover:</strong> Enforced by strict PostgreSQL Row-Level Security (RLS). Shop B can never see Shop A's sales or customer portfolio. Handover requires a dual-authenticated POS handshake with explicit buyer consent.
-              </p>
+              <p class="solution-desc"><strong>Isolated Shop Ledgers &amp; Atomic Handover:</strong> Enforced by strict PostgreSQL Row-Level Security (RLS). Shop B can never see Shop A's sales or customer portfolio. Handover requires a dual-authenticated POS handshake with explicit buyer consent.</p>
             </div>
           </article>
 
-          <!-- Problem 3 -->
-          <article class="problem-card">
+          <article class="problem-card surface-card">
             <div class="problem-num" aria-hidden="true">3</div>
             <h3>Scattered Gold Information</h3>
             <p class="problem-desc">
@@ -219,40 +180,29 @@
             </p>
             <div class="solution-box">
               <div class="solution-label">AURUM Solution</div>
-              <p class="solution-desc">
-                <strong>Curated Gold News &amp; CBSL Hub:</strong> An ad-free, verified daily feed pulling official Central Bank of Sri Lanka (CBSL) 22K/24K prices, National Gem &amp; Jewellery Authority (NGJA) assay standards, and educational guides directly into the app.
-              </p>
+              <p class="solution-desc"><strong>Curated Gold News &amp; CBSL Hub:</strong> An ad-free, verified daily feed pulling official Central Bank of Sri Lanka (CBSL) 22K/24K prices, National Gem &amp; Jewellery Authority (NGJA) assay standards, and educational guides directly into the app.</p>
             </div>
           </article>
         </div>
 
-        <!-- Zero-Knowledge Privacy Model Simulator -->
         <div class="sim-container" id="solution" aria-labelledby="sim-heading">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+          <div class="sim-header">
             <div>
               <span class="eyebrow eyebrow-light">INTERACTIVE ARCHITECTURAL PROOF</span>
-              <h3 id="sim-heading" style="color:#ffffff; margin:0; font-size:1.35rem;">Zero-Knowledge Access Simulator</h3>
+              <h3 id="sim-heading" class="sim-heading">Zero-Knowledge Access Simulator</h3>
             </div>
-            <p style="color:var(--color-mist); font-size:0.88rem; margin:0;">
-              Click below to simulate how different roles view the same gold piece:
-            </p>
+            <p class="sim-sub">Click below to simulate how different roles view the same gold piece:</p>
           </div>
 
           <div class="sim-controls" role="tablist" aria-label="Privacy Simulator Roles">
-            <button class="sim-btn is-active" data-role="customer" role="tab" aria-selected="true">
-              1. Authenticated Customer (Owner)
-            </button>
-            <button class="sim-btn" data-role="shopA" role="tab" aria-selected="false">
-              2. Issuing Jeweller (Shop A — Swarna)
-            </button>
-            <button class="sim-btn" data-role="blocked" role="tab" aria-selected="false">
-              3. Unauthorised / Competitor Shop B
-            </button>
+            <button class="sim-btn is-active" type="button" data-role="customer" role="tab" aria-selected="true">1. Authenticated Customer (Owner)</button>
+            <button class="sim-btn" type="button" data-role="shopA" role="tab" aria-selected="false">2. Issuing Jeweller (Shop A — Swarna)</button>
+            <button class="sim-btn" type="button" data-role="blocked" role="tab" aria-selected="false">3. Unauthorised / Competitor Shop B</button>
           </div>
 
           <div class="sim-screen" id="sim-screen" role="tabpanel">
             <div class="sim-badge badge-owner">AUTHENTICATED CUSTOMER OWNER VIEW</div>
-            <h3 style="color:#ffffff; margin: 0.35rem 0 0.85rem; font-size:1.15rem;">22K Heritage Bridal Bangle (AU-000452)</h3>
+            <h3 class="sim-title">22K Heritage Bridal Bangle (AU-000452)</h3>
             <table class="sim-table">
               <tbody>
                 <tr><td>Vault Access</td><td><strong>Full cross-shop visibility (Swarna + Raja pieces together)</strong></td></tr>
@@ -267,7 +217,7 @@
       </div>
     </section>
 
-    <!-- High-Fidelity Product Prototype Showcase -->
+    <!-- Product Prototype Showcase -->
     <section class="section section-white" id="prototype" aria-labelledby="prototype-title">
       <div class="container">
         <div class="section-header">
@@ -278,36 +228,18 @@
           </p>
         </div>
 
-        <!-- Tier 1: Customer Mobile App Screens (Symmetrical 2-Column Phone Showcase) -->
         <div class="prototype-mobile-grid">
-          <!-- Screen 1: Digital Jewellery Passport -->
-          <article class="prototype-card">
+          <article class="prototype-card surface-card">
             <div class="prototype-stage">
-              <button
-                type="button"
-                class="proto-zoom-trigger device-phone"
-                data-lightbox-src="images/prototype-passport.png"
-                data-lightbox-title="Customer Mobile App — Permanent Digital Jewellery Passport"
-                data-lightbox-caption="Retailer-Verified digital twin showing Permanent Asset ID (AUR · 0842 · 6190), Gross vs. Net Gold Weight (4.80 / 4.20 g), 18K · 750 purity, encrypted Original Invoice PDF, and one-tap Counter Pass QR."
-                aria-label="Inspect full-resolution Jewellery Passport prototype screen"
-              >
-                <img
-                  src="images/prototype-passport.png"
-                  alt="AURUM Customer Mobile App Jewellery Passport screen displaying a Retailer-Verified Solitaire Ring from Serendib Jewellers Colombo 03, Permanent Asset ID AUR-0842-6190, Gross and Net gold weight 4.80 and 4.20 grams, 18K 750 purity, Show Counter Pass button, Lifecycle Timeline, and private Original Invoice PDF"
-                  class="prototype-img"
-                  width="356"
-                  height="774"
-                  loading="lazy"
-                >
+              <button type="button" class="proto-zoom-trigger device-phone" aria-label="Inspect full-resolution Jewellery Passport prototype screen">
+                <img src="images/prototype-passport.png" alt="AURUM Customer Mobile App Jewellery Passport screen displaying a Retailer-Verified Solitaire Ring from Serendib Jewellers Colombo 03, Permanent Asset ID AUR-0842-6190, Gross and Net gold weight 4.80 and 4.20 grams, 18K 750 purity, Show Counter Pass button, Lifecycle Timeline, and private Original Invoice PDF" class="prototype-img" width="356" height="774" loading="lazy">
                 <span class="proto-zoom-hint" aria-hidden="true">Inspect full screen ↗</span>
               </button>
             </div>
             <div class="prototype-info">
               <span class="prototype-tag">01 • Customer Mobile App (Digital Twin)</span>
               <h3>Permanent Digital Jewellery Passport</h3>
-              <p>
-                Replaces fading paper bills with an immutable digital asset passport (<code>AUR · 0842 · 6190</code>). Separates Gross vs. Net gold weight (4.80 / 4.20 g), records 18K · 750 purity and issuing showroom SKU, secures the untouched Original Invoice PDF, and generates a one-time Counter Pass QR.
-              </p>
+              <p>Replaces fading paper bills with an immutable digital asset passport (<code>AUR · 0842 · 6190</code>). Separates Gross vs. Net gold weight (4.80 / 4.20 g), records 18K · 750 purity and issuing showroom SKU, secures the untouched Original Invoice PDF, and generates a one-time Counter Pass QR.</p>
               <div class="prototype-badges">
                 <span class="proto-badge">Retailer-Verified</span>
                 <span class="proto-badge">Gross / Net Weight</span>
@@ -317,34 +249,17 @@
             </div>
           </article>
 
-          <!-- Screen 2: Gold News & Daily CBSL Reference Hub -->
-          <article class="prototype-card">
+          <article class="prototype-card surface-card">
             <div class="prototype-stage">
-              <button
-                type="button"
-                class="proto-zoom-trigger device-phone"
-                data-lightbox-src="images/prototype-gold-news.png"
-                data-lightbox-title="Customer Mobile App — Gold News &amp; Daily CBSL Reference Hub"
-                data-lightbox-caption="Ad-free Sri Lankan gold intelligence hub displaying daily LKR 22K (916) and 24K (999) rates per gram and per 8-gram sovereign sourced from CBSL alongside curated purity education."
-                aria-label="Inspect full-resolution Gold News and Daily CBSL Rates prototype screen"
-              >
-                <img
-                  src="images/prototype-gold-news.png"
-                  alt="AURUM Customer Mobile App News and Rates screen displaying daily Sri Lankan LKR gold reference rates for 22K 916 and 24K 999 gold per gram and per 8-gram sovereign sourced from CBSL, alongside editorial jewellery insights and gold purity education"
-                  class="prototype-img"
-                  width="311"
-                  height="670"
-                  loading="lazy"
-                >
+              <button type="button" class="proto-zoom-trigger device-phone" aria-label="Inspect full-resolution Gold News and Daily CBSL Rates prototype screen">
+                <img src="images/prototype-gold-news.png" alt="AURUM Customer Mobile App News and Rates screen displaying daily Sri Lankan LKR gold reference rates for 22K 916 and 24K 999 gold per gram and per 8-gram sovereign sourced from CBSL, alongside editorial jewellery insights and gold purity education" class="prototype-img" width="311" height="670" loading="lazy">
                 <span class="proto-zoom-hint" aria-hidden="true">Inspect full screen ↗</span>
               </button>
             </div>
             <div class="prototype-info">
               <span class="prototype-tag">02 • Customer Mobile App (Market Intelligence)</span>
               <h3>Gold News &amp; Daily CBSL Rates Hub</h3>
-              <p>
-                Solves the rare-purchase retention problem with zero promotional spam. Delivers verified Sri Lankan 22K (916) and 24K (999) LKR reference rates per gram and per 8g sovereign (Pavan), paired with curated jewellery stories and hallmark purity education.
-              </p>
+              <p>Solves the rare-purchase retention problem with zero promotional spam. Delivers verified Sri Lankan 22K (916) and 24K (999) LKR reference rates per gram and per 8g sovereign (Pavan), paired with curated jewellery stories and hallmark purity education.</p>
               <div class="prototype-badges">
                 <span class="proto-badge">22K &amp; 24K LKR Rates</span>
                 <span class="proto-badge">Gram &amp; Sovereign</span>
@@ -355,30 +270,15 @@
           </article>
         </div>
 
-        <!-- Tier 2: Featured B2B Retailer Partner Web Portal (Full-Width Landscape Showcase) -->
-        <article class="prototype-featured-card">
+        <article class="prototype-featured-card surface-card">
           <div class="prototype-browser-stage">
-            <button
-              type="button"
-              class="proto-zoom-trigger device-browser"
-              data-lightbox-src="images/prototype-retailer-pos.png"
-              data-lightbox-title="Retailer Partner Web Portal — Scan &amp; Sell POS Handover"
-              data-lightbox-caption="Branch-scoped showroom checkout portal featuring Physical Code and Counter Pass QR scanning, multi-item bridal invoice batching (12.20g combined net gold), masked customer numbers, and four secure handover modes with zero customer vault browsing."
-              aria-label="Inspect full-resolution Retailer POS Handover web portal prototype screen"
-            >
+            <button type="button" class="proto-zoom-trigger device-browser" aria-label="Inspect full-resolution Retailer POS Handover web portal prototype screen">
               <div class="browser-chrome" aria-hidden="true">
                 <span class="browser-dots"><span></span><span></span><span></span></span>
                 <span class="browser-url">partner.aurum.lk / scan-and-sell</span>
                 <span class="browser-badge">Branch Scoped</span>
               </div>
-              <img
-                src="images/prototype-retailer-pos.png"
-                alt="AURUM Partner Portal web interface for Serendib Jewellers Colombo 03 showing the Scan and Sell POS handover workflow with Physical Code and Counter Pass QR lookup, multi-item invoice SJ-2026-0214 totalling 12.20g combined net gold weight, masked customer mobile number, Original Invoice PDF attachment, live PIN handover, Claim-Later SMS, Offline Buyer mode, and branch-scoped privacy enforcement"
-                class="prototype-browser-img"
-                width="1022"
-                height="728"
-                loading="lazy"
-              >
+              <img src="images/prototype-retailer-pos.png" alt="AURUM Partner Portal web interface for Serendib Jewellers Colombo 03 showing the Scan and Sell POS handover workflow with Physical Code and Counter Pass QR lookup, multi-item invoice SJ-2026-0214 totalling 12.20g combined net gold weight, masked customer mobile number, Original Invoice PDF attachment, live PIN handover, Claim-Later SMS, Offline Buyer mode, and branch-scoped privacy enforcement" class="prototype-img" width="1022" height="728" loading="lazy">
               <span class="proto-zoom-hint" aria-hidden="true">Inspect full resolution ↗</span>
             </button>
           </div>
@@ -386,9 +286,7 @@
           <div class="prototype-featured-info">
             <span class="prototype-tag">03 • Retailer Partner Web Portal (Showroom POS)</span>
             <h3>Blind Tenant-Isolated Scan &amp; Sell POS</h3>
-            <p>
-              Built for showroom cashiers and branch managers with shared-screen privacy enforced at every step. Staff scan physical DataMatrix marks or customer Counter Pass QRs, group multi-item invoices with combined net gold mass, attach untouched VAT invoice PDFs, and dispatch dual-consented handovers.
-            </p>
+            <p>Built for showroom cashiers and branch managers with shared-screen privacy enforced at every step. Staff scan physical DataMatrix marks or customer Counter Pass QRs, group multi-item invoices with combined net gold mass, attach untouched VAT invoice PDFs, and dispatch dual-consented handovers.</p>
             <ul class="prototype-highlights">
               <li><strong>4 Real-World Handover Modes:</strong> Generate live Counter PIN, send Claim-Later SMS, Record Offline Buyer, or Initiate Return / Exchange.</li>
               <li><strong>Strict Zero-Vault Browsing:</strong> Customer mobile numbers stay masked (<code>+94 •• ••• 4821</code>) and staff can never view other shops' records or historical customer invoices.</li>
@@ -405,48 +303,41 @@
       </div>
     </section>
 
-    <!-- Team Section -->
+    <!-- Team -->
     <section class="section section-cream" id="team" aria-labelledby="team-title">
       <div class="container">
         <div class="section-header">
           <span class="eyebrow">THE TEAM BEHIND AURUM</span>
           <h2 id="team-title">Meet the Project AURUM Team</h2>
-          <p class="section-lead">
-            Built by a dedicated five-member engineering and design team at the Informatics Institute of Technology (IIT Sri Lanka) in collaboration with the University of Westminster.
-          </p>
+          <p class="section-lead">Built by a dedicated five-member engineering and design team at the Informatics Institute of Technology (IIT Sri Lanka) in collaboration with the University of Westminster.</p>
         </div>
 
-        <!-- Balanced 5-Card Luxury Team Showcase -->
         <div class="team-grid">
-          <article class="team-card">
+          <article class="team-card surface-card">
             <div class="team-avatar" aria-hidden="true">RP</div>
             <h3>R. A. H. D. Perera</h3>
             <div class="team-role">Product Owner &amp; Web Lead</div>
             <p class="team-desc">Product vision, scope governance, GitHub and Notion workspace setup, marketing web development, and Netlify HTTPS deployment.</p>
           </article>
-
-          <article class="team-card">
+          <article class="team-card surface-card">
             <div class="team-avatar" aria-hidden="true">SA</div>
             <h3>S. Abisheak</h3>
             <div class="team-role">Scrum Master &amp; Agile Lead</div>
             <p class="team-desc">Scrum sprint facilitation, Notion backlog tracking, burndown metrics, risk register governance, and Agile ceremony documentation.</p>
           </article>
-
-          <article class="team-card">
+          <article class="team-card surface-card">
             <div class="team-avatar" aria-hidden="true">SR</div>
             <h3>G. D. Senuthi Thewathma Rathansekara</h3>
             <div class="team-role">System Architect</div>
             <p class="team-desc">Multi-tier system architecture, UML modelling, PostgreSQL Row-Level Security (RLS) schema, atomic POS handover, and asset lineage design.</p>
           </article>
-
-          <article class="team-card">
+          <article class="team-card surface-card">
             <div class="team-avatar" aria-hidden="true">IT</div>
             <h3>D. S. Inuthie Tharinma</h3>
             <div class="team-role">UI/UX Designer</div>
             <p class="team-desc">Low-fidelity wireframes, WCAG 2.2 AA design system tokens, high-fidelity Figma prototype (Customer Vault &amp; Retailer POS), and usability testing.</p>
           </article>
-
-          <article class="team-card">
+          <article class="team-card surface-card">
             <div class="team-avatar" aria-hidden="true">MK</div>
             <h3>M. Kajendran</h3>
             <div class="team-role">Business Analyst &amp; QA/Ethics Lead</div>
@@ -456,79 +347,66 @@
       </div>
     </section>
 
-    <!-- Working Call to Action (Colombo Early Access Waitlist — Netlify Forms) -->
+    <!-- Waitlist (Netlify Forms) -->
     <section class="section section-mist" id="waitlist" aria-labelledby="waitlist-title">
-      <div class="container">
-        <div class="waitlist-wrap">
-          <!-- Information Column -->
-          <div class="waitlist-info">
-            <span class="eyebrow">COLOMBO EARLY ACCESS PILOT</span>
-            <h2 id="waitlist-title">Join the Colombo Pilot Waitlist</h2>
-            <p style="font-size:1.05rem; color:var(--slate-700); margin-bottom:1.5rem;">
-              Whether you are a jewellery owner looking to protect your family heirlooms or a retail jewellery showroom seeking dispute-free lifetime servicing, reserve your early access invitation today.
+      <div class="container waitlist-wrap">
+        <div>
+          <span class="eyebrow">COLOMBO EARLY ACCESS PILOT</span>
+          <h2 id="waitlist-title">Join the Colombo Pilot Waitlist</h2>
+          <p class="waitlist-lead">Whether you are a jewellery owner looking to protect your family heirlooms or a retail jewellery showroom seeking dispute-free lifetime servicing, reserve your early access invitation today.</p>
+
+          <ul class="waitlist-benefits">
+            <li><strong>Zero Cost for Early Adopters:</strong> Free digital jewellery passports during our Colombo early-access pilot.</li>
+            <li><strong>Zero Home Address Guarantee:</strong> We never ask for or store physical residential street addresses.</li>
+            <li><strong>Priority Showroom Onboarding:</strong> Partner jewellers receive guided POS handover setup and dedicated onboarding support.</li>
+          </ul>
+
+          <div class="waitlist-note">
+            <strong>Direct Launch Updates Only</strong>
+            <p>We respect your privacy. Your details are used solely to invite you to the closed beta—never sold or shared with third-party marketers or competing jewellers.</p>
+          </div>
+        </div>
+
+        <div class="waitlist-card surface-card">
+          <form id="waitlist-form" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="waitlist">
+            <p class="visually-hidden" aria-hidden="true">
+              <label>Do not fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
             </p>
 
-            <ul style="padding-left:1.2rem; color:var(--slate-700); font-size:0.95rem; line-height:1.8; margin-bottom:1.5rem;">
-              <li><strong>Zero Cost for Early Adopters:</strong> Free digital jewellery passports during our Colombo early-access pilot.</li>
-              <li><strong>Zero Home Address Guarantee:</strong> We never ask for or store physical residential street addresses.</li>
-              <li><strong>Priority Showroom Onboarding:</strong> Partner jewellers receive guided POS handover setup and dedicated onboarding support.</li>
-            </ul>
-
-            <div class="waitlist-note">
-              <strong>Direct Launch Updates Only</strong>
-              <p>
-                We respect your privacy. Your details are used solely to invite you to the closed beta—never sold or shared with third-party marketers or competing jewellers.
-              </p>
+            <div class="form-group">
+              <label for="full-name">Full Name *</label>
+              <input type="text" id="full-name" name="full_name" class="form-control" placeholder="e.g. Priyantha Silva" required autocomplete="name">
             </div>
-          </div>
 
-          <!-- Form Column (Live Netlify Forms Submission) -->
-          <div class="waitlist-card">
-            <form id="waitlist-form" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-              <input type="hidden" name="form-name" value="waitlist">
-              <p class="visually-hidden" aria-hidden="true">
-                <label>Do not fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
-              </p>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+            </div>
 
-              <div class="form-group">
-                <label for="full-name">Full Name *</label>
-                <input type="text" id="full-name" name="full_name" class="form-control" placeholder="e.g. Priyantha Silva" required autocomplete="name">
-              </div>
+            <div class="form-group">
+              <label for="user-type">I am interested as a *</label>
+              <select id="user-type" name="user_type" class="form-control" required>
+                <option value="customer" selected>Jewellery Owner / Individual Customer</option>
+                <option value="retailer">Retail Jeweller / Showroom Manager</option>
+              </select>
+            </div>
 
-              <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required autocomplete="email">
-              </div>
+            <div class="form-group is-hidden" id="shop-field-group">
+              <label for="shop-name">Jewellery Brand / Showroom Name *</label>
+              <input type="text" id="shop-name" name="shop_name" class="form-control" placeholder="e.g. Serendib Jewellers / Colombo 03">
+            </div>
 
-              <div class="form-group">
-                <label for="user-type">I am interested as a *</label>
-                <select id="user-type" name="user_type" class="form-control" required>
-                  <option value="customer" selected>Jewellery Owner / Individual Customer</option>
-                  <option value="retailer">Retail Jeweller / Showroom Manager</option>
-                </select>
-              </div>
+            <div class="form-checkbox">
+              <input type="checkbox" id="privacy-consent" name="privacy_consent" value="accepted" required>
+              <label for="privacy-consent">
+                I agree to the <a href="#privacy" class="link-gold">Privacy Notice</a> regarding the processing of my name and email for early-access registration under the Sri Lanka PDPA.
+              </label>
+            </div>
 
-              <!-- Conditional Retailer Input -->
-              <div class="form-group is-hidden" id="shop-field-group">
-                <label for="shop-name">Jewellery Brand / Showroom Name *</label>
-                <input type="text" id="shop-name" name="shop_name" class="form-control" placeholder="e.g. Serendib Jewellers / Colombo 03">
-              </div>
-
-              <!-- Privacy Consent -->
-              <div class="form-checkbox">
-                <input type="checkbox" id="privacy-consent" name="privacy_consent" value="accepted" required>
-                <label for="privacy-consent">
-                  I agree to the <a href="#privacy" style="color:var(--gold-accessible); font-weight:700;">Privacy Notice</a> regarding the processing of my name and email for early-access registration under the Sri Lanka PDPA.
-                </label>
-              </div>
-
-              <button type="submit" class="btn btn-gold" style="width:100%;">
-                Request Early Access
-              </button>
-
-              <div id="form-feedback" class="form-feedback" role="alert" aria-live="polite"></div>
-            </form>
-          </div>
+            <button type="submit" class="btn btn-gold btn-block">Request Early Access</button>
+            <div id="form-feedback" class="form-feedback" role="alert" aria-live="polite"></div>
+          </form>
         </div>
       </div>
     </section>
@@ -539,56 +417,38 @@
         <div class="section-header">
           <span class="eyebrow">DATA PROTECTION &amp; PRIVACY</span>
           <h2 id="privacy-title">Privacy &amp; Data Protection Notice</h2>
-          <p class="section-lead">
-            Aligned with the <strong>Sri Lanka Personal Data Protection Act (PDPA) No. 9 of 2022</strong>:
-          </p>
+          <p class="section-lead">Aligned with the <strong>Sri Lanka Personal Data Protection Act (PDPA) No. 9 of 2022</strong>:</p>
         </div>
 
-        <div class="privacy-card">
+        <div class="privacy-card surface-card">
           <h3>1. Nature and Purpose of Data Collected</h3>
-          <p>
-            When you register on this landing page, we collect your <strong>Full Name</strong>, <strong>Email Address</strong>, and optional <strong>Retail Showroom Name</strong>. This data is collected solely to notify you when the AURUM mobile application and partner portal open for early access in Colombo.
-          </p>
+          <p>When you register on this landing page, we collect your <strong>Full Name</strong>, <strong>Email Address</strong>, and optional <strong>Retail Showroom Name</strong>. This data is collected solely to notify you when the AURUM mobile application and partner portal open for early access in Colombo.</p>
 
           <h3>2. Strict Zero-Home-Address Architectural Guarantee</h3>
-          <p>
-            To eliminate the risk of physical robbery honeypots (e.g. database leaks associating high-value gold collections with residential street addresses), <strong>Project AURUM has zero database columns for home addresses, postal codes, or GPS coordinates</strong>. Retailers maintain billing addresses inside their independent legacy ERPs; AURUM never ingests them.
-          </p>
+          <p>To eliminate the risk of physical robbery honeypots (e.g. database leaks associating high-value gold collections with residential street addresses), <strong>Project AURUM has zero database columns for home addresses, postal codes, or GPS coordinates</strong>. Retailers maintain billing addresses inside their independent legacy ERPs; AURUM never ingests them.</p>
 
           <h3>3. Data Retention and Encryption Standard</h3>
-          <p>
-            All submitted waitlist records are encrypted in transit via TLS 1.3 and stored using AES-256 encryption. We never sell, rent, or share personal data with third-party advertisers or competing jewellery retailers.
-          </p>
+          <p>All submitted waitlist records are encrypted in transit via TLS 1.3 and stored using AES-256 encryption. We never sell, rent, or share personal data with third-party advertisers or competing jewellery retailers.</p>
 
           <h3>4. User Rights and Data Purge Requests</h3>
-          <p>
-            Under Section 14 of the Sri Lanka PDPA, you retain the full right to withdraw consent, inspect your stored information, or request an immediate and permanent purge of your email entry. To exercise this right, contact our Data Protection Officer at:
-            <a href="mailto:aurumteam25@gmail.com" style="color:var(--gold-accessible); font-weight:700;">aurumteam25@gmail.com</a>.
-          </p>
+          <p>Under Section 14 of the Sri Lanka PDPA, you retain the full right to withdraw consent, inspect your stored information, or request an immediate and permanent purge of your email entry. To exercise this right, contact our Data Protection Officer at <a href="mailto:aurumteam25@gmail.com" class="link-gold">aurumteam25@gmail.com</a>.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Site Footer (Real Contact & Repository Links — Zero Dead Links) -->
   <footer class="site-footer" id="contact">
     <div class="container">
       <div class="footer-grid">
-        <!-- Col 1: Brand Info -->
         <div class="footer-brand">
           <div class="brand">
             <img src="images/theLogo.jpg" alt="Project AURUM" class="brand-logo" width="40" height="40">
             <span class="brand-name">PROJECT AURUM</span>
           </div>
-          <p>
-            The Phygital Gold Traceability Network for Sri Lanka. Linking physical fine jewellery to customer-owned digital passports with zero cross-tenant leakage.
-          </p>
-          <p style="font-size:0.8rem; color:var(--color-sage);">
-            Colombo, Sri Lanka • Built at IIT Sri Lanka &amp; University of Westminster
-          </p>
+          <p>The Phygital Gold Traceability Network for Sri Lanka. Linking physical fine jewellery to customer-owned digital passports with zero cross-tenant leakage.</p>
+          <p class="footer-meta">Colombo, Sri Lanka • Built at IIT Sri Lanka &amp; University of Westminster</p>
         </div>
 
-        <!-- Col 2: Navigation Links -->
         <div class="footer-col">
           <h4>Platform Navigation</h4>
           <ul class="footer-links">
@@ -601,7 +461,6 @@
           </ul>
         </div>
 
-        <!-- Col 3: Industry & Academic Resources -->
         <div class="footer-col">
           <h4>Industry &amp; Academic Resources</h4>
           <ul class="footer-links">
@@ -612,33 +471,22 @@
           </ul>
         </div>
 
-        <!-- Col 4: Contact & Source Code -->
         <div class="footer-col footer-contact">
           <h4>Contact Us</h4>
           <p><strong>Email:</strong> <a href="mailto:aurumteam25@gmail.com">aurumteam25@gmail.com</a></p>
           <p><strong>Location:</strong> Colombo, Sri Lanka</p>
-          
-          <h4 style="margin-top:1.25rem;">Source Code</h4>
-          <p>
-            <a href="https://github.com/hperera-dev/project-aurum-atp" target="_blank" rel="noopener noreferrer">
-              <strong>GitHub:</strong> hperera-dev/project-aurum-atp ↗
-            </a>
-          </p>
+          <h4 class="footer-subhead">Source Code</h4>
+          <p><a href="https://github.com/hperera-dev/project-aurum-atp" target="_blank" rel="noopener noreferrer"><strong>GitHub:</strong> hperera-dev/project-aurum-atp ↗</a></p>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div>
-          &copy; 2026 Project AURUM. Developed by Team SE-10. All rights reserved.
-        </div>
-        <div>
-          Zero Home Addresses • Sri Lanka PDPA Aligned
-        </div>
+        <span>&copy; 2026 Project AURUM. Developed by Team SE-10. All rights reserved.</span>
+        <span>Zero Home Addresses • Sri Lanka PDPA Aligned</span>
       </div>
     </div>
   </footer>
 
-  <!-- Accessible Full-Resolution Prototype Lightbox Modal -->
   <div class="lightbox-modal" id="prototype-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
     <div class="lightbox-backdrop" data-lightbox-close></div>
     <div class="lightbox-dialog">
@@ -653,8 +501,6 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
-
