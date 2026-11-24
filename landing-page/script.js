@@ -344,5 +344,65 @@ document.addEventListener("DOMContentLoaded", () => {
       URL.revokeObjectURL(url);
     });
   }
+
+  /* ========================================================
+     5. ACCESSIBLE PROTOTYPE LIGHTBOX MODAL
+     ======================================================== */
+  const lightbox = document.getElementById("prototype-lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxTitle = document.getElementById("lightbox-title");
+  const lightboxCaption = document.getElementById("lightbox-caption");
+  const lightboxCloseBtn = document.getElementById("lightbox-close-btn");
+  const zoomTriggers = document.querySelectorAll(".proto-zoom-trigger");
+  let lastFocusedTrigger = null;
+
+  function openLightbox(trigger) {
+    if (!lightbox || !lightboxImg) return;
+    const src = trigger.getAttribute("data-lightbox-src");
+    const title = trigger.getAttribute("data-lightbox-title") || "Prototype Screen";
+    const caption = trigger.getAttribute("data-lightbox-caption") || "";
+    const innerImg = trigger.querySelector("img");
+
+    lastFocusedTrigger = trigger;
+    lightboxImg.src = src;
+    lightboxImg.alt = innerImg ? innerImg.alt : title;
+    if (lightboxTitle) lightboxTitle.textContent = title;
+    if (lightboxCaption) lightboxCaption.textContent = caption;
+
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    if (lightboxCloseBtn) lightboxCloseBtn.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox || lightbox.hidden) return;
+    lightbox.hidden = true;
+    document.body.style.overflow = "";
+    if (lightboxImg) lightboxImg.src = "";
+    if (lastFocusedTrigger) {
+      lastFocusedTrigger.focus();
+      lastFocusedTrigger = null;
+    }
+  }
+
+  if (lightbox && zoomTriggers.length > 0) {
+    zoomTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => openLightbox(trigger));
+    });
+
+    if (lightboxCloseBtn) {
+      lightboxCloseBtn.addEventListener("click", closeLightbox);
+    }
+
+    lightbox.querySelectorAll("[data-lightbox-close]").forEach((el) => {
+      el.addEventListener("click", closeLightbox);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lightbox.hidden) {
+        closeLightbox();
+      }
+    });
+  }
 });
 
