@@ -1,1 +1,7 @@
-docs/
+node_modules/
+.next/
+out/
+.DS_Store
+*.local
+next-env.d.ts
+*.tsbuildinfo
