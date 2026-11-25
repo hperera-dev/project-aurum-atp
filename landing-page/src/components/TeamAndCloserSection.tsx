@@ -87,122 +87,90 @@ export const TeamAndCloserSection: React.FC = () => {
 
   return (
     <>
-      {/* Beat 7A: Pure White Team Masthead */}
       <section
         id="team"
         aria-labelledby="team-heading"
-        className="bg-[var(--paper-pure)] text-[var(--ink-light-1)] py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
+        className="bg-[var(--paper-pure)] text-[var(--ink-light-1)] py-24 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
       >
-        <div className="mx-auto max-w-6xl space-y-14">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-            <div className="lg:col-span-7 space-y-3">
-              <p className="font-data text-xs uppercase tracking-[0.14em] text-[var(--bronze-ink)]">
-                Engineered in Colombo · Group SE-10
-              </p>
-              <h2 id="team-heading" className="heading-section text-[var(--ink-light-1)]">
-                Five specialists across security architecture, UI craft, and data ethics.
-              </h2>
-            </div>
-            <p className="lg:col-span-5 text-sm sm:text-base text-[var(--ink-light-2)]">
-              Developed at the Informatics Institute of Technology (IIT Sri Lanka) in academic
-              collaboration with the University of Westminster.
+        <div className="mx-auto max-w-6xl space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <h2 id="team-heading" className="heading-section text-[var(--ink-light-1)] max-w-2xl">
+              Engineered in Colombo by <span className="text-[#6e0d1c]">Group SE-10</span>.
+            </h2>
+            <p className="text-sm font-medium text-[var(--ink-light-2)] max-w-sm">
+              Informatics Institute of Technology (IIT Sri Lanka) × University of Westminster.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-            {TEAM_MEMBERS.map((member, idx) => (
-              <article
+          <div className="border-t border-[var(--hairline-light)] divide-y divide-[var(--hairline-light)]">
+            {TEAM_MEMBERS.map((member) => (
+              <div
                 key={member.id}
-                className={`studio-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between gap-5 ${
-                  idx < 2 ? 'md:col-span-3' : 'md:col-span-2'
-                }`}
+                className="editorial-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 py-5 px-2 items-center"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[var(--ink-light-1)] text-[var(--gold-bright)] font-display text-sm font-medium shrink-0"
-                    >
-                      {member.initials}
-                    </span>
-                    <span className="font-data text-xs text-[var(--bronze-ink)] text-right">
-                      {member.focusTag}
-                    </span>
-                  </div>
-
+                <div className="md:col-span-4 flex items-center gap-3.5">
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#3a0710] text-[var(--gold-bright)] font-display text-sm shrink-0"
+                  >
+                    {member.initials}
+                  </span>
                   <div>
-                    <h3 className="heading-card text-[var(--ink-light-1)]">{member.name}</h3>
-                    <p className="text-xs sm:text-sm font-semibold text-[var(--bronze-ink)] mt-1">
-                      {member.role}
-                    </p>
+                    <h3 className="text-base font-semibold text-[var(--ink-light-1)]">
+                      {member.name}
+                    </h3>
+                    <p className="text-xs font-semibold text-[#7a1020]">{member.role}</p>
                   </div>
-
-                  <p className="text-sm text-[var(--ink-light-2)] leading-relaxed">
-                    {member.responsibility}
-                  </p>
                 </div>
-              </article>
+
+                <p className="md:col-span-6 text-sm font-medium text-[var(--ink-light-2)]">
+                  {member.responsibility}
+                </p>
+
+                <div className="md:col-span-2 md:text-right">
+                  <span className="font-data text-xs text-[var(--ink-light-3)]">
+                    {member.focusTag}
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Beat 7B: Lit Mineral Waitlist Closer + PDPA Notice */}
       <section
         id="waitlist"
         aria-labelledby="waitlist-heading"
-        className="bg-[var(--paper-mineral)] text-[var(--ink-light-1)] py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
+        className="bg-[var(--paper-mineral)] text-[var(--ink-light-1)] py-24 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
       >
-        <div className="mx-auto max-w-6xl space-y-16">
+        <div className="mx-auto max-w-6xl space-y-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-6 space-y-6">
-              <p className="font-data text-xs uppercase tracking-[0.14em] text-[var(--bronze-ink)]">
-                Colombo Early-Access Pilot · Free Registration
-              </p>
-
               <h2 id="waitlist-heading" className="heading-section text-[var(--ink-light-1)]">
-                Protect the gold your family owns, or bring 8-second digital proof to your
-                showroom.
+                Join the free <span className="text-[#6e0d1c]">Colombo</span> pilot.
               </h2>
 
-              <p className="text-base text-[var(--ink-light-2)] max-w-[48ch] leading-relaxed">
-                Join our free Colombo closed-beta cohort. Log existing home heirlooms on day one as
-                an owner, or book a guided, zero-disruption POS walkthrough for your jewellery
-                counter.
+              <p className="text-base font-medium text-[var(--ink-light-2)] max-w-[44ch] leading-relaxed">
+                Log existing home heirlooms on day one as a family—or book a 1-on-1 zero-disruption
+                POS walkthrough for your showroom.
               </p>
 
-              <ol className="divide-y divide-[var(--hairline-light)] border-y border-[var(--hairline-light)] text-sm text-[var(--ink-light-2)]">
-                <li className="py-3.5 flex items-baseline gap-4">
-                  <span className="font-data text-xs text-[var(--bronze-ink)]">01</span>
-                  <span>Your email is queued for our Colombo closed-beta rollout.</span>
+              <ul className="space-y-2.5 text-sm font-medium text-[var(--ink-light-2)] pt-2">
+                <li className="flex items-center gap-2">
+                  <Check size={16} weight="bold" className="text-[#6e0d1c] shrink-0" aria-hidden="true" />
+                  <span>Free early-access registration for families and partner showrooms</span>
                 </li>
-                <li className="py-3.5 flex items-baseline gap-4">
-                  <span className="font-data text-xs text-[var(--bronze-ink)]">02</span>
-                  <span>Owners receive private vault access; showrooms receive a 1-on-1 POS demo.</span>
+                <li className="flex items-center gap-2">
+                  <Check size={16} weight="bold" className="text-[#6e0d1c] shrink-0" aria-hidden="true" />
+                  <span>Zero home addresses collected · Zero promotional spam</span>
                 </li>
-                <li className="py-3.5 flex items-baseline gap-4">
-                  <span className="font-data text-xs text-[var(--bronze-ink)]">03</span>
-                  <span>Zero promotional spam—never sold or disclosed to competing jewellers.</span>
-                </li>
-              </ol>
-
-              <ul className="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm font-medium text-[var(--ink-light-2)]">
-                <li className="inline-flex items-center gap-1.5">
-                  <Check size={16} className="text-[var(--ok-light)]" aria-hidden="true" />
-                  Free for pilot participants
-                </li>
-                <li className="inline-flex items-center gap-1.5">
-                  <Check size={16} className="text-[var(--ok-light)]" aria-hidden="true" />
-                  Zero home addresses collected
-                </li>
-                <li className="inline-flex items-center gap-1.5">
-                  <Check size={16} className="text-[var(--ok-light)]" aria-hidden="true" />
-                  Sri Lanka PDPA No. 9 of 2022 aligned
+                <li className="flex items-center gap-2">
+                  <Check size={16} weight="bold" className="text-[#6e0d1c] shrink-0" aria-hidden="true" />
+                  <span>Sri Lanka PDPA No. 9 of 2022 Section 14 instant erasure rights</span>
                 </li>
               </ul>
             </div>
 
-            {/* Clean White Double-Bezel Netlify Waitlist Form */}
             <div className="lg:col-span-6">
               <div className="bezel-light-outer">
                 <div className="bezel-light-inner p-6 sm:p-8">
@@ -210,7 +178,7 @@ export const TeamAndCloserSection: React.FC = () => {
                     Reserve Your Early-Access Invitation
                   </h3>
                   <p className="text-xs sm:text-sm text-[var(--ink-light-2)] mb-6">
-                    Takes 20 seconds. Unsubscribe or purge your record anytime.
+                    Takes 20 seconds. Purge your record anytime.
                   </p>
 
                   {status === 'success' ? (
@@ -223,8 +191,7 @@ export const TeamAndCloserSection: React.FC = () => {
                         Pilot invitation reserved.
                       </p>
                       <p className="text-sm text-[var(--ink-light-2)]">
-                        Your invitation request has been recorded under Sri Lanka PDPA guidelines.
-                        Questions? Reach our engineering team at{' '}
+                        Recorded under Sri Lanka PDPA guidelines. Questions? Email{' '}
                         <a
                           href="mailto:aurumteam25@gmail.com"
                           className="underline font-medium text-[var(--ink-light-1)]"
@@ -266,50 +233,52 @@ export const TeamAndCloserSection: React.FC = () => {
                         </label>
                       </div>
 
-                      <div>
-                        <label
-                          htmlFor="waitlist-name"
-                          className="block text-xs sm:text-sm font-medium text-[var(--ink-light-1)] mb-1.5"
-                        >
-                          Full Name
-                        </label>
-                        <input
-                          id="waitlist-name"
-                          name="name"
-                          type="text"
-                          required
-                          autoComplete="name"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          placeholder="e.g., Nimal Perera"
-                          className="w-full min-h-[48px] px-4 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]"
-                        />
-                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label
+                            htmlFor="waitlist-name"
+                            className="block text-xs font-semibold text-[var(--ink-light-1)] mb-1.5"
+                          >
+                            Full Name
+                          </label>
+                          <input
+                            id="waitlist-name"
+                            name="name"
+                            type="text"
+                            required
+                            autoComplete="name"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            placeholder="e.g., Nimal Perera"
+                            className="w-full min-h-[46px] px-3.5 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]"
+                          />
+                        </div>
 
-                      <div>
-                        <label
-                          htmlFor="waitlist-email"
-                          className="block text-xs sm:text-sm font-medium text-[var(--ink-light-1)] mb-1.5"
-                        >
-                          Email Address
-                        </label>
-                        <input
-                          id="waitlist-email"
-                          name="email"
-                          type="email"
-                          required
-                          autoComplete="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="you@example.lk"
-                          className="w-full min-h-[48px] px-4 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]"
-                        />
+                        <div>
+                          <label
+                            htmlFor="waitlist-email"
+                            className="block text-xs font-semibold text-[var(--ink-light-1)] mb-1.5"
+                          >
+                            Email Address
+                          </label>
+                          <input
+                            id="waitlist-email"
+                            name="email"
+                            type="email"
+                            required
+                            autoComplete="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="you@example.lk"
+                            className="w-full min-h-[46px] px-3.5 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]"
+                          />
+                        </div>
                       </div>
 
                       <div>
                         <label
                           htmlFor="waitlist-role"
-                          className="block text-xs sm:text-sm font-medium text-[var(--ink-light-1)] mb-1.5"
+                          className="block text-xs font-semibold text-[var(--ink-light-1)] mb-1.5"
                         >
                           Joining As
                         </label>
@@ -324,7 +293,7 @@ export const TeamAndCloserSection: React.FC = () => {
                                 | 'Retail Jeweller / Showroom Manager'
                             )
                           }
-                          className="w-full min-h-[48px] px-4 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)]"
+                          className="w-full min-h-[46px] px-3.5 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)]"
                         >
                           <option value="Jewellery Owner / Family">
                             Jewellery Owner / Family Vault
@@ -339,9 +308,9 @@ export const TeamAndCloserSection: React.FC = () => {
                         <div>
                           <label
                             htmlFor="waitlist-showroom"
-                            className="block text-xs sm:text-sm font-medium text-[var(--ink-light-1)] mb-1.5"
+                            className="block text-xs font-semibold text-[var(--ink-light-1)] mb-1.5"
                           >
-                            Jewellery Brand or Showroom Location (Optional)
+                            Showroom Brand / Location (Optional)
                           </label>
                           <input
                             id="waitlist-showroom"
@@ -351,47 +320,44 @@ export const TeamAndCloserSection: React.FC = () => {
                             value={showroomName}
                             onChange={(e) => setShowroomName(e.target.value)}
                             placeholder="e.g., Kollupitiya / Sea Street / Kandy"
-                            className="w-full min-h-[48px] px-4 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]"
+                            className="w-full min-h-[46px] px-3.5 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]"
                           />
                         </div>
                       )}
 
-                      <div className="pt-1">
-                        <label
-                          htmlFor="waitlist-pdpa"
-                          className="flex items-start gap-3 cursor-pointer text-xs sm:text-sm text-[var(--ink-light-2)]"
-                        >
-                          <input
-                            id="waitlist-pdpa"
-                            name="pdpa_consent"
-                            type="checkbox"
-                            required
-                            checked={pdpaConsent}
-                            onChange={(e) => setPdpaConsent(e.target.checked)}
-                            className="mt-1 w-5 h-5 rounded accent-[#091711] shrink-0 cursor-pointer"
-                          />
-                          <span>
-                            I consent to Project AURUM storing my name and email solely for pilot
-                            onboarding in accordance with the{' '}
-                            <a
-                              href="#privacy"
-                              className="underline font-medium text-[var(--ink-light-1)]"
-                            >
-                              Sri Lanka PDPA Privacy Notice
-                            </a>
-                            .
-                          </span>
-                        </label>
-                      </div>
+                      <label
+                        htmlFor="waitlist-pdpa"
+                        className="flex items-start gap-3 cursor-pointer text-xs text-[var(--ink-light-2)] pt-1"
+                      >
+                        <input
+                          id="waitlist-pdpa"
+                          name="pdpa_consent"
+                          type="checkbox"
+                          required
+                          checked={pdpaConsent}
+                          onChange={(e) => setPdpaConsent(e.target.checked)}
+                          className="mt-0.5 w-4 h-4 rounded accent-[#3a0710] shrink-0 cursor-pointer"
+                        />
+                        <span>
+                          I consent under the{' '}
+                          <a
+                            href="#privacy"
+                            className="underline font-semibold text-[var(--ink-light-1)]"
+                          >
+                            Sri Lanka PDPA Privacy Notice
+                          </a>{' '}
+                          (zero home addresses collected, zero spam).
+                        </span>
+                      </label>
 
                       {errorMessage && (
                         <div
                           role="alert"
-                          className="rounded-xl bg-[var(--err-surface-light)] border border-[#f0c7c7] p-3.5 text-xs sm:text-sm text-[var(--err-light)] space-y-2"
+                          className="rounded-xl bg-[var(--err-surface-light)] border border-[#f0c7c7] p-3.5 text-xs text-[var(--err-light)] space-y-2"
                         >
                           <div className="flex items-start gap-2">
                             <WarningCircle
-                              size={18}
+                              size={16}
                               weight="regular"
                               className="shrink-0 mt-0.5"
                               aria-hidden="true"
@@ -405,32 +371,30 @@ export const TeamAndCloserSection: React.FC = () => {
                               )}&body=${encodeURIComponent(
                                 `Name: ${fullName}\nRole: ${role}\nShowroom: ${showroomName}`
                               )}`}
-                              className="inline-flex items-center gap-1.5 underline font-semibold text-[var(--ink-light-1)]"
+                              className="inline-flex items-center gap-1 underline font-semibold text-[var(--ink-light-1)]"
                             >
-                              Send pilot request directly to aurumteam25@gmail.com
-                              <ArrowUpRight size={14} weight="regular" />
+                              Email aurumteam25@gmail.com directly
+                              <ArrowUpRight size={13} />
                             </a>
                           )}
                         </div>
                       )}
 
-                      <div className="pt-2">
-                        <MagneticCTA
-                          type="submit"
-                          variant="dark"
-                          disabled={status === 'submitting'}
-                          className="w-full"
-                        >
-                          {status === 'submitting'
-                            ? 'Securing Your Pilot Slot…'
-                            : 'Join the Free Colombo Pilot'}
-                        </MagneticCTA>
-                      </div>
+                      <MagneticCTA
+                        type="submit"
+                        variant="dark"
+                        disabled={status === 'submitting'}
+                        className="w-full"
+                      >
+                        {status === 'submitting'
+                          ? 'Securing Your Pilot Slot…'
+                          : 'Join the Free Colombo Pilot'}
+                      </MagneticCTA>
 
-                      <p className="flex items-center gap-1.5 text-xs text-[var(--ink-light-3)] pt-1">
-                        <LockSimple size={14} weight="regular" aria-hidden="true" />
+                      <p className="flex items-center gap-1.5 text-xs text-[var(--ink-light-3)]">
+                        <LockSimple size={14} aria-hidden="true" />
                         <span>
-                          TLS 1.3 encrypted · Request instant deletion anytime at{' '}
+                          TLS 1.3 encrypted · Delete anytime via{' '}
                           <a
                             href="mailto:aurumteam25@gmail.com"
                             className="underline text-[var(--ink-light-2)]"
@@ -446,167 +410,130 @@ export const TeamAndCloserSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Compact Statutory PDPA Notice */}
           <aside
             id="privacy"
             aria-labelledby="pdpa-heading"
-            className="rounded-3xl bg-[var(--paper-pure)] border border-[var(--hairline-light)] p-6 sm:p-8"
+            className="rounded-2xl bg-[var(--paper-pure)] border border-[var(--hairline-light)] p-5 sm:p-6"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-5 border-b border-[var(--hairline-light)]">
-              <h3 id="pdpa-heading" className="heading-card text-lg text-[var(--ink-light-1)]">
-                Statutory Privacy Notice — Sri Lanka Personal Data Protection Act (PDPA) No. 9 of
-                2022
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-[var(--hairline-light)]">
+              <h3 id="pdpa-heading" className="text-sm font-semibold text-[var(--ink-light-1)]">
+                Sri Lanka Personal Data Protection Act (PDPA) No. 9 of 2022 — Privacy Notice
               </h3>
-              <span className="font-data text-xs text-[var(--bronze-ink)]">
-                Data Controller: Project AURUM (SE-10)
+              <span className="font-data text-xs text-[#7a1020]">
+                Controller: Project AURUM (SE-10)
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs sm:text-sm text-[var(--ink-light-2)]">
-              <div>
-                <p className="font-semibold text-[var(--ink-light-1)] mb-1">
-                  1. Personal Data Collected
-                </p>
-                <p>
-                  Limited strictly to your name, email address, selected pilot role, and optional
-                  showroom name submitted voluntarily via the waitlist form above.
-                </p>
-              </div>
-              <div>
-                <p className="font-semibold text-[var(--ink-light-1)] mb-1">
-                  2. Zero Location Tracking
-                </p>
-                <p>
-                  We never request or store residential street addresses, NIC numbers, GPS
-                  coordinates, or third-party advertising cookies on this website.
-                </p>
-              </div>
-              <div>
-                <p className="font-semibold text-[var(--ink-light-1)] mb-1">
-                  3. Purpose &amp; Security
-                </p>
-                <p>
-                  Transmitted over HTTPS (TLS 1.3) solely to notify you of Colombo closed-beta
-                  onboarding. Never sold or disclosed to competing jewellers.
-                </p>
-              </div>
-              <div>
-                <p className="font-semibold text-[var(--ink-light-1)] mb-1">
-                  4. Section 14 Erasure Rights
-                </p>
-                <p>
-                  You may inspect, rectify, or permanently purge your waitlist record at any time by
-                  emailing{' '}
-                  <a
-                    href="mailto:aurumteam25@gmail.com"
-                    className="underline font-medium text-[var(--ink-light-1)]"
-                  >
-                    aurumteam25@gmail.com
-                  </a>
-                  .
-                </p>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[var(--ink-light-2)]">
+              <p>
+                <strong className="text-[var(--ink-light-1)]">Data:</strong> Strictly name, email,
+                pilot role, and optional showroom submitted above.
+              </p>
+              <p>
+                <strong className="text-[var(--ink-light-1)]">Zero Tracking:</strong> No home
+                addresses, NIC numbers, GPS, or ad cookies collected.
+              </p>
+              <p>
+                <strong className="text-[var(--ink-light-1)]">Purpose:</strong> Closed-beta
+                onboarding over TLS 1.3 only—never shared with rivals.
+              </p>
+              <p>
+                <strong className="text-[var(--ink-light-1)]">Section 14 Erasure:</strong> Request
+                instant deletion anytime via{' '}
+                <a
+                  href="mailto:aurumteam25@gmail.com"
+                  className="underline font-semibold text-[var(--ink-light-1)]"
+                >
+                  aurumteam25@gmail.com
+                </a>
+                .
+              </p>
             </div>
           </aside>
         </div>
       </section>
 
-      {/* Beat 8: Dark Obsidian Architectural Bookend Footer */}
-      <footer
-        id="contact"
-        className="surface-dark pt-16 md:pt-20 overflow-hidden"
-      >
+      {/* Monumental Royal Bordeaux Footer */}
+      <footer id="contact" className="surface-dark pt-16 md:pt-20 overflow-hidden">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-14 border-b border-[oklch(26%_0.026_166)]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#4a0b16]">
             <div className="md:col-span-5 space-y-4">
               <div className="flex items-center gap-3">
                 <img
                   src="/images/theLogo.jpg"
                   alt="Project AURUM official emblem"
-                  width={42}
-                  height={42}
-                  className="w-10 h-10 rounded-full object-cover border border-[oklch(82%_0.1_83/0.5)]"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 rounded-full object-cover border border-[rgba(247,223,158,0.55)]"
                 />
                 <div>
-                  <p className="font-display text-lg font-medium text-[var(--ink-dark-1)]">
-                    Project AURUM
-                  </p>
+                  <p className="font-display text-lg text-[var(--ink-dark-1)]">Project AURUM</p>
                   <p className="font-data text-xs text-[var(--gold-bright)]">
-                    Private Jewellery Ownership &amp; Showroom Registry
+                    Colombo, Sri Lanka · Group SE-10
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm text-[var(--ink-dark-2)] max-w-sm">
-                Engineered in Colombo by Group SE-10 at the Informatics Institute of Technology (IIT
-                Sri Lanka) in academic collaboration with the University of Westminster.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 <a
                   href="mailto:aurumteam25@gmail.com"
-                  className="btn-ghost-dark text-xs sm:text-sm min-h-[44px] py-2"
+                  className="btn-ghost-dark text-xs min-h-[42px] py-1.5"
                 >
-                  <EnvelopeSimple size={16} weight="regular" className="text-[var(--gold-bright)]" />
+                  <EnvelopeSimple size={15} className="text-[var(--gold-bright)]" />
                   <span>aurumteam25@gmail.com</span>
                 </a>
                 <a
                   href="https://github.com/hperera-dev/project-aurum-atp"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-ghost-dark text-xs sm:text-sm min-h-[44px] py-2"
+                  className="btn-ghost-dark text-xs min-h-[42px] py-1.5"
                 >
-                  <GithubLogo size={16} weight="regular" className="text-[var(--gold-bright)]" />
-                  <span>GitHub Repository</span>
+                  <GithubLogo size={15} className="text-[var(--gold-bright)]" />
+                  <span>GitHub</span>
                 </a>
               </div>
             </div>
 
-            <div className="md:col-span-3 space-y-3">
-              <p className="font-data text-xs text-[var(--gold-bright)]">PAGE INDEX</p>
-              <ul className="space-y-2 text-sm text-[var(--ink-dark-2)]">
+            <div className="md:col-span-3 space-y-2.5 text-sm text-[var(--ink-dark-2)]">
+              <p className="font-data text-xs text-[var(--gold-bright)]">SECTIONS</p>
+              <ul className="space-y-1.5">
                 <li>
-                  <a href="#problem" className="hover:text-[var(--gold-bright)] inline-block py-1">
-                    The Scissors-Cut Blind Spot
+                  <a href="#problem" className="hover:text-[var(--gold-bright)]">
+                    The Scissors Cut
                   </a>
                 </li>
                 <li>
-                  <a href="#value" className="hover:text-[var(--gold-bright)] inline-block py-1">
-                    Buyer &amp; Showroom Benefits
+                  <a href="#prototype" className="hover:text-[var(--gold-bright)]">
+                    Figma Screens
                   </a>
                 </li>
                 <li>
-                  <a href="#prototype" className="hover:text-[var(--gold-bright)] inline-block py-1">
-                    Figma Prototype Screens
+                  <a href="#solution" className="hover:text-[var(--gold-bright)]">
+                    RLS Firewall
                   </a>
                 </li>
                 <li>
-                  <a href="#solution" className="hover:text-[var(--gold-bright)] inline-block py-1">
-                    Zero-Knowledge RLS Simulator
-                  </a>
-                </li>
-                <li>
-                  <a href="#privacy" className="hover:text-[var(--gold-bright)] inline-block py-1">
-                    Sri Lanka PDPA Privacy Notice
+                  <a href="#privacy" className="hover:text-[var(--gold-bright)]">
+                    PDPA Privacy
                   </a>
                 </li>
               </ul>
             </div>
 
-            <div className="md:col-span-4 space-y-3">
+            <div className="md:col-span-4 space-y-2.5 text-sm text-[var(--ink-dark-2)]">
               <p className="font-data text-xs text-[var(--gold-bright)]">
-                STANDARDS &amp; INSTITUTIONS
+                STANDARDS &amp; ACADEMIC
               </p>
-              <ul className="space-y-2 text-sm text-[var(--ink-dark-2)]">
+              <ul className="space-y-1.5">
                 <li>
                   <a
                     href="https://ngja.gov.lk/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 hover:text-[var(--gold-bright)] py-1"
+                    className="inline-flex items-center gap-1 hover:text-[var(--gold-bright)]"
                   >
-                    <span>National Gem &amp; Jewellery Authority (NGJA)</span>
-                    <ArrowUpRight size={13} weight="regular" />
+                    <span>NGJA Sri Lanka</span>
+                    <ArrowUpRight size={13} />
                   </a>
                 </li>
                 <li>
@@ -614,10 +541,10 @@ export const TeamAndCloserSection: React.FC = () => {
                     href="https://www.cbsl.gov.lk/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 hover:text-[var(--gold-bright)] py-1"
+                    className="inline-flex items-center gap-1 hover:text-[var(--gold-bright)]"
                   >
                     <span>Central Bank of Sri Lanka (CBSL)</span>
-                    <ArrowUpRight size={13} weight="regular" />
+                    <ArrowUpRight size={13} />
                   </a>
                 </li>
                 <li>
@@ -625,10 +552,10 @@ export const TeamAndCloserSection: React.FC = () => {
                     href="https://www.iit.ac.lk/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 hover:text-[var(--gold-bright)] py-1"
+                    className="inline-flex items-center gap-1 hover:text-[var(--gold-bright)]"
                   >
-                    <span>Informatics Institute of Technology (IIT)</span>
-                    <ArrowUpRight size={13} weight="regular" />
+                    <span>IIT Sri Lanka</span>
+                    <ArrowUpRight size={13} />
                   </a>
                 </li>
                 <li>
@@ -636,30 +563,30 @@ export const TeamAndCloserSection: React.FC = () => {
                     href="https://www.westminster.ac.uk/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 hover:text-[var(--gold-bright)] py-1"
+                    className="inline-flex items-center gap-1 hover:text-[var(--gold-bright)]"
                   >
                     <span>University of Westminster</span>
-                    <ArrowUpRight size={13} weight="regular" />
+                    <ArrowUpRight size={13} />
                   </a>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-[var(--ink-dark-3)]">
+          <div className="py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-[var(--ink-dark-3)]">
             <p>© {new Date().getFullYear()} Project AURUM (Group SE-10). All rights reserved.</p>
-            <p>Colombo, Sri Lanka · Built for families and partner showrooms.</p>
+            <p>Never lose a gram of proof.</p>
           </div>
         </div>
 
-        {/* Flush Bottom-Anchored Monumental Wordmark */}
+        {/* Flush Bottom-Anchored Monumental Gambarino Wordmark */}
         <div
           aria-hidden="true"
-          className="select-none pointer-events-none text-center leading-[0.78] pt-2 overflow-hidden"
+          className="select-none pointer-events-none text-center leading-[0.76] pt-2 overflow-hidden"
         >
           <span
             style={{ fontSize: 'var(--text-monument)' }}
-            className="font-display font-medium tracking-[-0.04em] text-[oklch(21%_0.03_166)] block translate-y-[8%]"
+            className="font-display tracking-[-0.03em] text-[#3a0710] block translate-y-[9%]"
           >
             AURUM
           </span>

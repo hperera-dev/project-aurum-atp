@@ -8,23 +8,8 @@ const CBSL_RATES = {
   '24K': { label: '24K · 999', perGram: 40000, perSovereign: 320000 },
 } as const;
 
-const SCISSORS_STEPS = [
-  {
-    numeral: '01',
-    title: 'Inside the display tray — 0.001 g precision',
-    body: 'Before purchase, every bangle and chain carries a barcode tag separating stone weight from pure gold down to the milligram.',
-  },
-  {
-    numeral: '02',
-    title: 'The Scissors Cut at checkout',
-    body: 'At the counter, the tag is snipped off and kept by the showroom. You leave with a thermal paper bill that fades blank in monsoon humidity.',
-  },
-  {
-    numeral: '03',
-    title: 'Years later, 916 & XRF go blind',
-    body: 'Hallmarks and XRF scans read surface alloy—never your original shop, hidden Kundan stone deductions, or whether a workshop shaved 0.25 g during polishing.',
-  },
-];
+// Flip to true after dropping your own Scissors Cut video at: v2/public/videos/scissors-cut.mp4
+const CUSTOM_SCISSORS_VIDEO_ENABLED = false;
 
 export const ScissorsCutSection: React.FC = () => {
   const [grams, setGrams] = useState<number>(24);
@@ -40,157 +25,210 @@ export const ScissorsCutSection: React.FC = () => {
     <section
       id="problem"
       aria-labelledby="problem-heading"
-      className="relative -mt-6 rounded-t-[2.25rem] md:rounded-t-[3rem] bg-[var(--paper-mineral)] text-[var(--ink-light-1)] py-24 md:py-32 px-4 sm:px-6 lg:px-8"
+      className="relative -mt-6 rounded-t-[2.25rem] md:rounded-t-[3rem] bg-[var(--paper-mineral)] text-[var(--ink-light-1)] py-20 md:py-28 px-4 sm:px-6 lg:px-8"
     >
-      <div className="mx-auto max-w-6xl space-y-16">
-        {/* Clean Editorial Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-          <div className="lg:col-span-7 space-y-3">
-            <p className="font-data text-xs uppercase tracking-[0.14em] text-[var(--bronze-ink)]">
-              The Sri Lankan Blind Spot
-            </p>
-            <h2 id="problem-heading" className="heading-section text-[var(--ink-light-1)]">
-              The paper tag gets cut at checkout. The proof walks out blind.
+      <div className="mx-auto max-w-6xl space-y-12">
+        {/* Royal Bordeaux Pure-Gold Engraving Stage (Video Drop-In Ready) */}
+        <div
+          className="surface-dark relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden min-h-[380px] sm:min-h-[440px] flex items-end shadow-[0_30px_70px_-28px_rgba(34,4,9,0.48)] border border-[#540d1a]"
+          style={{
+            background:
+              'radial-gradient(ellipse 62% 76% at 75% 50%, #5c0b18 0%, #32050d 50%, #1a0206 100%)',
+          }}
+        >
+          {CUSTOM_SCISSORS_VIDEO_ENABLED ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/videos/scissors-cut.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            /* Pure Champagne-Gold Fine-Line Engraving: Sculpted Bangle + Jeweller's Shears + Snipped Tag */
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 1200 520"
+              preserveAspectRatio="xMidYMid slice"
+              className="pointer-events-none absolute inset-0 w-full h-full opacity-90"
+              fill="none"
+            >
+              <defs>
+                <linearGradient id="cutGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#fff3cf" stopOpacity="0.95" />
+                  <stop offset="55%" stopColor="#e4be6c" stopOpacity="0.82" />
+                  <stop offset="100%" stopColor="#9c6c22" stopOpacity="0.4" />
+                </linearGradient>
+              </defs>
+
+              {/* Architectural blueprint orbits */}
+              <g stroke="url(#cutGold)" strokeWidth="0.9" opacity="0.34">
+                <circle cx="890" cy="245" r="215" strokeDasharray="3 8" />
+                <circle cx="890" cy="245" r="158" />
+                <line x1="620" y1="245" x2="1160" y2="245" strokeDasharray="2 10" />
+              </g>
+
+              {/* Ornate 22K Bridal Bangle in Pure Gold Contour Lines */}
+              <g stroke="url(#cutGold)" strokeLinecap="round">
+                <ellipse cx="905" cy="215" rx="146" ry="62" strokeWidth="2.4" />
+                <ellipse cx="905" cy="215" rx="124" ry="48" strokeWidth="1.3" opacity="0.8" />
+                <ellipse cx="905" cy="248" rx="146" ry="62" strokeWidth="2.1" />
+                <path d="M759 215 L759 248" strokeWidth="2.2" />
+                <path d="M1051 215 L1051 248" strokeWidth="2.2" />
+                {/* Filigree motif etched across the bangle front arc */}
+                <path
+                  d="M782 248 C808 272, 834 252, 858 278 C882 292, 928 292, 952 278 C976 252, 1002 272, 1028 248"
+                  strokeWidth="1.4"
+                  opacity="0.85"
+                />
+                <circle cx="905" cy="283" r="8" strokeWidth="1.5" />
+                <circle cx="852" cy="274" r="5" strokeWidth="1.2" opacity="0.8" />
+                <circle cx="958" cy="274" r="5" strokeWidth="1.2" opacity="0.8" />
+              </g>
+
+              {/* Snipped Paper Barcode Tag & Broken Thread */}
+              <g stroke="url(#cutGold)" strokeLinecap="round" strokeLinejoin="round">
+                <path
+                  d="M666 322 L738 308 L754 328 L744 358 L672 370 Z"
+                  strokeWidth="1.8"
+                  fill="rgba(247,223,158,0.06)"
+                />
+                <circle cx="734" cy="332" r="4" strokeWidth="1.3" />
+                {/* Cleanly snipped thread ends */}
+                <path d="M738 332 C768 334, 782 356, 804 356" strokeWidth="1.3" strokeDasharray="4 4" />
+                <path d="M824 352 C844 344, 858 328, 868 306" strokeWidth="1.3" strokeDasharray="4 4" />
+              </g>
+
+              {/* Vintage Solid-Brass Jeweller's Shears in Fine Line Art */}
+              <g stroke="url(#cutGold)" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M812 362 L928 398 L918 412 L812 362 Z" strokeWidth="1.8" />
+                <path d="M820 348 L938 372 L932 386 L820 348 Z" strokeWidth="1.8" />
+                <path d="M926 392 L1034 426 C1054 432, 1054 456, 1030 452 L922 408" strokeWidth="1.6" />
+                <circle cx="916" cy="389" r="3.5" fill="#f7df9e" />
+              </g>
+            </svg>
+          )}
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(24,2,6,0.92) 0%, rgba(28,3,8,0.72) 46%, rgba(28,3,8,0.12) 78%, rgba(28,3,8,0.04) 100%)',
+            }}
+          />
+
+          <div className="relative z-10 p-7 sm:p-10 md:p-14 max-w-2xl space-y-4">
+            <h2 id="problem-heading" className="heading-section text-[var(--ink-dark-1)]">
+              The paper tag gets <span className="text-[var(--gold-bright)]">cut</span> at checkout.
+              The proof walks out blind.
             </h2>
+            <p className="text-sm sm:text-base font-medium text-[var(--ink-dark-2)] max-w-[44ch]">
+              Hallmarks and XRF scans read surface alloy—never your original showroom, stone weight,
+              or why a faded thermal receipt costs you 2%–5% at trade-in.
+            </p>
           </div>
-          <p className="lg:col-span-5 text-base text-[var(--ink-light-2)] leading-relaxed">
-            Without a permanent record of original net gold weight, families face unverified 2%–5%
-            cutting deductions at trade-in—and honest jewellers cannot tell their own 8-year-old
-            pieces apart from lookalikes.
-          </p>
         </div>
 
-        {/* Clean 5 / 7 Split: Ruled Narrative vs Elevated White Calculator */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left: 3 Clean Ruled Editorial Steps (Zero boxy cards) */}
-          <ol className="lg:col-span-5 divide-y divide-[var(--hairline-light)] border-y border-[var(--hairline-light)]">
-            {SCISSORS_STEPS.map((step) => (
-              <li key={step.numeral} className="py-7 first:pt-6 last:pb-6 flex gap-5">
-                <span className="font-data text-xs font-medium text-[var(--bronze-ink)] pt-1 shrink-0">
-                  {step.numeral}
-                </span>
-                <div className="space-y-1.5">
-                  <h3 className="heading-card text-[var(--ink-light-1)]">{step.title}</h3>
-                  <p className="text-sm sm:text-base text-[var(--ink-light-2)] leading-relaxed">
-                    {step.body}
-                  </p>
+        {/* Sculptural Giant LKR Calculator */}
+        <div className="bezel-light-outer">
+          <div className="bezel-light-inner p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6 space-y-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <label
+                  htmlFor="gold-weight-slider"
+                  className="font-display text-2xl sm:text-3xl text-[var(--ink-light-1)]"
+                >
+                  Slide your gold weight
+                </label>
+
+                <div
+                  role="group"
+                  aria-label="Select gold purity"
+                  className="inline-flex p-1 rounded-full bg-[var(--paper-stone)] border border-[var(--hairline-light)]"
+                >
+                  {(['22K', '24K'] as const).map((k) => {
+                    const active = karat === k;
+                    return (
+                      <button
+                        key={k}
+                        type="button"
+                        onClick={() => setKarat(k)}
+                        aria-pressed={active}
+                        className={`min-h-[38px] px-4 rounded-full font-data text-xs font-medium cursor-pointer transition-colors ${
+                          active
+                            ? 'bg-[#3a0710] text-white'
+                            : 'text-[var(--ink-light-2)] hover:text-[var(--ink-light-1)]'
+                        }`}
+                      >
+                        {CBSL_RATES[k].label}
+                      </button>
+                    );
+                  })}
                 </div>
-              </li>
-            ))}
-          </ol>
-
-          {/* Right: ONE Focused Double-Bezel Interactive LKR Calculator */}
-          <div className="lg:col-span-7">
-            <div className="bezel-light-outer">
-              <div className="bezel-light-inner p-6 sm:p-8 space-y-6">
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[var(--hairline-light)]">
-                  <div>
-                    <p className="font-data text-xs uppercase tracking-[0.1em] text-[var(--bronze-ink)]">
-                      Exchange Deduction Estimator
-                    </p>
-                    <h3 className="heading-card text-[var(--ink-light-1)] mt-1">
-                      What a missing paper bill costs in LKR
-                    </h3>
-                  </div>
-
-                  {/* Clean Karat Toggle */}
-                  <div
-                    role="group"
-                    aria-label="Select gold purity"
-                    className="inline-flex p-1 rounded-full bg-[var(--paper-stone)] border border-[var(--hairline-light)]"
-                  >
-                    {(['22K', '24K'] as const).map((k) => {
-                      const active = karat === k;
-                      return (
-                        <button
-                          key={k}
-                          type="button"
-                          onClick={() => setKarat(k)}
-                          aria-pressed={active}
-                          className={`min-h-[38px] px-4 rounded-full font-data text-xs font-medium cursor-pointer transition-colors ${
-                            active
-                              ? 'bg-[var(--ink-light-1)] text-white'
-                              : 'text-[var(--ink-light-2)] hover:text-[var(--ink-light-1)]'
-                          }`}
-                        >
-                          {CBSL_RATES[k].label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Weight Slider */}
-                <div className="space-y-3">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <label
-                      htmlFor="gold-weight-slider"
-                      className="text-sm font-medium text-[var(--ink-light-2)]"
-                    >
-                      Jewellery Weight
-                    </label>
-                    <div className="text-right">
-                      <span className="font-data text-2xl font-medium text-[var(--ink-light-1)]">
-                        {grams} g
-                      </span>
-                      <span className="font-data text-xs text-[var(--ink-light-3)] ml-2">
-                        ({sovereigns.toFixed(1)} Sovereigns / Pavan)
-                      </span>
-                    </div>
-                  </div>
-
-                  <input
-                    id="gold-weight-slider"
-                    type="range"
-                    min={4}
-                    max={80}
-                    step={2}
-                    value={grams}
-                    onChange={(e) => setGrams(Number(e.target.value))}
-                    className="aurum-range-light"
-                  />
-
-                  <div className="flex justify-between font-data text-xs text-[var(--ink-light-3)]">
-                    <span>4 g (Ring)</span>
-                    <span>24 g (3 Pavan Chain)</span>
-                    <span>80 g (10 Pavan Bridal)</span>
-                  </div>
-                </div>
-
-                {/* Output Readout */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="rounded-2xl bg-[var(--paper-mineral)] border border-[var(--hairline-light)] p-5">
-                    <span className="font-data text-xs text-[var(--ink-light-3)] block">
-                      CBSL Reference Metal Value
-                    </span>
-                    <p className="font-data text-xl sm:text-2xl font-medium text-[var(--ink-light-1)] mt-1.5">
-                      <AnimatedNumber value={metalValue} prefix="LKR " />
-                    </p>
-                    <span className="font-data text-xs text-[var(--ink-light-3)] mt-1 block">
-                      LKR {rate.perGram.toLocaleString('en-LK')}/g ·{' '}
-                      {rate.perSovereign.toLocaleString('en-LK')}/sovereign
-                    </span>
-                  </div>
-
-                  <div className="rounded-2xl bg-[var(--err-surface-light)] border border-[#f0c7c7] p-5">
-                    <span className="font-data text-xs text-[var(--err-light)] block">
-                      At Risk Without Proof (2%–5% Cut)
-                    </span>
-                    <p className="font-data text-xl sm:text-2xl font-medium text-[var(--err-light)] mt-1.5">
-                      <AnimatedNumber value={lowLoss} prefix="LKR " /> –{' '}
-                      <AnimatedNumber value={highLoss} />
-                    </p>
-                    <span className="text-xs text-[var(--ink-light-2)] mt-1 block">
-                      Protected with a permanent AURUM passport.
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-xs text-[var(--ink-light-3)]">
-                  Illustrative benchmark using CBSL daily reference rates. Actual retail making
-                  charges and buy-back terms are set by each participating showroom.
-                </p>
               </div>
+
+              <div className="space-y-3 pt-1">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-display text-5xl sm:text-6xl text-[var(--ink-light-1)] tracking-tight">
+                    {grams} <span className="text-2xl text-[var(--ink-light-2)]">grams</span>
+                  </span>
+                  <span className="font-data text-xs sm:text-sm font-medium text-[#7a1020]">
+                    {sovereigns.toFixed(1)} Sovereigns (Pavan)
+                  </span>
+                </div>
+
+                <input
+                  id="gold-weight-slider"
+                  type="range"
+                  min={4}
+                  max={80}
+                  step={2}
+                  value={grams}
+                  onChange={(e) => setGrams(Number(e.target.value))}
+                  className="aurum-range-light"
+                />
+
+                <div className="flex justify-between font-data text-xs text-[var(--ink-light-3)]">
+                  <span>4 g Ring</span>
+                  <span>24 g Thali Chain</span>
+                  <span>80 g Bridal Set</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded-2xl bg-[var(--paper-mineral)] border border-[var(--hairline-light)] p-5">
+                <span className="font-data text-xs text-[var(--ink-light-3)] block">
+                  CBSL Metal Value
+                </span>
+                <p className="font-data text-xl sm:text-2xl font-medium text-[var(--ink-light-1)] mt-2">
+                  <AnimatedNumber value={metalValue} prefix="LKR " />
+                </p>
+                <span className="font-data text-xs text-[var(--ink-light-3)] mt-1 block">
+                  LKR {rate.perGram.toLocaleString('en-LK')}/g
+                </span>
+              </div>
+
+              <div className="rounded-2xl bg-[var(--err-surface-light)] border border-[#ecc4c8] p-5">
+                <span className="font-data text-xs font-medium text-[var(--err-light)] block">
+                  Unverified 2%–5% Cut
+                </span>
+                <p className="font-data text-xl sm:text-2xl font-medium text-[var(--err-light)] mt-2">
+                  <AnimatedNumber value={lowLoss} prefix="LKR " /> –{' '}
+                  <AnimatedNumber value={highLoss} />
+                </p>
+                <span className="text-xs font-medium text-[var(--ink-light-2)] mt-1 block">
+                  Saved by a permanent AURUM passport.
+                </span>
+              </div>
+
+              <p className="sm:col-span-2 text-xs text-[var(--ink-light-3)]">
+                Illustrative CBSL benchmark ({rate.perSovereign.toLocaleString('en-LK')}/sovereign).
+                Final buy-back terms are set by each participating showroom.
+              </p>
             </div>
           </div>
         </div>

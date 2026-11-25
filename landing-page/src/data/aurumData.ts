@@ -192,8 +192,7 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
       'High-fidelity Project AURUM Figma mobile screen showing Customer Digital Jewellery Passport AUR 0842 6190 with 4.80g gross and 4.20g net gold weight, 18K 750 purity, encrypted original invoice PDF, and 15-minute Counter Pass QR.',
     width: 356,
     height: 774,
-    headline:
-      'Prove exact net gold weight and purity decades later, even after the paper receipt has faded blank.',
+    headline: 'Prove exact net gold weight decades after paper fades.',
     description:
       'Stores Permanent Asset ID (AUR · 0842 · 6190), separated Gross vs. Net gold weight (4.80 / 4.20 g), 18K · 750 and 22K · 916 purity seals, untouched encrypted Original Invoice PDF, Lifecycle Timeline, and a 15-minute Counter Pass QR.',
     highlights: [
@@ -212,8 +211,7 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
       'High-fidelity Project AURUM Figma mobile screen displaying daily Sri Lankan CBSL gold reference rates for 22K 916 at LKR 36,640 per gram and LKR 293,120 per sovereign alongside 24K 999 rates and hallmarking guides.',
     width: 311,
     height: 670,
-    headline:
-      'Check Sri Lankan 22K and 24K reference rates per gram and 8g sovereign without store discount spam.',
+    headline: 'Daily CBSL 22K & 24K rates, without store promo spam.',
     description:
       'Turns a once-every-few-years purchase record into a calm weekly utility: official CBSL reference rates in LKR per gram (36,640/g · 40,000/g) and 8g sovereign (Pavan), paired with plain-English guides on 916 hallmarking, purity, and care.',
     highlights: [
@@ -232,8 +230,7 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
       'High-fidelity Project AURUM Figma web portal screen for Partner Scan and Sell POS showing multi-item bridal batching at 12.20g combined net gold, masked customer phone +94 4821, and four counter handover modes.',
     width: 1022,
     height: 728,
-    headline:
-      'Hand over verified digital proof in 8 seconds at checkout across bridal sets, surprise gifts, and button phones.',
+    headline: '8-second digital handover for bridal sets, gifts, and button phones.',
     description:
       'Engineered for high-traffic showroom counters with shared-screen privacy enforced automatically at every step:',
     highlights: [
