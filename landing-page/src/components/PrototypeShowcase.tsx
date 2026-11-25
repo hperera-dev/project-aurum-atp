@@ -181,7 +181,10 @@ export const PrototypeShowcase: React.FC = () => {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-auto bg-[#f1eae6] p-6 flex items-center justify-center">
+              <div
+                data-lenis-prevent
+                className="flex-1 overflow-auto overscroll-contain bg-[#f1eae6] p-4 sm:p-6 flex items-center justify-center"
+              >
                 <img
                   src={activePlate.imageSrc}
                   alt={activePlate.imageAlt}

@@ -51,11 +51,11 @@
   --font-mono: 'Azeret Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Clear, Uncramped Scale */
-  --text-hero: clamp(2.35rem, 1.4rem + 3.1vw, 4.35rem);
-  --text-h2: clamp(1.9rem, 1.25rem + 2.0vw, 3.15rem);
-  --text-manifesto: clamp(1.95rem, 1.2rem + 2.6vw, 3.85rem);
-  --text-h3: clamp(1.22rem, 1.05rem + 0.45vw, 1.55rem);
-  --text-monument: clamp(4.75rem, 18.5vw, 17.5rem);
+  --text-hero: clamp(2.05rem, 1.25rem + 3.3vw, 4.35rem);
+  --text-h2: clamp(1.75rem, 1.2rem + 2.0vw, 3.15rem);
+  --text-manifesto: clamp(1.85rem, 1.15rem + 2.6vw, 3.85rem);
+  --text-h3: clamp(1.18rem, 1.02rem + 0.45vw, 1.55rem);
+  --text-monument: clamp(4.25rem, 18.5vw, 17.5rem);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -218,20 +218,31 @@ body {
   border: 1px solid rgba(29, 5, 9, 0.06);
 }
 
-/* Double-Bezel Luxury Modal Rim (high-end-visual-design §4A) */
+/* Double-Bezel Luxury Modal Rim (Mobile-lean, Desktop-plush) */
 .modal-bezel-shell {
-  padding: 6px;
-  border-radius: 2rem;
+  padding: 4px;
+  border-radius: 1.5rem;
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 40px 90px -24px rgba(12, 2, 4, 0.72);
+  box-shadow: 0 36px 80px -24px rgba(12, 2, 4, 0.74);
 }
 
 .modal-bezel-core {
-  border-radius: calc(2rem - 6px);
+  border-radius: calc(1.5rem - 4px);
   overflow: hidden;
   background-color: #ffffff;
   color: var(--ink-light-1);
+}
+
+@media (min-width: 640px) {
+  .modal-bezel-shell {
+    padding: 6px;
+    border-radius: 2rem;
+  }
+
+  .modal-bezel-core {
+    border-radius: calc(2rem - 6px);
+  }
 }
 
 .editorial-row {

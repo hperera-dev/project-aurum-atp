@@ -2,10 +2,6 @@
 
 import React, { useEffect, useRef } from 'react';
 
-interface HeirloomPortraitCinemaProps {
-  paused: boolean;
-}
-
 // Exact ruler-verified binocular socket centers on the 1254x1256 native 2K cutout
 const EYE_PATCH = { x: 0.3349, y: 0.2229, w: 0.1754, h: 0.0717 };
 
@@ -52,7 +48,7 @@ const JEWEL_GLINTS: {
   { x: 0.602, y: 0.942, size: 0.82, tone: 'gold', phase: 2.0, speed: 1.8 }, // Lower wrist bangles
 ];
 
-export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ paused }) => {
+export const HeirloomPortraitCinema: React.FC = () => {
   const stageRef = useRef<HTMLDivElement>(null);
   const mountainLayerRef = useRef<HTMLDivElement>(null);
   const bgEffectsCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -60,11 +56,6 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
   const portraitImgRef = useRef<HTMLImageElement>(null);
   const portraitWrapRef = useRef<HTMLDivElement>(null);
   const portraitOverlayCanvasRef = useRef<HTMLCanvasElement>(null);
-  const pausedRef = useRef(paused);
-
-  useEffect(() => {
-    pausedRef.current = paused;
-  }, [paused]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -152,7 +143,7 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
       pointer.normY = Math.max(-1, Math.min(1, (pointer.stageY / (rect.height || 1) - 0.5) * 2));
       pointer.active = inside;
 
-      if (inside && !pausedRef.current && trail.length < 32) {
+      if (inside && trail.length < 32) {
         trail.push({
           x: pointer.stageX + (Math.random() - 0.5) * 16,
           y: pointer.stageY + (Math.random() - 0.5) * 16,
@@ -247,7 +238,7 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
 
       const dt = Math.min((now - lastTs) / 1000, 0.05);
       lastTs = now;
-      if (!pausedRef.current) t += dt;
+      t += dt;
 
       const targetHover = pointer.active ? 1 : 0;
       pointer.hoverAmount += (targetHover - pointer.hoverAmount) * 0.06;
@@ -327,12 +318,12 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
       const clampedX = Math.max(-1, Math.min(1, rawDx));
       const clampedY = Math.max(-1, Math.min(1, rawDy));
 
-      const targetGazeX = pointer.active && !pausedRef.current ? clampedX : 0;
-      const targetGazeY = pointer.active && !pausedRef.current ? clampedY : 0;
+      const targetGazeX = pointer.active ? clampedX : 0;
+      const targetGazeY = pointer.active ? clampedY : 0;
 
       pointer.gazeX += (targetGazeX - pointer.gazeX) * 0.14;
       pointer.gazeY += (targetGazeY - pointer.gazeY) * 0.14;
-      const targetGazeBlend = pointer.active && !pausedRef.current ? 1 : 0;
+      const targetGazeBlend = pointer.active ? 1 : 0;
       pointer.gazeBlend += (targetGazeBlend - pointer.gazeBlend) * 0.12;
 
       const spritesReady =
@@ -455,7 +446,7 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
       <div
         ref={mountainLayerRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[84%] will-change-transform origin-center"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[56%] md:h-[84%] will-change-transform origin-center"
         style={{ transform: 'scale(1.06)' }}
       >
         <img
@@ -470,7 +461,7 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(180deg, rgba(46,7,14,0.34) 0%, rgba(78,12,24,0.22) 32%, rgba(44,6,13,0.48) 68%, rgba(30,3,8,0.96) 94%, rgba(30,3,8,1) 100%)',
+              'linear-gradient(180deg, rgba(46,7,14,0.34) 0%, rgba(78,12,24,0.22) 32%, rgba(44,6,13,0.52) 68%, rgba(30,3,8,0.96) 94%, rgba(30,3,8,1) 100%)',
           }}
         />
       </div>
@@ -482,11 +473,11 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
         className="pointer-events-none absolute inset-0 w-full h-full"
       />
 
-      {/* LAYER 3: Untouched Native 2K Renaissance Queen + Curvy Gold Body Outline + Deep Grounded Shadows */}
-      <div className="pointer-events-none absolute inset-0 flex items-end justify-center md:justify-end">
+      {/* LAYER 3: Untouched Native 2K Renaissance Queen — Top-Framed on Mobile with Smooth Bottom Fade */}
+      <div className="pointer-events-none absolute inset-0 flex items-start justify-center pt-[4.5rem] md:pt-0 md:items-end md:justify-end">
         <div
           ref={portraitWrapRef}
-          className="relative w-[min(96vw,580px)] md:w-[min(58vw,740px)] lg:w-[min(54vw,790px)] aspect-[627/628] translate-y-[10%] md:translate-y-[8%] md:mr-[-2%] lg:mr-[1%]"
+          className="relative w-[min(86vw,350px)] sm:w-[min(74vw,430px)] md:w-[min(58vw,740px)] lg:w-[min(54vw,790px)] aspect-[627/628] md:translate-y-[8%] md:mr-[-2%] lg:mr-[1%] [mask-image:linear-gradient(to_bottom,black_0%,black_58%,transparent_94%)] md:[mask-image:linear-gradient(to_bottom,black_0%,black_78%,transparent_100%)]"
         >
           {/* Curvy Champagne-Gold Couture Silhouette Outline with Soft Depth Shadow */}
           <img
@@ -527,10 +518,20 @@ export const HeirloomPortraitCinema: React.FC<HeirloomPortraitCinemaProps> = ({ 
         </div>
       </div>
 
-      {/* Bottom-Left Directional Legibility Scrim ONLY Behind the Text Column */}
+      {/* Mobile Bottom-Half Seamless Bordeaux Gradient (Solid Dark Backing Behind Headline + Soft Dress Dissolve) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 md:hidden"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(24,2,6,0.26) 0%, rgba(24,2,6,0) 14%, rgba(24,2,6,0) 30%, rgba(24,2,6,0.72) 44%, rgba(24,2,6,0.96) 56%, rgba(24,2,6,1) 100%)',
+        }}
+      />
+
+      {/* Desktop Bottom-Left Directional Legibility Scrim ONLY Behind the Text Column */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none hidden md:block absolute inset-0"
         style={{
           background:
             'radial-gradient(ellipse 68% 72% at 14% 88%, rgba(24,2,6,0.92) 0%, rgba(28,3,8,0.72) 48%, rgba(28,3,8,0) 82%), linear-gradient(180deg, rgba(24,2,6,0.28) 0%, rgba(24,2,6,0) 18%, rgba(24,2,6,0) 76%, rgba(24,2,6,0.88) 100%)',

@@ -9,8 +9,8 @@ import {
   LockSimple,
   WarningCircle,
 } from '@phosphor-icons/react';
-import { TEAM_MEMBERS } from '../data/aurumData';
 import { MagneticCTA } from './MagneticCTA';
+import { TeamShowcaseSection } from './TeamShowcaseSection';
 
 const encodeFormData = (data: Record<string, string>) =>
   Object.keys(data)
@@ -87,56 +87,7 @@ export const TeamAndCloserSection: React.FC = () => {
 
   return (
     <>
-      <section
-        id="team"
-        aria-labelledby="team-heading"
-        className="bg-[var(--paper-pure)] text-[var(--ink-light-1)] py-24 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
-      >
-        <div className="mx-auto max-w-6xl space-y-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <h2 id="team-heading" className="heading-section text-[var(--ink-light-1)] max-w-2xl">
-              Engineered in Colombo by <span className="text-[#6e0d1c]">Group SE-10</span>.
-            </h2>
-            <p className="text-sm font-medium text-[var(--ink-light-2)] max-w-sm">
-              Informatics Institute of Technology (IIT Sri Lanka) × University of Westminster.
-            </p>
-          </div>
-
-          <div className="border-t border-[var(--hairline-light)] divide-y divide-[var(--hairline-light)]">
-            {TEAM_MEMBERS.map((member) => (
-              <div
-                key={member.id}
-                className="editorial-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 py-5 px-2 items-center"
-              >
-                <div className="md:col-span-4 flex items-center gap-3.5">
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#3a0710] text-[var(--gold-bright)] font-display text-sm shrink-0"
-                  >
-                    {member.initials}
-                  </span>
-                  <div>
-                    <h3 className="text-base font-semibold text-[var(--ink-light-1)]">
-                      {member.name}
-                    </h3>
-                    <p className="text-xs font-semibold text-[#7a1020]">{member.role}</p>
-                  </div>
-                </div>
-
-                <p className="md:col-span-6 text-sm font-medium text-[var(--ink-light-2)]">
-                  {member.responsibility}
-                </p>
-
-                <div className="md:col-span-2 md:text-right">
-                  <span className="font-data text-xs text-[var(--ink-light-3)]">
-                    {member.focusTag}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TeamShowcaseSection />
 
       <section
         id="waitlist"

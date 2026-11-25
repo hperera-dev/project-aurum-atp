@@ -57,11 +57,14 @@ export interface FaqItem {
 
 export interface TeamMember {
   id: string;
+  memberIndex: string;
   initials: string;
   name: string;
   role: string;
   focusTag: string;
   responsibility: string;
+  avatarSrc?: string;
+  avatarAlt?: string;
 }
 
 export const HERO_VAULT_ITEMS: VaultItem[] = [
@@ -421,24 +424,33 @@ export const SKEPTIC_FAQS: FaqItem[] = [
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'perera',
+    memberIndex: '01',
     initials: 'HP',
     name: 'R. A. H. D. Perera',
     role: 'Product Owner & Web Lead',
     focusTag: 'Product Strategy & Web Engineering',
     responsibility:
       'Product vision, scope governance, GitHub and Notion workspace setup, marketing web development, and Netlify HTTPS deployment.',
+    avatarSrc: '/images/team-perera.jpg',
+    avatarAlt:
+      'Editorial studio portrait of R. A. H. D. Perera, Product Owner and Web Lead of Project AURUM Group SE-10.',
   },
   {
     id: 'abisheak',
+    memberIndex: '02',
     initials: 'SA',
     name: 'S. Abisheak',
     role: 'Scrum Master & Agile Lead',
     focusTag: 'Sprint Governance & Risk Control',
     responsibility:
       'Scrum sprint facilitation, Notion backlog tracking, burndown metrics, risk register governance, and Agile ceremony documentation.',
+    avatarSrc: '/images/team-abisheak.jpg',
+    avatarAlt:
+      'Editorial studio portrait of S. Abisheak, Scrum Master and Agile Lead of Project AURUM Group SE-10.',
   },
   {
     id: 'senuthi',
+    memberIndex: '03',
     initials: 'SR',
     name: 'G. D. Senuthi Thewathma Rathansekara',
     role: 'System Architect',
@@ -448,15 +460,20 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: 'inuthie',
+    memberIndex: '04',
     initials: 'IT',
     name: 'D. S. Inuthie Tharinma',
     role: 'UI/UX Designer',
     focusTag: 'Design System & Figma Prototypes',
     responsibility:
       'Low-fidelity wireframes, WCAG 2.2 AA design system tokens, high-fidelity Figma prototype (Customer Vault & Retailer POS), and usability testing.',
+    avatarSrc: '/images/team-inuthie.jpg',
+    avatarAlt:
+      'Editorial studio portrait of D. S. Inuthie Tharinma, UI/UX Designer of Project AURUM Group SE-10.',
   },
   {
     id: 'kajendran',
+    memberIndex: '05',
     initials: 'MK',
     name: 'M. Kajendran',
     role: 'Business Analyst & QA/Ethics Lead',
