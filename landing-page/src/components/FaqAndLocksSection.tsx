@@ -2,8 +2,26 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CaretDown, HouseLine, Coins, KeyReturn } from '@phosphor-icons/react';
+import { LockSimple, Plus, Scales, ShieldCheck } from '@phosphor-icons/react';
 import { SKEPTIC_FAQS } from '../data/aurumData';
+
+const ARCHITECTURAL_LOCKS = [
+  {
+    icon: ShieldCheck,
+    title: 'Zero residential addresses stored',
+    body: 'No street address, postal code, or GPS coordinate column exists anywhere in the database.',
+  },
+  {
+    icon: LockSimple,
+    title: 'On-device LKR valuation',
+    body: 'Rupee metal value is multiplied privately on your handset—never logged to public tables.',
+  },
+  {
+    icon: Scales,
+    title: 'Physical showroom recovery',
+    body: 'If a soft 22K surface mark ever fades, the issuing showroom relinks via ±1.5% weight audit.',
+  },
+];
 
 export const FaqAndLocksSection: React.FC = () => {
   const [openId, setOpenId] = useState<string | null>(SKEPTIC_FAQS[0].id);
@@ -11,124 +29,87 @@ export const FaqAndLocksSection: React.FC = () => {
   return (
     <section
       id="faq"
-      className="royal-velvet relative text-[var(--ink-1)] py-20 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--velvet-850)] overflow-hidden"
+      aria-labelledby="faq-heading"
+      className="bg-[var(--paper-mineral)] text-[var(--ink-light-1)] pb-24 md:pb-32 pt-12 px-4 sm:px-6 lg:px-8"
     >
-      <div aria-hidden="true" className="velvet-grid-mesh pointer-events-none absolute inset-0" />
+      <div className="mx-auto max-w-6xl border-t border-[var(--hairline-light)] pt-20 md:pt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+          {/* Left Sticky Column: Straight Answers + 3 Architectural Locks */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
+            <div className="space-y-3">
+              <p className="font-data text-xs uppercase tracking-[0.14em] text-[var(--bronze-ink)]">
+                Security, Privacy &amp; Edge Cases
+              </p>
+              <h2 id="faq-heading" className="heading-section text-[var(--ink-light-1)]">
+                Straight answers to every hard question.
+              </h2>
+            </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-        <div className="lg:col-span-5 lg:sticky lg:top-24">
-          <div className="border-beam-card">
-            <div className="bezel-core-velvet p-6 sm:p-8 space-y-6">
-              <div>
-                <p className="font-data text-xs text-[var(--gold-300)] mb-2">
-                  ARCHITECTURAL SAFETY GUARANTEES
-                </p>
-                <h2 className="heading-card text-xl sm:text-2xl text-[var(--ink-1)]">
-                  Engineered so a stolen shop tablet, a lost phone, or a server breach can never
-                  build a “burglar’s map”.
-                </h2>
-              </div>
-
-              <ul className="space-y-5 pt-3 border-t border-[var(--velvet-850)]">
-                <li className="flex items-start gap-3.5">
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-[var(--velvet-900)] border border-[oklch(79%_0.112_80.5/0.45)] text-[var(--gold-300)] shrink-0">
-                    <HouseLine size={20} weight="light" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[var(--ink-1)]">
-                      Zero Home Street Addresses
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[var(--ink-2)] mt-1">
-                      Our PostgreSQL schema contains literally <span className="font-data">0</span>{' '}
-                      columns for residential addresses, postal codes, or GPS coordinates.
-                    </p>
+            <div className="rounded-2xl bg-[var(--paper-pure)] border border-[var(--hairline-light)] divide-y divide-[var(--hairline-light)] shadow-[0_12px_30px_-16px_rgba(9,23,17,0.08)]">
+              {ARCHITECTURAL_LOCKS.map((lock) => {
+                const Icon = lock.icon;
+                return (
+                  <div key={lock.title} className="p-5 flex items-start gap-3.5">
+                    <span
+                      aria-hidden="true"
+                      className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-light)] text-[var(--bronze-ink)] shrink-0 mt-0.5"
+                    >
+                      <Icon size={18} weight="regular" />
+                    </span>
+                    <div>
+                      <h3 className="text-sm font-semibold text-[var(--ink-light-1)]">
+                        {lock.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[var(--ink-light-2)] mt-0.5 leading-relaxed">
+                        {lock.body}
+                      </p>
+                    </div>
                   </div>
-                </li>
-
-                <li className="flex items-start gap-3.5">
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-[var(--velvet-900)] border border-[oklch(79%_0.112_80.5/0.45)] text-[var(--gold-300)] shrink-0">
-                    <Coins size={20} weight="light" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[var(--ink-1)]">
-                      On-Device Rupee Privacy
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[var(--ink-2)] mt-1">
-                      Only physical gram weights and purity are stored; live LKR portfolio totals
-                      are multiplied privately on your own handset.
-                    </p>
-                  </div>
-                </li>
-
-                <li className="flex items-start gap-3.5">
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-[var(--velvet-900)] border border-[oklch(79%_0.112_80.5/0.45)] text-[var(--gold-300)] shrink-0">
-                    <KeyReturn size={20} weight="light" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[var(--ink-1)]">
-                      In-Showroom Physical Recovery
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[var(--ink-2)] mt-1">
-                      Showroom screens stay masked after checkout, while 3-layer recovery restores
-                      access in person at the issuing showroom holding your physical gold.
-                    </p>
-                  </div>
-                </li>
-              </ul>
+                );
+              })}
             </div>
           </div>
-        </div>
 
-        {/* Right 7 Columns — Silky Smooth Animated FAQ Accordion */}
-        <div className="lg:col-span-7 space-y-6">
-          <div>
-            <p className="font-data text-xs text-[var(--gold-300)] mb-2">
-              OBJECTION &amp; SECURITY AUDIT · FREQUENTLY ASKED QUESTIONS
-            </p>
-            <h2 className="heading-section text-[var(--ink-1)]">
-              Straight answers to the hardest questions from families and showroom owners
-            </h2>
-          </div>
-
-          <div className="space-y-3">
+          {/* Right Column: Clean Ruled 7-Question Accordion */}
+          <div className="lg:col-span-7 border-t border-[var(--hairline-light)] divide-y divide-[var(--hairline-light)]">
             {SKEPTIC_FAQS.map((item) => {
               const isOpen = openId === item.id;
               return (
-                <div
-                  key={item.id}
-                  className={`velvet-glass-panel rounded-2xl overflow-hidden ${isOpen ? 'border-[oklch(79%_0.112_80.5/0.6)]' : ''
-                    }`}
-                >
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${item.id}`}
-                    onClick={() => setOpenId(isOpen ? null : item.id)}
-                    className="w-full flex items-center justify-between gap-4 min-h-[58px] p-5 sm:px-6 cursor-pointer text-left font-semibold text-sm sm:text-base text-[var(--ink-1)] hover:text-[var(--gold-300)] transition-colors"
-                  >
-                    <span>{item.question}</span>
-                    <CaretDown
-                      size={18}
-                      weight="regular"
-                      aria-hidden="true"
-                      className={`shrink-0 text-[var(--gold-300)] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
-                        }`}
-                    />
-                  </button>
+                <div key={item.id} className="py-1">
+                  <h3>
+                    <button
+                      type="button"
+                      onClick={() => setOpenId(isOpen ? null : item.id)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-panel-${item.id}`}
+                      className="w-full py-5 flex items-start justify-between gap-4 text-left cursor-pointer group"
+                    >
+                      <span className="text-base sm:text-lg font-medium text-[var(--ink-light-1)] group-hover:text-[var(--bronze-ink)] transition-colors">
+                        {item.question}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={`inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--hairline-light)] bg-[var(--paper-pure)] text-[var(--ink-light-1)] shrink-0 mt-0.5 transition-transform duration-200 ${isOpen ? 'rotate-45 bg-[var(--ink-light-1)] text-white border-[var(--ink-light-1)]' : ''
+                          }`}
+                      >
+                        <Plus size={15} weight="regular" />
+                      </span>
+                    </button>
+                  </h3>
 
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
                         id={`faq-panel-${item.id}`}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-2 text-sm sm:text-base text-[var(--ink-2)] leading-relaxed border-t border-[var(--velvet-850)]">
+                        <p className="pb-6 pr-10 text-sm sm:text-base text-[var(--ink-light-2)] leading-relaxed">
                           {item.answer}
-                        </div>
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>

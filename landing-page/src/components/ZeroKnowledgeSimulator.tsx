@@ -1,18 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import {
-  Code,
-  Database,
-  Eye,
-  EyeSlash,
-  Prohibit,
-  QrCode,
-  ShieldCheck,
-} from '@phosphor-icons/react';
+import { motion } from 'framer-motion';
+import { CheckCircle, Database, EyeSlash, Prohibit } from '@phosphor-icons/react';
 import { SIMULATOR_ROLES, SimulatorRole } from '../data/aurumData';
-import { ScrambleText } from './ScrambleText';
 
 interface ZeroKnowledgeSimulatorProps {
   onOpenArchitecture: () => void;
@@ -21,228 +12,132 @@ interface ZeroKnowledgeSimulatorProps {
 export const ZeroKnowledgeSimulator: React.FC<ZeroKnowledgeSimulatorProps> = ({
   onOpenArchitecture,
 }) => {
-  const prefersReduced = useReducedMotion();
   const [roleId, setRoleId] = useState<SimulatorRole['id']>('owner');
-
   const activeRole = SIMULATOR_ROLES.find((r) => r.id === roleId) ?? SIMULATOR_ROLES[0];
 
-  const beamColor =
+  const statusColor =
     activeRole.statusTone === 'ok'
-      ? 'oklch(80.5% 0.12 156)'
+      ? 'text-[var(--ok-dark)] border-[oklch(50%_0.11_156)] bg-[oklch(20%_0.035_156)]'
       : activeRole.statusTone === 'restricted'
-        ? 'oklch(86% 0.098 82)'
-        : 'oklch(75.5% 0.145 19)';
+      ? 'text-[var(--gold-bright)] border-[oklch(55%_0.09_82)] bg-[oklch(22%_0.035_82)]'
+      : 'text-[var(--err-dark)] border-[oklch(52%_0.12_22)] bg-[oklch(20%_0.04_22)]';
 
   return (
     <section
       id="solution"
-      className="royal-velvet relative text-[var(--ink-1)] py-20 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--velvet-850)] overflow-hidden"
+      aria-labelledby="solution-heading"
+      className="bg-[var(--paper-stone)] py-10 md:py-16 px-3 sm:px-6 lg:px-8"
     >
-      <div aria-hidden="true" className="velvet-grid-mesh pointer-events-none absolute inset-0" />
-
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
-          <div className="max-w-3xl">
-            <p className="font-data text-xs text-[var(--gold-300)] mb-2.5">
-              LIVE POSTGRESQL RLS FIREWALL · ASSET AUR · 0842 · 6190
+      {/* Inset Dark Obsidian Architectural Vault Sheet */}
+      <div className="surface-dark mx-auto max-w-6xl rounded-[2.25rem] md:rounded-[3rem] px-6 sm:px-10 lg:px-14 py-16 md:py-24 border border-[oklch(26%_0.028_166)] shadow-[0_32px_80px_-28px_rgba(7,23,17,0.45)] space-y-12">
+        {/* Clean Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div className="max-w-2xl space-y-3">
+            <p className="font-data text-xs uppercase tracking-[0.14em] text-[var(--gold-bright)]">
+              PostgreSQL Row-Level Security · Live Access Model
             </p>
-            <h2 className="heading-section text-[var(--ink-1)]">
-              Test what three different eyes see when scanning the exact same 22K bangle.
+            <h2 id="solution-heading" className="heading-section text-[var(--ink-dark-1)]">
+              Switch roles to inspect who sees what—at the database layer.
             </h2>
-            <p className="text-sm sm:text-base text-[var(--ink-2)] mt-3 max-w-[60ch]">
-              Showrooms fear rivals poaching customers; families fear outsiders inspecting holdings.
-              Switch roles below to watch PostgreSQL Row-Level Security enforce zero-knowledge
-              isolation in real time.
-            </p>
           </div>
 
           <button
             type="button"
             onClick={onOpenArchitecture}
-            className="btn-secondary-velvet self-start lg:self-auto shrink-0"
+            className="btn-ghost-dark self-start lg:self-auto"
           >
-            <Code size={18} weight="light" className="text-[var(--gold-300)]" />
-            <span>Inspect SQL RLS Policy</span>
+            <Database size={17} weight="regular" className="text-[var(--gold-bright)]" />
+            <span>View RLS SQL Policy</span>
           </button>
         </div>
 
+        {/* 3-Role Switcher */}
         <div
           role="tablist"
-          aria-label="Database access role lenses"
-          className="grid grid-cols-1 md:grid-cols-3 gap-2 p-1.5 rounded-3xl bg-[var(--velvet-900)] border border-[var(--velvet-750)] mb-6"
+          aria-label="Inspect database access by role"
+          className="grid grid-cols-1 md:grid-cols-3 gap-2 p-1.5 rounded-2xl bg-[var(--obsidian-900)] border border-[oklch(26%_0.028_166)]"
         >
           {SIMULATOR_ROLES.map((role) => {
-            const isSelected = role.id === roleId;
+            const active = role.id === roleId;
             return (
               <button
                 key={role.id}
-                role="tab"
                 type="button"
-                id={`sim-tab-${role.id}`}
-                aria-selected={isSelected}
-                aria-controls={`sim-panel-${role.id}`}
+                role="tab"
+                aria-selected={active}
                 onClick={() => setRoleId(role.id)}
-                className={`relative z-10 min-h-[48px] px-4 py-2.5 rounded-2xl text-left sm:text-center text-sm font-semibold cursor-pointer transition-colors ${isSelected
-                    ? 'text-[var(--velvet-950)]'
-                    : 'text-[var(--ink-2)] hover:text-[var(--ink-1)]'
-                  }`}
+                className={`relative min-h-[48px] px-4 py-2.5 rounded-xl text-sm font-medium text-left cursor-pointer transition-colors duration-150 ${
+                  active
+                    ? 'text-[var(--obsidian-950)] font-semibold'
+                    : 'text-[var(--ink-dark-2)] hover:text-[var(--ink-dark-1)]'
+                }`}
               >
-                {isSelected && (
+                {active && (
                   <motion.span
                     layoutId="rls-role-pill"
-                    transition={
-                      prefersReduced
-                        ? { duration: 0 }
-                        : { type: 'spring', duration: 0.42, bounce: 0 }
-                    }
-                    className={`absolute inset-0 -z-10 rounded-2xl ${role.id === 'rival' ? 'bg-[var(--status-err)]' : 'bg-[var(--gold-400)]'
-                      }`}
+                    transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
+                    className="absolute inset-0 rounded-xl bg-[var(--gold-bullion)]"
                   />
                 )}
-                <span>{role.tabLabel}</span>
+                <span className="relative z-10">{role.tabLabel}</span>
               </button>
             );
           })}
         </div>
 
-        <div className="velvet-glass-panel rounded-2xl p-4 sm:p-5 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center">
-            <div className="rounded-xl bg-[var(--velvet-950)] border border-[var(--velvet-750)] p-3 flex items-center gap-3">
-              <QrCode size={22} weight="light" className="text-[var(--gold-300)] shrink-0" />
-              <div className="min-w-0">
-                <span className="block font-data text-xs text-[var(--ink-3)]">SCAN INPUT</span>
-                <span className="block font-data text-xs text-[var(--ink-1)] truncate">
-                  AUR · 0842 · 6190
-                </span>
-              </div>
-            </div>
-
-            <svg aria-hidden="true" viewBox="0 0 80 20" className="hidden md:block w-16 h-5">
-              <line
-                x1="0"
-                y1="10"
-                x2="80"
-                y2="10"
-                stroke={beamColor}
-                strokeWidth="2.5"
-                className={prefersReduced ? '' : 'svg-flow-beam'}
-              />
-            </svg>
-
-            <div className="rounded-xl bg-[var(--velvet-950)] border border-[oklch(79%_0.112_80.5/0.55)] p-3 flex items-center gap-3">
-              <Database size={22} weight="light" className="text-[var(--gold-300)] shrink-0" />
-              <div className="min-w-0">
-                <span className="block font-data text-xs text-[var(--gold-300)]">
-                  POSTGRESQL RLS GATE
-                </span>
-                <span className="block font-data text-xs text-[var(--ink-2)] truncate">
-                  <ScrambleText text={activeRole.badgeLabel} durationMs={340} />
-                </span>
-              </div>
-            </div>
-
-            <svg aria-hidden="true" viewBox="0 0 80 20" className="hidden md:block w-16 h-5">
-              <line
-                x1="0"
-                y1="10"
-                x2="80"
-                y2="10"
-                stroke={beamColor}
-                strokeWidth="2.5"
-                className={
-                  prefersReduced || activeRole.statusTone === 'blocked' ? '' : 'svg-flow-beam'
-                }
-                strokeDasharray={activeRole.statusTone === 'blocked' ? '3 5' : undefined}
-              />
-            </svg>
-
-            <div
-              className={`rounded-xl p-3 flex items-center gap-3 border ${activeRole.statusTone === 'ok'
-                  ? 'bg-[var(--velvet-900)] border-[oklch(55%_0.12_156)]'
-                  : activeRole.statusTone === 'restricted'
-                    ? 'bg-[var(--velvet-900)] border-[oklch(79%_0.112_80.5/0.6)]'
-                    : 'bg-[oklch(22%_0.085_19)] border-[var(--status-err)]'
-                }`}
-            >
-              {activeRole.statusTone === 'ok' && (
-                <ShieldCheck size={22} weight="regular" className="text-[var(--status-ok)] shrink-0" />
-              )}
-              {activeRole.statusTone === 'restricted' && (
-                <Eye size={22} weight="regular" className="text-[var(--gold-300)] shrink-0" />
-              )}
-              {activeRole.statusTone === 'blocked' && (
-                <Prohibit size={22} weight="regular" className="text-[var(--status-err)] shrink-0" />
-              )}
-              <div className="min-w-0">
-                <span className="block font-data text-xs text-[var(--ink-3)]">ENGINE RESPONSE</span>
-                <span className="block font-data text-xs font-medium text-[var(--ink-1)] truncate">
-                  <ScrambleText text={activeRole.httpStatus} durationMs={380} />
-                </span>
-              </div>
-            </div>
+        {/* Crisp Database Response Sheet */}
+        <div className="rounded-2xl bg-[var(--obsidian-900)] border border-[oklch(28%_0.028_166)] overflow-hidden">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-[oklch(26%_0.028_166)]">
+            <span className="font-data text-xs text-[var(--ink-dark-2)]">
+              {activeRole.badgeLabel}
+            </span>
+            <span className={`font-data text-xs px-3 py-1 rounded-full border ${statusColor}`}>
+              {activeRole.httpStatus}
+            </span>
           </div>
-        </div>
 
-        <div
-          id={`sim-panel-${activeRole.id}`}
-          role="tabpanel"
-          aria-labelledby={`sim-tab-${activeRole.id}`}
-          className="border-beam-card"
-        >
-          <div className="bezel-core-velvet p-5 sm:p-8 space-y-5">
-            <p className="text-sm sm:text-base text-[var(--ink-1)] pb-4 border-b border-[var(--velvet-750)]">
+          <div className="px-6 py-5 border-b border-[oklch(24%_0.026_166)]">
+            <p className="text-sm sm:text-base text-[var(--ink-dark-2)] max-w-3xl">
               {activeRole.summary}
             </p>
+          </div>
 
-            <div className="divide-y divide-[var(--velvet-850)]">
-              {activeRole.rows.map((row) => (
-                <div
-                  key={`${activeRole.id}-${row.field}`}
-                  className="py-3.5 px-2 -mx-2 rounded-xl hover:bg-[oklch(20%_0.028_166/0.65)] transition-colors grid grid-cols-1 sm:grid-cols-12 gap-1.5 sm:gap-4 items-start sm:items-center"
-                >
-                  <div className="sm:col-span-4 text-xs sm:text-sm font-medium text-[var(--ink-2)]">
-                    {row.field}
-                  </div>
-                  <div className="sm:col-span-8 flex items-start sm:items-center gap-2.5">
+          <dl className="divide-y divide-[oklch(24%_0.026_166)]">
+            {activeRole.rows.map((row) => (
+              <div
+                key={row.field}
+                className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 px-6 py-4 items-center"
+              >
+                <dt className="md:col-span-4 text-sm font-medium text-[var(--ink-dark-1)]">
+                  {row.field}
+                </dt>
+                <dd className="md:col-span-8 flex items-center justify-between gap-4">
+                  <span
+                    className={`font-data text-xs sm:text-sm ${
+                      row.state === 'visible'
+                        ? 'text-[var(--ink-dark-1)]'
+                        : row.state === 'masked'
+                        ? 'text-[var(--gold-bright)]'
+                        : 'text-[var(--err-dark)]'
+                    }`}
+                  >
+                    {row.value}
+                  </span>
+                  <span className="shrink-0" aria-hidden="true">
                     {row.state === 'visible' && (
-                      <Eye
-                        size={16}
-                        weight="light"
-                        className="text-[var(--status-ok)] shrink-0 mt-0.5 sm:mt-0"
-                        aria-hidden="true"
-                      />
+                      <CheckCircle size={18} weight="regular" className="text-[var(--ok-dark)]" />
                     )}
                     {row.state === 'masked' && (
-                      <EyeSlash
-                        size={16}
-                        weight="light"
-                        className="text-[var(--gold-300)] shrink-0 mt-0.5 sm:mt-0"
-                        aria-hidden="true"
-                      />
+                      <EyeSlash size={18} weight="regular" className="text-[var(--gold-bright)]" />
                     )}
                     {row.state === 'denied' && (
-                      <Prohibit
-                        size={16}
-                        weight="light"
-                        className="text-[var(--status-err)] shrink-0 mt-0.5 sm:mt-0"
-                        aria-hidden="true"
-                      />
+                      <Prohibit size={18} weight="regular" className="text-[var(--err-dark)]" />
                     )}
-                    <ScrambleText
-                      text={row.value}
-                      durationMs={340}
-                      className={`font-data text-xs sm:text-sm break-words ${row.state === 'visible'
-                          ? 'text-[var(--ink-1)]'
-                          : row.state === 'masked'
-                            ? 'text-[var(--gold-300)]'
-                            : 'text-[var(--status-err)]'
-                        }`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

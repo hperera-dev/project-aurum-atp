@@ -1,24 +1,42 @@
 'use client';
 
-import React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 
 export const ScrollProgressRail: React.FC = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 190,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let rafId = 0;
+
+    const update = () => {
+      rafId = 0;
+      if (!barRef.current) return;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / docHeight)) : 0;
+      barRef.current.style.transform = `scaleX(${progress})`;
+    };
+
+    const onScroll = () => {
+      if (!rafId) rafId = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 inset-x-0 z-[60] h-[2.5px] bg-transparent pointer-events-none"
+      className="fixed top-0 inset-x-0 z-[70] h-[2px] pointer-events-none"
     >
-      <motion.div
-        style={{ scaleX, transformOrigin: '0% 50%' }}
-        className="h-full w-full bg-[linear-gradient(90deg,oklch(68%_0.11_80),oklch(85.5%_0.105_83.5),oklch(78.5%_0.142_156))]"
+      <div
+        ref={barRef}
+        style={{ transform: 'scaleX(0)' }}
+        className="h-full w-full origin-left bg-[var(--gold-bullion)]"
       />
     </div>
   );

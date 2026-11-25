@@ -5,7 +5,6 @@ import * as THREE from 'three';
 
 interface AurumBangleCanvasProps {
   activePieceIndex: number;
-  scanPulseCount: number;
   paused: boolean;
 }
 
@@ -16,28 +15,28 @@ function createStudioEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
   const ctx = canvas.getContext('2d')!;
 
   const baseGrad = ctx.createLinearGradient(0, 0, 0, 256);
-  baseGrad.addColorStop(0, '#092218');
-  baseGrad.addColorStop(0.45, '#05110c');
-  baseGrad.addColorStop(0.75, '#132e23');
-  baseGrad.addColorStop(1, '#040c08');
+  baseGrad.addColorStop(0, '#0a2319');
+  baseGrad.addColorStop(0.45, '#05120d');
+  baseGrad.addColorStop(0.75, '#153126');
+  baseGrad.addColorStop(1, '#040c09');
   ctx.fillStyle = baseGrad;
   ctx.fillRect(0, 0, 512, 256);
 
   const strips = [
-    { x: 50, y: 24, w: 155, h: 52, c1: 'rgba(255, 246, 224, 0.98)', c2: 'rgba(235, 190, 102, 0.0)' },
-    { x: 270, y: 40, w: 180, h: 62, c1: 'rgba(252, 228, 168, 0.94)', c2: 'rgba(205, 155, 72, 0.0)' },
-    { x: 150, y: 150, w: 220, h: 60, c1: 'rgba(232, 182, 92, 0.72)', c2: 'rgba(10, 42, 30, 0.0)' },
-    { x: 400, y: 108, w: 95, h: 88, c1: 'rgba(84, 218, 158, 0.48)', c2: 'rgba(6, 20, 14, 0.0)' },
+    { x: 46, y: 20, w: 165, h: 56, c1: 'rgba(255, 248, 232, 0.98)', c2: 'rgba(235, 190, 102, 0)' },
+    { x: 268, y: 36, w: 185, h: 64, c1: 'rgba(255, 234, 180, 0.94)', c2: 'rgba(205, 155, 72, 0)' },
+    { x: 145, y: 150, w: 230, h: 60, c1: 'rgba(232, 182, 92, 0.68)', c2: 'rgba(10, 42, 30, 0)' },
+    { x: 405, y: 112, w: 92, h: 84, c1: 'rgba(84, 214, 156, 0.42)', c2: 'rgba(6, 20, 14, 0)' },
   ];
 
   for (const s of strips) {
     const rg = ctx.createRadialGradient(
       s.x + s.w / 2,
       s.y + s.h / 2,
-      5,
+      6,
       s.x + s.w / 2,
       s.y + s.h / 2,
-      Math.max(s.w, s.h) * 0.62
+      Math.max(s.w, s.h) * 0.64
     );
     rg.addColorStop(0, s.c1);
     rg.addColorStop(1, s.c2);
@@ -66,17 +65,17 @@ function createBrushedGoldBumpTexture(): THREE.CanvasTexture {
   ctx.fillRect(0, 0, 256, 256);
 
   for (let y = 0; y < 256; y += 2) {
-    const shade = 122 + Math.floor(Math.sin(y * 0.5) * 8 + (Math.random() - 0.5) * 8);
+    const shade = 123 + Math.floor(Math.sin(y * 0.5) * 7 + (Math.random() - 0.5) * 6);
     ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
     ctx.fillRect(0, y, 256, 1.5);
   }
-  ctx.strokeStyle = 'rgba(220,220,220,0.45)';
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = 'rgba(218,218,218,0.38)';
+  ctx.lineWidth = 1.4;
   for (let x = 0; x < 256; x += 24) {
     ctx.beginPath();
-    ctx.moveTo(x, 90);
+    ctx.moveTo(x, 96);
     ctx.lineTo(x + 12, 128);
-    ctx.lineTo(x, 166);
+    ctx.lineTo(x, 160);
     ctx.stroke();
   }
 
@@ -87,54 +86,13 @@ function createBrushedGoldBumpTexture(): THREE.CanvasTexture {
   return tex;
 }
 
-function createOrbitTextRing(
-  text: string,
-  radius: number,
-  height: number,
-  color: string,
-  opacity: number
-): THREE.Mesh {
-  const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = 128;
-  const ctx = canvas.getContext('2d')!;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = color;
-  ctx.font = '500 32px "Azeret Mono", monospace';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(`${text}   •   ${text}   •   ${text}   •   `, 16, canvas.height / 2);
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.needsUpdate = true;
-
-  const geo = new THREE.CylinderGeometry(radius, radius, height, 64, 1, true);
-  const mat = new THREE.MeshBasicMaterial({
-    map: texture,
-    transparent: true,
-    opacity,
-    side: THREE.FrontSide,
-    depthWrite: false,
-  });
-
-  const mesh = new THREE.Mesh(geo, mat);
-  mesh.renderOrder = 3;
-  return mesh;
-}
-
 export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
   activePieceIndex,
-  scanPulseCount,
   paused,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [webglReady, setWebglReady] = useState(true);
-  const stateRef = useRef({
-    activePieceIndex,
-    paused,
-    scanProgress: 1.5,
-  });
+  const stateRef = useRef({ activePieceIndex, paused });
 
   useEffect(() => {
     stateRef.current.activePieceIndex = activePieceIndex;
@@ -143,12 +101,6 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
   useEffect(() => {
     stateRef.current.paused = paused;
   }, [paused]);
-
-  useEffect(() => {
-    if (scanPulseCount > 0) {
-      stateRef.current.scanProgress = -1.25;
-    }
-  }, [scanPulseCount]);
 
   useEffect(() => {
     const container = mountRef.current;
@@ -166,132 +118,100 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
       return;
     }
 
-    const width = container.clientWidth || 520;
-    const height = container.clientHeight || 420;
-    // Cap DPR to 1.5 to slash GPU pixel-fill cost by ~45% on Retina screens while staying razor-sharp
+    const width = container.clientWidth || 500;
+    const height = container.clientHeight || 440;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setSize(width, height);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.44;
+    renderer.toneMappingExposure = 1.38;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 60);
-    camera.position.set(0, 0.12, 6.0);
+    const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 50);
+    camera.position.set(0, 0.08, 5.7);
 
     const envMap = createStudioEnvMap(renderer);
     scene.environment = envMap;
 
-    // Efficient 3-light studio rig
-    scene.add(new THREE.AmbientLight('#ffecc4', 0.65));
+    // Clean 3-light jewelry studio rig
+    scene.add(new THREE.AmbientLight('#fff0d2', 0.62));
 
-    const keyLight = new THREE.DirectionalLight('#fff6e0', 3.1);
+    const keyLight = new THREE.DirectionalLight('#fff8ea', 3.0);
     keyLight.position.set(4.5, 5.5, 6);
     scene.add(keyLight);
 
-    const rimLight = new THREE.PointLight('#5de8aa', 2.8, 18);
-    rimLight.position.set(-4.2, -2.0, 3.6);
+    const rimLight = new THREE.PointLight('#55d99e', 2.4, 16);
+    rimLight.position.set(-4.0, -2.0, 3.8);
     scene.add(rimLight);
 
     const rootGroup = new THREE.Group();
     scene.add(rootGroup);
 
-    // 1. Sculpted 22K Solid Gold Bridal Bangle (64 segments = silky smooth, low vertex cost)
+    // 1. Sculpted 22K Solid Gold Sri Lankan Bridal Bangle
     const bumpTex = createBrushedGoldBumpTexture();
     const bangleProfile: THREE.Vector2[] = [
-      new THREE.Vector2(1.42, -0.34),
-      new THREE.Vector2(1.58, -0.36),
-      new THREE.Vector2(1.74, -0.26),
-      new THREE.Vector2(1.82, -0.10),
-      new THREE.Vector2(1.82, 0.10),
-      new THREE.Vector2(1.74, 0.26),
-      new THREE.Vector2(1.58, 0.36),
-      new THREE.Vector2(1.42, 0.34),
-      new THREE.Vector2(1.37, 0.20),
-      new THREE.Vector2(1.37, -0.20),
-      new THREE.Vector2(1.42, -0.34),
+      new THREE.Vector2(1.44, -0.35),
+      new THREE.Vector2(1.60, -0.37),
+      new THREE.Vector2(1.76, -0.27),
+      new THREE.Vector2(1.84, -0.10),
+      new THREE.Vector2(1.84, 0.10),
+      new THREE.Vector2(1.76, 0.27),
+      new THREE.Vector2(1.60, 0.37),
+      new THREE.Vector2(1.44, 0.35),
+      new THREE.Vector2(1.39, 0.20),
+      new THREE.Vector2(1.39, -0.20),
+      new THREE.Vector2(1.44, -0.35),
     ];
 
     const bangleGeo = new THREE.LatheGeometry(bangleProfile, 64);
     const goldMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#f2cb74'),
-      metalness: 0.94,
+      color: new THREE.Color('#f0c872'),
+      metalness: 0.95,
       roughness: 0.13,
-      clearcoat: 0.85,
-      clearcoatRoughness: 0.1,
+      clearcoat: 0.88,
+      clearcoatRoughness: 0.09,
       bumpMap: bumpTex,
-      bumpScale: 0.01,
-      envMapIntensity: 2.0,
+      bumpScale: 0.009,
+      envMapIntensity: 2.05,
     });
     const bangleMesh = new THREE.Mesh(bangleGeo, goldMat);
-    bangleMesh.rotation.set(0.46, 0.25, -0.32);
+    bangleMesh.rotation.set(0.44, 0.25, -0.3);
     rootGroup.add(bangleMesh);
 
-    // 2. Faceted Ceylon Emerald Crystal Core (Single-pass iridescence — ZERO costly transmission re-render!)
-    const coreGeo = new THREE.OctahedronGeometry(0.48, 0);
+    // 2. Faceted Ceylon Emerald Core (Single-pass iridescent crystal — zero GPU transmission pass)
+    const coreGeo = new THREE.OctahedronGeometry(0.46, 0);
     const coreMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#198258'),
-      emissive: new THREE.Color('#0c4c33'),
-      emissiveIntensity: 0.72,
-      metalness: 0.38,
+      color: new THREE.Color('#187b53'),
+      emissive: new THREE.Color('#0a422b'),
+      emissiveIntensity: 0.65,
+      metalness: 0.36,
       roughness: 0.06,
-      iridescence: 0.9,
-      iridescenceIOR: 1.52,
+      iridescence: 0.85,
+      iridescenceIOR: 1.5,
       clearcoat: 1,
       clearcoatRoughness: 0.05,
-      envMapIntensity: 2.6,
+      envMapIntensity: 2.5,
     });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
     rootGroup.add(coreMesh);
 
-    const cageGeo = new THREE.IcosahedronGeometry(0.76, 1);
-    const cageMat = new THREE.MeshBasicMaterial({
-      color: '#f1cb85',
-      wireframe: true,
+    // 3. Single Hairline Architectural Halo Ring (Clean horology detail, zero sci-fi HUD clutter)
+    const haloGeo = new THREE.TorusGeometry(2.16, 0.008, 12, 96);
+    const haloMat = new THREE.MeshBasicMaterial({
+      color: '#e5be72',
       transparent: true,
-      opacity: 0.26,
+      opacity: 0.34,
     });
-    const cageMesh = new THREE.Mesh(cageGeo, cageMat);
-    rootGroup.add(cageMesh);
+    const haloRing = new THREE.Mesh(haloGeo, haloMat);
+    haloRing.rotation.set(1.22, 0.2, -0.32);
+    rootGroup.add(haloRing);
 
-    // 3. Real 3D Counter-Rotating Assay Text Rings
-    const ringTop = createOrbitTextRing(
-      'AUR · 0842 · 6190   916 PURE GOLD   4.20G NET   RLS ISOLATED',
-      2.28,
-      0.32,
-      'rgba(246, 212, 142, 0.92)',
-      0.88
-    );
-    ringTop.rotation.set(0.24, 0, -0.18);
-    rootGroup.add(ringTop);
-
-    const ringBottom = createOrbitTextRing(
-      'ZERO HOME ADDRESSES   AES-256 INVOICE SEALED   SRI LANKA PDPA',
-      2.52,
-      0.26,
-      'rgba(108, 224, 168, 0.68)',
-      0.66
-    );
-    ringBottom.rotation.set(-0.28, 1.2, 0.16);
-    rootGroup.add(ringBottom);
-
-    // 4. Sweeping Emerald-Gold Laser Verification Ring
-    const laserGeo = new THREE.TorusGeometry(2.04, 0.02, 12, 64);
-    const laserMat = new THREE.MeshBasicMaterial({
-      color: '#6ce8ad',
-      transparent: true,
-      opacity: 0,
-    });
-    const laserRing = new THREE.Mesh(laserGeo, laserMat);
-    laserRing.rotation.x = Math.PI / 2;
-    rootGroup.add(laserRing);
-
-    // 5. Lightweight 22K Gold Dust Motes (80 particles)
-    const particleCount = 80;
+    // 4. Subtle Studio Gold Dust (44 particles)
+    const particleCount = 44;
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
-      const r = 2.1 + Math.random() * 2.5;
+      const r = 2.25 + Math.random() * 2.1;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
@@ -301,16 +221,16 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
     const particleGeo = new THREE.BufferGeometry();
     particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMat = new THREE.PointsMaterial({
-      color: '#f5d28c',
-      size: 0.04,
+      color: '#f2ce85',
+      size: 0.032,
       transparent: true,
-      opacity: 0.62,
+      opacity: 0.48,
       depthWrite: false,
     });
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
-    // Momentum-Damped 360° Turntable Physics
+    // Smooth Drag-to-Orbit Physics
     const pointer = {
       targetX: 0,
       targetY: 0,
@@ -337,10 +257,10 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
       const rect = container.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       if (pointer.dragging) {
-        const dx = (e.clientX - pointer.lastX) * 0.0085;
-        const dy = (e.clientY - pointer.lastY) * 0.0065;
+        const dx = (e.clientX - pointer.lastX) * 0.008;
+        const dy = (e.clientY - pointer.lastY) * 0.006;
         pointer.dragYaw += dx;
-        pointer.dragPitch = Math.max(-0.65, Math.min(0.65, pointer.dragPitch + dy));
+        pointer.dragPitch = Math.max(-0.6, Math.min(0.6, pointer.dragPitch + dy));
         pointer.velYaw = dx;
         pointer.velPitch = dy;
         pointer.lastX = e.clientX;
@@ -364,24 +284,24 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
 
     const onResize = () => {
       if (!container) return;
-      const w = container.clientWidth || 520;
-      const h = container.clientHeight || 420;
+      const w = container.clientWidth || 500;
+      const h = container.clientHeight || 440;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
     window.addEventListener('resize', onResize);
 
-    // AUTOMATIC SLEEP WHEN OFF-SCREEN OR TAB HIDDEN (0% CPU/GPU WHEN SCROLLED PAST HERO!)
+    // Automatic Off-Screen & Hidden-Tab Sleep (0% CPU once scrolled past Hero)
     let isVisible = true;
     let isTabVisible = !document.hidden;
     let rafId = 0;
     const clock = new THREE.Clock();
 
     const pieceAngles = [
-      { rx: 0.46, rz: -0.32, hueColor: '#f2cb74' },
-      { rx: 0.72, rz: 0.18, hueColor: '#fbe09e' },
-      { rx: 0.34, rz: -0.58, hueColor: '#e7b860' },
+      { rx: 0.44, rz: -0.3, hueColor: '#f0c872' },
+      { rx: 0.68, rz: 0.16, hueColor: '#f7db98' },
+      { rx: 0.34, rz: -0.52, hueColor: '#e4b55c' },
     ];
 
     const renderFrame = () => {
@@ -393,53 +313,34 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
       const dt = Math.min(clock.getDelta(), 0.05);
       const elapsed = clock.elapsedTime;
 
-      pointer.currentX += (pointer.targetX - pointer.currentX) * 0.07;
-      pointer.currentY += (pointer.targetY - pointer.currentY) * 0.07;
+      pointer.currentX += (pointer.targetX - pointer.currentX) * 0.06;
+      pointer.currentY += (pointer.targetY - pointer.currentY) * 0.06;
 
       if (!pointer.dragging) {
         pointer.dragYaw += pointer.velYaw;
-        pointer.dragPitch = Math.max(-0.65, Math.min(0.65, pointer.dragPitch + pointer.velPitch));
+        pointer.dragPitch = Math.max(-0.6, Math.min(0.6, pointer.dragPitch + pointer.velPitch));
         pointer.velYaw *= 0.93;
         pointer.velPitch *= 0.93;
       }
 
-      const scrollFactor = Math.min(window.scrollY / 900, 1.4);
       const targetPreset = pieceAngles[stateRef.current.activePieceIndex % pieceAngles.length];
-      goldMat.color.lerp(new THREE.Color(targetPreset.hueColor), 0.05);
+      goldMat.color.lerp(new THREE.Color(targetPreset.hueColor), 0.045);
 
       if (!stateRef.current.paused) {
-        bangleMesh.rotation.y += dt * 0.38;
-        bangleMesh.rotation.x +=
-          (targetPreset.rx + pointer.currentY * 0.24 + scrollFactor * 0.4 - bangleMesh.rotation.x) *
-          0.05;
-        bangleMesh.rotation.z +=
-          (targetPreset.rz - pointer.currentX * 0.22 - bangleMesh.rotation.z) * 0.05;
+        bangleMesh.rotation.y += dt * 0.28;
+        bangleMesh.rotation.x += (targetPreset.rx + pointer.currentY * 0.2 - bangleMesh.rotation.x) * 0.045;
+        bangleMesh.rotation.z += (targetPreset.rz - pointer.currentX * 0.18 - bangleMesh.rotation.z) * 0.045;
 
-        coreMesh.rotation.y -= dt * 0.65;
-        coreMesh.rotation.x = Math.sin(elapsed * 0.85) * 0.35;
-        coreMesh.position.y = Math.sin(elapsed * 1.4) * 0.08;
+        coreMesh.rotation.y -= dt * 0.48;
+        coreMesh.rotation.x = Math.sin(elapsed * 0.7) * 0.28;
+        coreMesh.position.y = Math.sin(elapsed * 1.1) * 0.06;
 
-        cageMesh.rotation.y += dt * 0.22;
-        cageMesh.rotation.z -= dt * 0.14;
-
-        ringTop.rotation.y -= dt * 0.2;
-        ringBottom.rotation.y += dt * 0.15;
-
-        particles.rotation.y += dt * 0.045;
-        particles.rotation.x = pointer.currentY * 0.06;
-
-        if (stateRef.current.scanProgress < 1.3) {
-          stateRef.current.scanProgress += dt * 1.85;
-          const p = stateRef.current.scanProgress;
-          laserRing.position.y = p;
-          laserMat.opacity = Math.max(0, 1 - Math.abs(p) / 1.25) * 0.95;
-        } else {
-          laserMat.opacity = 0;
-        }
+        haloRing.rotation.z += dt * 0.12;
+        particles.rotation.y += dt * 0.03;
       }
 
-      rootGroup.rotation.y = pointer.currentX * 0.24 + pointer.dragYaw;
-      rootGroup.rotation.x = pointer.currentY * 0.15 + pointer.dragPitch;
+      rootGroup.rotation.y = pointer.currentX * 0.2 + pointer.dragYaw;
+      rootGroup.rotation.x = pointer.currentY * 0.12 + pointer.dragPitch;
 
       renderer.render(scene, camera);
     };
@@ -456,7 +357,7 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
         isVisible = entry.isIntersecting;
         if (isVisible) wakeLoop();
       },
-      { rootMargin: '120px' }
+      { rootMargin: '100px' }
     );
     observer.observe(container);
 
@@ -466,7 +367,6 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
     };
     document.addEventListener('visibilitychange', onVisChange);
 
-    // Draw initial frame immediately and start loop
     renderer.render(scene, camera);
     wakeLoop();
 
@@ -485,16 +385,8 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
       bumpTex.dispose();
       coreGeo.dispose();
       coreMat.dispose();
-      cageGeo.dispose();
-      cageMat.dispose();
-      ringTop.geometry.dispose();
-      (ringTop.material as THREE.MeshBasicMaterial).map?.dispose();
-      (ringTop.material as THREE.MeshBasicMaterial).dispose();
-      ringBottom.geometry.dispose();
-      (ringBottom.material as THREE.MeshBasicMaterial).map?.dispose();
-      (ringBottom.material as THREE.MeshBasicMaterial).dispose();
-      laserGeo.dispose();
-      laserMat.dispose();
+      haloGeo.dispose();
+      haloMat.dispose();
       particleGeo.dispose();
       particleMat.dispose();
       envMap.dispose();
@@ -506,9 +398,9 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
     return (
       <div
         aria-hidden="true"
-        className="w-full h-full flex items-center justify-center rounded-3xl bg-[radial-gradient(circle_at_50%_45%,oklch(34%_0.06_83/0.45),oklch(14.5%_0.022_166))]"
+        className="w-full h-full flex items-center justify-center rounded-3xl bg-[radial-gradient(circle_at_50%_45%,oklch(34%_0.06_83/0.4),oklch(15.2%_0.024_166))]"
       >
-        <div className="w-44 h-44 rounded-full border-4 border-[var(--gold-400)] shadow-[0_0_60px_oklch(78.5%_0.116_82/0.38)]" />
+        <div className="w-44 h-44 rounded-full border-4 border-[var(--gold-bullion)]" />
       </div>
     );
   }
@@ -516,8 +408,7 @@ export const AurumBangleCanvas: React.FC<AurumBangleCanvasProps> = ({
   return (
     <div
       ref={mountRef}
-      role="img"
-      aria-label="Interactive 3D 22K gold Sri Lankan bridal bangle with a faceted Ceylon emerald core and orbiting hallmark rings"
+      aria-hidden="true"
       className="w-full h-full cursor-grab active:cursor-grabbing"
     />
   );

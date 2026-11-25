@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#06140E',
+  themeColor: '#071711',
   width: 'device-width',
   initialScale: 1,
 };
@@ -65,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-LK" data-motion="full">
+    <html lang="en-LK" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         <link
@@ -81,11 +81,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var mq=window.matchMedia('(prefers-reduced-motion: reduce)');document.documentElement.dataset.motion=mq.matches?'reduce':'full';mq.addEventListener('change',function(e){document.documentElement.dataset.motion=e.matches?'reduce':'full';});}catch(_){}})();`,
-          }}
         />
       </head>
       <body>{children}</body>
