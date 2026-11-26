@@ -11,16 +11,6 @@ export interface VaultItem {
   hallmarkNote: string;
 }
 
-export interface BentoBenefit {
-  id: string;
-  span: 'wide' | 'narrow';
-  kicker: string;
-  title: string;
-  body: string;
-  metric: string;
-  iconName: 'safe' | 'scales' | 'lineage' | 'shield' | 'lock' | 'timer' | 'scan' | 'device';
-}
-
 export interface PrototypePlate {
   id: string;
   index: string;
@@ -31,7 +21,6 @@ export interface PrototypePlate {
   width: number;
   height: number;
   headline: string;
-  description: string;
   highlights: string[];
 }
 
@@ -40,8 +29,6 @@ export interface SimulatorRole {
   tabLabel: string;
   badgeLabel: string;
   httpStatus: string;
-  statusTone: 'ok' | 'restricted' | 'blocked';
-  summary: string;
   rows: {
     field: string;
     value: string;
@@ -63,8 +50,8 @@ export interface TeamMember {
   role: string;
   focusTag: string;
   responsibility: string;
-  avatarSrc?: string;
-  avatarAlt?: string;
+  avatarSrc: string;
+  avatarAlt: string;
 }
 
 export const HERO_VAULT_ITEMS: VaultItem[] = [
@@ -106,84 +93,6 @@ export const HERO_VAULT_ITEMS: VaultItem[] = [
   },
 ];
 
-export const BUYER_BENEFITS: BentoBenefit[] = [
-  {
-    id: 'buyer-day-one',
-    span: 'wide',
-    kicker: 'Immediate Day-1 Utility',
-    title: 'Log existing home-safe heirlooms today, before your next purchase',
-    body: 'Photograph and record older family bangles and chains already in your safe or bank locker as Owner-Reported items right alongside gold-sealed Retailer-Verified showroom purchases.',
-    metric: 'Day-1 Safe Inventory + Live CBSL Value',
-    iconName: 'safe',
-  },
-  {
-    id: 'buyer-net-weight',
-    span: 'narrow',
-    kicker: 'Zero Stone Guesswork',
-    title: 'Keep full own-gold exchange weight',
-    body: 'Separated Gross vs. Net gold weight (4.80 g total / 4.20 g pure gold) stops unverified 2%–5% cutting deductions and stone-prying arguments during bridal upgrades.',
-    metric: '0.001 g Separated Net Gold Proof',
-    iconName: 'scales',
-  },
-  {
-    id: 'buyer-lineage',
-    span: 'narrow',
-    kicker: 'Generational Continuity',
-    title: 'Mother-to-daughter melting lineage',
-    body: 'When heirloom bangles are melted to craft a wedding necklace, AURUM links Parent → Child passports permanently so family provenance never breaks.',
-    metric: 'Unbroken Parent → Child Graph',
-    iconName: 'lineage',
-  },
-  {
-    id: 'buyer-dossier',
-    span: 'wide',
-    kicker: 'Emergency Readiness',
-    title: 'Export a police and insurance dossier from your phone in 10 seconds',
-    body: 'Thermal paper receipts fade blank within two humid monsoon seasons. Keep macro photographs, milligram weights, and untouched VAT invoice PDFs sealed in your pocket if burglary or flood ever strikes.',
-    metric: 'AES-256 Original Invoice PDF',
-    iconName: 'shield',
-  },
-];
-
-export const SHOWROOM_BENEFITS: BentoBenefit[] = [
-  {
-    id: 'shop-lockin',
-    span: 'wide',
-    kicker: 'Lifetime Issuer Retention',
-    title: 'Lock in repeat bridal and servicing buyers without leaking a single sale',
-    body: 'Rival jewellers are mathematically blocked at the database layer from viewing or logging repairs on your passports. Customers return to your counter for life to keep their 100% Original Issuer Verified seal intact.',
-    metric: 'PostgreSQL RLS Tenant Isolation',
-    iconName: 'lock',
-  },
-  {
-    id: 'shop-tradein',
-    span: 'narrow',
-    kicker: 'Faster Counter Velocity',
-    title: 'Close bridal trade-ins in 2 minutes',
-    body: 'Read exact original Net Gold Weight instantly at the counter without touchstone scraping or prying Kundan stones out of delicate settings.',
-    metric: 'Zero Destructive Scraping on Own Pieces',
-    iconName: 'timer',
-  },
-  {
-    id: 'shop-fraud',
-    span: 'narrow',
-    kicker: 'Shrinkage & Swap Defense',
-    title: 'Catch warranty swaps and 0.250 g shaving',
-    body: 'Pair XRF alloy checks with exact original instance weight (±1.5% wear tolerance) and intake/post-polish gram audits to stop 8-year-old lookalike swaps and workshop pilferage.',
-    metric: '±1.5% Natural Wear Audit Gate',
-    iconName: 'scan',
-  },
-  {
-    id: 'shop-pos',
-    span: 'wide',
-    kicker: 'Zero Counter Disruption',
-    title: 'Hand over verified proof in 8 seconds alongside your current barcode tags',
-    body: 'Keep your existing ERP and tray tags untouched. Any counter tablet handles live 4-digit PIN handovers, SIM-bound surprise gift invites, bridal set batching, and Nokia button-phone buyers.',
-    metric: '4 Real-World Showroom Handover Modes',
-    iconName: 'device',
-  },
-];
-
 export const PROTOTYPE_PLATES: PrototypePlate[] = [
   {
     id: 'passport',
@@ -196,8 +105,6 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
     width: 356,
     height: 774,
     headline: 'Prove exact net gold weight decades after paper fades.',
-    description:
-      'Stores Permanent Asset ID (AUR · 0842 · 6190), separated Gross vs. Net gold weight (4.80 / 4.20 g), 18K · 750 and 22K · 916 purity seals, untouched encrypted Original Invoice PDF, Lifecycle Timeline, and a 15-minute Counter Pass QR.',
     highlights: [
       'Separated 4.80 g Gross / 4.20 g Net Gold',
       'AES-256 Original VAT Invoice PDF',
@@ -215,8 +122,6 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
     width: 311,
     height: 670,
     headline: 'Daily CBSL 22K & 24K rates, without store promo spam.',
-    description:
-      'Turns a once-every-few-years purchase record into a calm weekly utility: official CBSL reference rates in LKR per gram (36,640/g · 40,000/g) and 8g sovereign (Pavan), paired with plain-English guides on 916 hallmarking, purity, and care.',
     highlights: [
       '22K / 916: LKR 36,640/g · 293,120/Sovereign',
       '24K / 999: LKR 40,000/g · 320,000/Sovereign',
@@ -234,8 +139,6 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
     width: 1022,
     height: 728,
     headline: '8-second digital handover for bridal sets, gifts, and button phones.',
-    description:
-      'Engineered for high-traffic showroom counters with shared-screen privacy enforced automatically at every step:',
     highlights: [
       '4 Counter Modes: Live 4-Digit PIN, SIM-Bound Claim-Later Gift SMS, Offline Button-Phone Buyer, and 7-Day Return/Exchange',
       'Multi-Item Bridal Batching: Group rings, chains, and pendants (12.20 g combined net gold) under one 1-tap bride handover',
@@ -250,9 +153,6 @@ export const SIMULATOR_ROLES: SimulatorRole[] = [
     tabLabel: '1. Authenticated Owner (Family)',
     badgeLabel: 'RLS ROLE: OWNER_SESSION_VERIFIED',
     httpStatus: 'HTTP 200 OK · Biometric Device Key',
-    statusTone: 'ok',
-    summary:
-      'Full cross-shop family vault unlocked on the owner’s handset. Rupee portfolio value is multiplied locally on-device and never written to public tables.',
     rows: [
       {
         field: 'Cross-Shop Portfolio',
@@ -286,9 +186,6 @@ export const SIMULATOR_ROLES: SimulatorRole[] = [
     tabLabel: '2. Issuing Jeweller (Serendib)',
     badgeLabel: 'RLS ROLE: TENANT_ISSUER_ONLY',
     httpStatus: 'HTTP 200 OK · Scoped to Shop A Ledger',
-    statusTone: 'restricted',
-    summary:
-      'Serendib Jewellers sees strictly the bangle it issued. Pieces bought by the same family at Swarna, Raja, or Devi are invisible.',
     rows: [
       {
         field: 'Cross-Shop Portfolio',
@@ -322,9 +219,6 @@ export const SIMULATOR_ROLES: SimulatorRole[] = [
     tabLabel: '3. Rival Shop B / Stranger',
     badgeLabel: 'RLS ROLE: UNAUTHORISED_TENANT',
     httpStatus: 'HTTP 403 FORBIDDEN · Zero-Knowledge Denial',
-    statusTone: 'blocked',
-    summary:
-      'When a rival shop or stranger scans the bangle without an active Owner Counter Pass, PostgreSQL RLS rejects the query before a single byte leaves the database.',
     rows: [
       {
         field: 'Item Existence Confirmation',
@@ -352,27 +246,6 @@ export const SIMULATOR_ROLES: SimulatorRole[] = [
         state: 'visible',
       },
     ],
-  },
-];
-
-export const HOW_IT_WORKS_STEPS = [
-  {
-    numeral: '01',
-    kicker: '8 Seconds at Checkout',
-    title: 'Confirm at checkout in 8 seconds (or claim later at home)',
-    body: 'Showrooms keep their normal barcode tags inside the display tray. At checkout, one scan sends a 4-digit PIN handover to your phone, a SIM-bound invite for surprise gifts, or a plain-text SMS receipt for Nokia button phones.',
-  },
-  {
-    numeral: '02',
-    kicker: 'Biometric Family Vault',
-    title: 'Track showroom purchases and home heirlooms in one vault',
-    body: 'New Retailer-Verified passports sit alongside older home-safe heirlooms you photograph on day one, showing live LKR metal value multiplied privately on your device.',
-  },
-  {
-    numeral: '03',
-    kicker: 'Generational Proof',
-    title: 'Service, upgrade, or pass down with unbroken gram lineage',
-    body: 'Walk back into the issuing showroom 5 or 25 years later without a paper bill for instant weight-verified polishing, full-value bridal trade-ins, or Parent → Child melting records.',
   },
 ];
 
@@ -457,6 +330,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     focusTag: 'PostgreSQL RLS & Lineage Schema',
     responsibility:
       'Multi-tier system architecture, UML modelling, PostgreSQL Row-Level Security (RLS) schema, atomic POS handover, and asset lineage design.',
+    avatarSrc: '/images/team-senuthi.jpg',
+    avatarAlt:
+      'Editorial studio portrait of G. D. Senuthi Thewathma Rathansekara, System Architect of Project AURUM Group SE-10.',
   },
   {
     id: 'inuthie',
@@ -480,5 +356,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     focusTag: 'SRS, QA Strategy & Sri Lanka PDPA',
     responsibility:
       'Stakeholder elicitation, SRS requirements and user stories, QA test strategy, Sri Lanka PDPA compliance, and UoW research ethics.',
+    avatarSrc: '/images/team-kajendran.jpg',
+    avatarAlt:
+      'Editorial studio portrait of M. Kajendran, Business Analyst and QA/Ethics Lead of Project AURUM Group SE-10.',
   },
 ];

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { List, X, ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRight, List, X } from '@phosphor-icons/react';
 
 const NAV_LINKS = [
   { href: '#problem', label: 'The Blind Spot', sectionId: 'problem' },
@@ -12,6 +12,19 @@ const NAV_LINKS = [
   { href: '#team', label: 'Team', sectionId: 'team' },
 ];
 
+const TRACKED_IDS = [
+  'top',
+  'problem',
+  'value',
+  'prototype',
+  'solution',
+  'how-it-works',
+  'faq',
+  'team',
+  'waitlist',
+  'contact',
+];
+const NAV_ID_SET = new Set(['top', ...NAV_LINKS.map((l) => l.sectionId)]);
 const DARK_SECTIONS = new Set(['top', 'solution', 'contact']);
 
 interface FloatingNavProps {
@@ -19,36 +32,34 @@ interface FloatingNavProps {
 }
 
 export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
-  const [activeSection, setActiveSection] = useState<string>('top');
+  const [activeSection, setActiveSection] = useState('top');
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
-  const [overDark, setOverDark] = useState<boolean>(true);
+  const [overDark, setOverDark] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const trackedIds = [
-      'top',
-      'problem',
-      'value',
-      'prototype',
-      'solution',
-      'how-it-works',
-      'faq',
-      'team',
-      'waitlist',
-      'contact',
-    ];
+    const els = TRACKED_IDS.map((id) => ({ id, el: document.getElementById(id) }));
+    let prevDark = true;
+    let prevActive = 'top';
+    let rafId = 0;
 
     const updateNav = () => {
+      rafId = 0;
       const probeY = 90;
-      for (const id of trackedIds) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
+      for (const { id, el } of els) {
+        const node = el ?? document.getElementById(id);
+        if (!node) continue;
+        const rect = node.getBoundingClientRect();
         if (rect.top <= probeY && rect.bottom >= probeY) {
-          setOverDark(DARK_SECTIONS.has(id));
-          if (NAV_LINKS.some((l) => l.sectionId === id) || id === 'top') {
+          const nextDark = DARK_SECTIONS.has(id);
+          if (nextDark !== prevDark) {
+            prevDark = nextDark;
+            setOverDark(nextDark);
+          }
+          if (NAV_ID_SET.has(id) && id !== prevActive) {
+            prevActive = id;
             setActiveSection(id);
           }
           break;
@@ -56,9 +67,16 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
       }
     };
 
+    const onScroll = () => {
+      if (!rafId) rafId = requestAnimationFrame(updateNav);
+    };
+
     updateNav();
-    window.addEventListener('scroll', updateNav, { passive: true });
-    return () => window.removeEventListener('scroll', updateNav);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const openMenu = () => {
@@ -82,8 +100,8 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
           onMouseLeave={() => setHoveredNav(null)}
           className={`pointer-events-auto mx-auto max-w-5xl rounded-full px-3 py-1.5 backdrop-blur-md flex items-center justify-between gap-2 transition-colors duration-200 ${
             overDark
-              ? 'bg-[#26040a]/88 text-[var(--ink-dark-1)] border border-[#5d111e] shadow-[0_14px_38px_-12px_rgba(14,1,4,0.82)]'
-              : 'bg-white/92 text-[var(--ink-light-1)] border border-[#e5dad5] shadow-[0_12px_34px_-12px_rgba(48,8,15,0.16)]'
+              ? 'bg-[#2b0608]/88 text-[var(--ink-dark-1)] border border-[#6b1117] shadow-[0_14px_38px_-12px_rgba(14,1,3,0.82)]'
+              : 'bg-white/92 text-[var(--ink-light-1)] border border-[#e6dbd9] shadow-[0_12px_34px_-12px_rgba(48,8,12,0.16)]'
           }`}
         >
           <a
@@ -95,7 +113,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
               alt="Project AURUM official crest"
               width={32}
               height={32}
-              className="w-8 h-8 rounded-full object-cover border border-[rgba(247,223,158,0.6)]"
+              className="w-8 h-8 rounded-full object-cover border border-[rgba(247,223,163,0.6)]"
             />
             <span className="font-display text-lg tracking-wide">AURUM</span>
           </a>
@@ -123,7 +141,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
                         layoutId="nav-active-pill"
                         transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
                         className={`absolute inset-0 -z-10 rounded-full ${
-                          overDark ? 'bg-[#460a15]' : 'bg-[#f1eae6]'
+                          overDark ? 'bg-[#500c10]' : 'bg-[#f2ebe9]'
                         }`}
                       />
                     )}
@@ -141,7 +159,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
               className={`hidden sm:inline-flex items-center gap-2 min-h-[44px] pl-4 pr-1.5 py-1 rounded-full text-sm font-semibold cursor-pointer transition-colors duration-150 ${
                 overDark
                   ? 'bg-[var(--gold-bullion)] hover:bg-[var(--gold-bright)] text-[var(--obsidian-950)]'
-                  : 'bg-[#3a0710] hover:bg-[#540b18] text-white'
+                  : 'bg-[#430a0e] hover:bg-[#5e0f15] text-white'
               }`}
             >
               <span>Join Free Pilot</span>
@@ -153,7 +171,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
                 }`}
                 aria-hidden="true"
               >
-                <ArrowUpRight size={15} weight="regular" />
+                <ArrowUpRight size={15} />
               </span>
             </button>
 
@@ -166,11 +184,11 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
               aria-label="Open navigation menu"
               className={`md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full cursor-pointer transition-colors ${
                 overDark
-                  ? 'bg-[#420a14] text-[var(--ink-dark-1)] border border-[#5d111e]'
-                  : 'bg-[#f1eae6] text-[var(--ink-light-1)] border border-[#e5dad5]'
+                  ? 'bg-[#3d090c] text-[var(--ink-dark-1)] border border-[#6b1117]'
+                  : 'bg-[#f2ebe9] text-[var(--ink-light-1)] border border-[#e6dbd9]'
               }`}
             >
-              <List size={20} weight="regular" />
+              <List size={20} />
             </button>
           </div>
         </nav>
@@ -186,8 +204,8 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
         aria-label="Site navigation"
         className="aurum-dialog m-0 p-4 w-full max-w-none bg-transparent border-0"
       >
-        <div className="mx-auto max-w-md rounded-3xl bg-white border border-[#e5dad5] p-5 text-[var(--ink-light-1)] shadow-2xl">
-          <div className="flex items-center justify-between pb-4 border-b border-[#f1eae6]">
+        <div className="mx-auto max-w-md rounded-3xl bg-white border border-[#e6dbd9] p-5 text-[var(--ink-light-1)] shadow-2xl">
+          <div className="flex items-center justify-between pb-4 border-b border-[#f2ebe9]">
             <div className="flex items-center gap-2.5">
               <img
                 src="/images/theLogo.jpg"
@@ -202,9 +220,9 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
               type="button"
               onClick={closeMenu}
               aria-label="Close navigation menu"
-              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#faf6f4] text-[var(--ink-light-1)] cursor-pointer"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#fbf7f6] text-[var(--ink-light-1)] cursor-pointer"
             >
-              <X size={20} weight="regular" />
+              <X size={20} />
             </button>
           </div>
 
@@ -214,16 +232,16 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
                 <a
                   href={link.href}
                   onClick={closeMenu}
-                  className="flex items-center justify-between min-h-[48px] px-4 rounded-2xl text-base font-medium text-[var(--ink-light-1)] hover:bg-[#faf6f4]"
+                  className="flex items-center justify-between min-h-[48px] px-4 rounded-2xl text-base font-medium text-[var(--ink-light-1)] hover:bg-[#fbf7f6]"
                 >
                   <span>{link.label}</span>
-                  <ArrowUpRight size={16} weight="regular" className="text-[var(--bronze-ink)]" />
+                  <ArrowUpRight size={16} className="text-[var(--bronze-ink)]" />
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="pt-3 border-t border-[#f1eae6]">
+          <div className="pt-3 border-t border-[#f2ebe9]">
             <button
               type="button"
               onClick={() => {
@@ -234,7 +252,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
             >
               <span>Join the Free Colombo Pilot</span>
               <span className="btn-pill-badge-gold" aria-hidden="true">
-                <ArrowUpRight size={17} weight="regular" />
+                <ArrowUpRight size={17} />
               </span>
             </button>
           </div>

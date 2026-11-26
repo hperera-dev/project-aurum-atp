@@ -36,7 +36,7 @@ export const PrototypeShowcase: React.FC = () => {
       <div className="mx-auto max-w-6xl space-y-14">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <h2 id="prototype-heading" className="heading-section text-[var(--ink-light-1)] max-w-2xl">
-            Three live <span className="text-[#6e0d1c]">Figma screens</span> built for counters and
+            Three live <span className="text-[#7d1117]">Figma screens</span> built for counters and
             pockets.
           </h2>
           <p className="text-sm sm:text-base font-medium text-[var(--ink-light-2)] max-w-sm">
@@ -58,7 +58,7 @@ export const PrototypeShowcase: React.FC = () => {
               >
                 <div className="lg:col-span-5 p-7 sm:p-10 space-y-5">
                   <div className="flex items-center justify-between gap-2 pb-4 border-b border-[var(--hairline-light)]">
-                    <span className="font-data text-xs font-medium text-[#7a1020]">
+                    <span className="font-data text-xs font-medium text-[#8b141b]">
                       {plate.index}
                     </span>
                     <span className="text-xs font-semibold text-[var(--ink-light-2)]">
@@ -76,7 +76,7 @@ export const PrototypeShowcase: React.FC = () => {
                         <Check
                           size={16}
                           weight="bold"
-                          className="text-[#6e0d1c] shrink-0 mt-0.5"
+                          className="text-[#7d1117] shrink-0 mt-0.5"
                           aria-hidden="true"
                         />
                         <span>{h}</span>
@@ -164,7 +164,7 @@ export const PrototypeShowcase: React.FC = () => {
             >
               <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-[var(--hairline-light)]">
                 <div>
-                  <span className="font-data text-xs text-[#7a1020] block">
+                  <span className="font-data text-xs text-[#8b141b] block">
                     {activePlate.index} · {activePlate.tag}
                   </span>
                   <h3 id="lightbox-title" className="text-base sm:text-lg font-semibold">
@@ -183,7 +183,7 @@ export const PrototypeShowcase: React.FC = () => {
 
               <div
                 data-lenis-prevent
-                className="flex-1 overflow-auto overscroll-contain bg-[#f1eae6] p-4 sm:p-6 flex items-center justify-center"
+                className="flex-1 overflow-auto overscroll-contain bg-[#f2ebe9] p-4 sm:p-6 flex items-center justify-center"
               >
                 <img
                   src={activePlate.imageSrc}

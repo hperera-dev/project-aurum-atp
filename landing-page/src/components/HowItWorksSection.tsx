@@ -36,7 +36,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ onOpenPass
       <div className="mx-auto max-w-6xl space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <h2 id="how-heading" className="heading-section text-[var(--ink-light-1)] max-w-xl">
-            From showroom counter to <span className="text-[#6e0d1c]">heirloom</span> in three
+            From showroom counter to <span className="text-[#7d1117]">heirloom</span> in three
             beats.
           </h2>
 
@@ -45,15 +45,15 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ onOpenPass
             onClick={() => onOpenPassport(HERO_VAULT_ITEMS[0])}
             className="btn-ghost-light self-start md:self-auto"
           >
-            <Eye size={16} weight="regular" className="text-[#7a1020]" />
+            <Eye size={16} weight="regular" className="text-[#8b141b]" />
             <span>Open Live Passport</span>
           </button>
         </div>
 
         <ol className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {COMPACT_STEPS.map((step) => (
-            <li key={step.num} className="border-t border-[#3a0710] pt-5 space-y-2.5">
-              <span className="font-data text-xs font-medium text-[#7a1020] block">{step.num}</span>
+            <li key={step.num} className="border-t border-[#430a0e] pt-5 space-y-2.5">
+              <span className="font-data text-xs font-medium text-[#8b141b] block">{step.num}</span>
               <h3 className="heading-card text-[var(--ink-light-1)]">{step.title}</h3>
               <p className="text-sm sm:text-base font-medium text-[var(--ink-light-2)] leading-relaxed">
                 {step.body}

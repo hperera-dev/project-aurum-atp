@@ -8,20 +8,8 @@ interface DualValueBentoProps {
   onOpenArchitecture: () => void;
 }
 
-const MANIFESTO_WORDS = [
-  'One',
-  'private',
-  'vault',
-  'across',
-  'every',
-  'showroom.',
-  'Zero',
-  'home',
-  'addresses.',
-  'Zero',
-  'rival',
-  'access.',
-];
+const MANIFESTO_WORDS =
+  'One private vault across every showroom. Zero home addresses. Zero rival access.'.split(' ');
 
 const COMPACT_FAMILIES = [
   {
@@ -79,26 +67,26 @@ const COMPACT_SHOWROOMS = [
 
 export const DualValueBento: React.FC<DualValueBentoProps> = ({ onOpenArchitecture }) => {
   const [audience, setAudience] = useState<'families' | 'showrooms'>('families');
-  const [litCount, setLitCount] = useState<number>(MANIFESTO_WORDS.length);
+  const [litCount, setLitCount] = useState(MANIFESTO_WORDS.length);
   const manifestoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = manifestoRef.current;
-    if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setLitCount(MANIFESTO_WORDS.length);
-      return;
-    }
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    let prev = MANIFESTO_WORDS.length;
     let rafId = 0;
+
     const update = () => {
       rafId = 0;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 900;
-      const start = vh * 0.85;
-      const end = vh * 0.28;
-      const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      setLitCount(Math.max(2, Math.round(progress * MANIFESTO_WORDS.length)));
+      const progress = Math.min(1, Math.max(0, (vh * 0.85 - rect.top) / (vh * 0.57)));
+      const next = Math.max(2, Math.round(progress * MANIFESTO_WORDS.length));
+      if (next !== prev) {
+        prev = next;
+        setLitCount(next);
+      }
     };
 
     const onScroll = () => {
@@ -122,31 +110,25 @@ export const DualValueBento: React.FC<DualValueBentoProps> = ({ onOpenArchitectu
       className="bg-[var(--paper-pure)] text-[var(--ink-light-1)] py-28 md:py-36 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
     >
       <div className="mx-auto max-w-6xl space-y-20">
-        {/* Scroll-Illuminated Bold Gambarino Manifesto */}
         <div ref={manifestoRef} className="max-w-5xl">
           <h2 id="manifesto-heading" className="heading-manifesto">
-            {MANIFESTO_WORDS.map((word, idx) => {
-              const isLit = idx < litCount;
-              const isRubyHighlight = word === 'private' || word === 'Zero';
-              return (
-                <span
-                  key={`${word}-${idx}`}
-                  className={`inline-block mr-[0.26em] transition-colors duration-300 ${
-                    isLit
-                      ? isRubyHighlight
-                        ? 'text-[#6e0d1c]'
-                        : 'text-[var(--ink-light-1)]'
-                      : 'text-[#8c7075]'
-                  }`}
-                >
-                  {word}
-                </span>
-              );
-            })}
+            {MANIFESTO_WORDS.map((word, idx) => (
+              <span
+                key={`${word}-${idx}`}
+                className={`inline-block mr-[0.26em] transition-colors duration-300 ${
+                  idx < litCount
+                    ? word === 'private' || word === 'Zero'
+                      ? 'text-[#7d1117]'
+                      : 'text-[var(--ink-light-1)]'
+                    : 'text-[#8c7075]'
+                }`}
+              >
+                {word}
+              </span>
+            ))}
           </h2>
         </div>
 
-        {/* Clean 4-Row Audience Index */}
         <div className="space-y-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div
@@ -178,7 +160,7 @@ export const DualValueBento: React.FC<DualValueBentoProps> = ({ onOpenArchitectu
                       <motion.span
                         layoutId="audience-pill"
                         transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
-                        className="absolute inset-0 rounded-full bg-[#3a0710]"
+                        className="absolute inset-0 rounded-full bg-[#430a0e]"
                       />
                     )}
                     <span className="relative z-10">{tab.label}</span>
@@ -189,7 +171,7 @@ export const DualValueBento: React.FC<DualValueBentoProps> = ({ onOpenArchitectu
 
             {audience === 'showrooms' && (
               <button type="button" onClick={onOpenArchitecture} className="btn-ghost-light">
-                <Database size={16} weight="regular" className="text-[var(--bronze-ink)]" />
+                <Database size={16} className="text-[var(--bronze-ink)]" />
                 <span>Inspect SQL RLS Policy</span>
               </button>
             )}
@@ -201,7 +183,7 @@ export const DualValueBento: React.FC<DualValueBentoProps> = ({ onOpenArchitectu
                 key={item.num + item.title}
                 className="editorial-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 py-6 px-2 sm:px-3 items-baseline"
               >
-                <span className="md:col-span-1 font-data text-xs font-medium text-[#7a1020]">
+                <span className="md:col-span-1 font-data text-xs font-medium text-[#8b141b]">
                   {item.num}
                 </span>
                 <h3 className="md:col-span-4 heading-card text-[var(--ink-light-1)]">

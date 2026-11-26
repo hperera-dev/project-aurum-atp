@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function NotFound() {
   return (
     <main className="surface-dark min-h-screen flex items-center justify-center px-6 py-24">
-      <div className="max-w-lg w-full rounded-3xl bg-[var(--obsidian-900)] border border-[#5d111e] p-8 sm:p-10 text-center space-y-5 shadow-2xl">
+      <div className="max-w-lg w-full rounded-3xl bg-[var(--obsidian-900)] border border-[#6b1117] p-8 sm:p-10 text-center space-y-5 shadow-2xl">
         <p className="font-data text-xs text-[var(--gold-bright)]">
           HTTP 404 · VAULT ROUTE NOT FOUND
         </p>

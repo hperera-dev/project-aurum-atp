@@ -4,7 +4,6 @@ import React from 'react';
 import { ArrowUpRight } from '@phosphor-icons/react';
 
 interface PrimaryButtonProps {
-  href?: string;
   onClick?: () => void;
   children: React.ReactNode;
   variant?: 'gold' | 'dark';
@@ -14,7 +13,6 @@ interface PrimaryButtonProps {
 }
 
 export const MagneticCTA: React.FC<PrimaryButtonProps> = ({
-  href,
   onClick,
   children,
   variant = 'gold',
@@ -22,35 +20,20 @@ export const MagneticCTA: React.FC<PrimaryButtonProps> = ({
   type = 'button',
   disabled = false,
 }) => {
-  const isDarkBtn = variant === 'dark';
-  const baseClass = isDarkBtn ? 'btn-primary-dark' : 'btn-primary-gold';
-  const badgeClass = isDarkBtn ? 'btn-pill-badge-gold' : 'btn-pill-badge-dark';
-
-  const content = (
-    <>
-      <span>{children}</span>
-      <span className={badgeClass} aria-hidden="true">
-        <ArrowUpRight size={17} weight="regular" className="btn-pill-icon" />
-      </span>
-    </>
-  );
-
-  if (href) {
-    return (
-      <a href={href} className={`${baseClass} ${className}`}>
-        {content}
-      </a>
-    );
-  }
-
+  const isDark = variant === 'dark';
   return (
     <button
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`${baseClass} ${disabled ? 'opacity-60 pointer-events-none' : ''} ${className}`}
+      className={`${isDark ? 'btn-primary-dark' : 'btn-primary-gold'} ${
+        disabled ? 'opacity-60 pointer-events-none' : ''
+      } ${className}`}
     >
-      {content}
+      <span>{children}</span>
+      <span className={isDark ? 'btn-pill-badge-gold' : 'btn-pill-badge-dark'} aria-hidden="true">
+        <ArrowUpRight size={17} className="btn-pill-icon" />
+      </span>
     </button>
   );
 };
