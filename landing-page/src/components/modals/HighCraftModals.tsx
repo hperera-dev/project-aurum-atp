@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Check,
@@ -12,8 +12,12 @@ import {
   Timer,
   X,
 } from '@phosphor-icons/react';
-import { HERO_VAULT_ITEMS, VaultItem } from '../data/aurumData';
-import { PilotWaitlistForm } from './PilotWaitlistForm';
+import {
+  HERO_VAULT_ITEMS,
+  RLS_SQL_SNIPPET,
+  VaultItem,
+} from '../../content/aurumContent';
+import { PilotWaitlistForm } from '../shared/PilotWaitlistForm';
 
 interface ModalShellProps {
   open: boolean;
@@ -53,10 +57,10 @@ const ModalShell: React.FC<ModalShellProps> = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
           onClick={onClose}
-          className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-2.5 sm:p-6 bg-[rgba(18,2,4,0.82)] backdrop-blur-md"
+          className="fixed inset-0 z-[95] flex items-end sm:items-center justify-center p-2.5 sm:p-6 bg-[rgba(14,1,2,0.84)] backdrop-blur-md"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.97, y: 16 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 8 }}
             transition={{ type: 'spring', duration: 0.32, bounce: 0 }}
@@ -87,11 +91,17 @@ export const PassportInspectorModal: React.FC<PassportModalProps> = ({
   onClose,
   initialItem,
 }) => {
+  const [selectedId, setSelectedId] = useState<string>(
+    initialItem?.id ?? HERO_VAULT_ITEMS[0].id
+  );
   const [tab, setTab] = useState<'assay' | 'invoice' | 'counterpass'>('assay');
   const [secondsLeft, setSecondsLeft] = useState(894);
   const [hashVerified, setHashVerified] = useState(false);
+  const plaqueRef = useRef<HTMLDivElement>(null);
 
-  const item = initialItem ?? HERO_VAULT_ITEMS[0];
+  useEffect(() => {
+    if (initialItem) setSelectedId(initialItem.id);
+  }, [initialItem]);
 
   useEffect(() => {
     if (!open) return;
@@ -102,8 +112,23 @@ export const PassportInspectorModal: React.FC<PassportModalProps> = ({
     return () => window.clearInterval(timer);
   }, [open]);
 
+  const item = HERO_VAULT_ITEMS.find((v) => v.id === selectedId) ?? HERO_VAULT_ITEMS[0];
   const mins = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
   const secs = String(secondsLeft % 60).padStart(2, '0');
+
+  const onPlaqueMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'touch') return;
+    const el = plaqueRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / (r.width || 1) - 0.5;
+    const py = (e.clientY - r.top) / (r.height || 1) - 0.5;
+    el.style.transform = `perspective(900px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg)`;
+  };
+
+  const onPlaqueLeave = () => {
+    if (plaqueRef.current) plaqueRef.current.style.transform = '';
+  };
 
   const assayRows = [
     { label: 'Craft & Stone Separation', value: item.hallmarkNote, cls: 'font-medium text-[#1a0405]' },
@@ -116,40 +141,66 @@ export const PassportInspectorModal: React.FC<PassportModalProps> = ({
     <ModalShell
       open={open}
       onClose={onClose}
-      labelledBy="passport-modal-title"
+      labelledBy="v3-passport-title"
       coreClassName="grid grid-cols-1 md:grid-cols-12"
     >
-      <div className="md:col-span-5 surface-dark p-5 sm:p-7 md:p-8 flex flex-col justify-between gap-4 md:gap-8">
-        <div className="flex items-start justify-between gap-3">
-          <div className="space-y-1 min-w-0">
-            <span className="inline-block font-data text-xs text-[var(--gold-bright)]">
-              {item.id}
-            </span>
-            <h3
-              id="passport-modal-title"
-              className="font-display text-xl sm:text-2xl text-white leading-snug"
+      {/* Left: 3D-Tilting Ruby Velvet Holographic Passport Plaque */}
+      <div
+        ref={plaqueRef}
+        onPointerMove={onPlaqueMove}
+        onPointerLeave={onPlaqueLeave}
+        className="md:col-span-5 surface-ruby p-5 sm:p-7 md:p-8 flex flex-col justify-between gap-5 transition-transform duration-200"
+      >
+        <div className="space-y-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="space-y-1 min-w-0">
+              <span className="inline-block font-data text-xs text-[var(--gold-bright)]">
+                {item.id}
+              </span>
+              <h3
+                id="v3-passport-title"
+                className="font-display text-xl sm:text-2xl text-white leading-snug"
+              >
+                {item.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-[var(--ink-dark-2)]">
+                {item.issuer} · {item.location}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close Digital Passport Inspector"
+              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/12 hover:bg-white/22 text-white cursor-pointer shrink-0"
             >
-              {item.title}
-            </h3>
-            <p className="text-xs sm:text-sm text-[var(--ink-dark-2)]">
-              {item.issuer} · {item.location}
-            </p>
+              <X size={18} />
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close Digital Passport Inspector"
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/12 hover:bg-white/22 text-white cursor-pointer shrink-0"
-          >
-            <X size={18} />
-          </button>
+          {/* 3-Specimen Selector Pills */}
+          <div className="flex flex-wrap gap-1.5">
+            {HERO_VAULT_ITEMS.map((v, i) => (
+              <button
+                key={v.id}
+                type="button"
+                onClick={() => setSelectedId(v.id)}
+                className={`px-2.5 py-1 rounded-full font-data text-xs cursor-pointer transition-colors ${
+                  v.id === item.id
+                    ? 'bg-[var(--gold-bullion)] text-[var(--ruby-0)] font-semibold'
+                    : 'bg-white/10 text-[var(--ink-dark-2)] hover:bg-white/18'
+                }`}
+              >
+                0{i + 1} · {v.karat.split('·')[0].trim()}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="py-3.5 md:py-5 border-y border-[rgba(247,223,163,0.2)] flex md:block items-end justify-between gap-4 md:space-y-4">
           <div>
             <span className="text-xs text-[var(--ink-dark-3)] block">Verified Net Gold</span>
-            <span className="font-display text-3xl sm:text-4xl text-[var(--gold-bright)] mt-0.5 block">
+            <span className="font-display text-3xl sm:text-4xl gold-foil-sweep mt-0.5 block">
               {item.netGrams}
             </span>
           </div>
@@ -173,6 +224,7 @@ export const PassportInspectorModal: React.FC<PassportModalProps> = ({
         </div>
       </div>
 
+      {/* Right: Crisp Pure White Editorial Details */}
       <div className="md:col-span-7 bg-white p-5 sm:p-7 md:p-8 flex flex-col justify-between gap-5">
         <div className="space-y-5">
           <div className="flex items-center justify-between gap-3">
@@ -311,21 +363,6 @@ interface SimpleModalProps {
   onClose: () => void;
 }
 
-const RLS_SQL_SNIPPET = `-- Project AURUM: Strict Multi-Tenant PostgreSQL RLS Policy
-ALTER TABLE jewellery_passports ENABLE ROW LEVEL SECURITY;
-
--- 1. Families view all their own pieces across every showroom
-CREATE POLICY owner_full_vault_access ON jewellery_passports
-  FOR SELECT USING (auth.uid() = owner_user_id);
-
--- 2. Showrooms view STRICTLY their own issued rows; rivals get 0 rows (HTTP 403)
-CREATE POLICY issuer_isolated_ledger ON jewellery_passports
-  FOR SELECT USING (
-    current_setting('app.tenant_id', true)::uuid = issuing_showroom_id
-  );
-
--- 3. Schema Guarantee: ZERO residential address or GPS columns exist`;
-
 const ARCH_SPECS = [
   { label: 'Isolation Layer', value: 'PostgreSQL RLS Engine', cls: 'text-[#1a0405]' },
   { label: 'Location Privacy', value: '0 Address or GPS Columns', cls: 'text-[#8b141b]' },
@@ -342,12 +379,12 @@ export const ArchitectureBlueprintModal: React.FC<SimpleModalProps> = ({ open, o
   };
 
   return (
-    <ModalShell open={open} onClose={onClose} labelledBy="arch-modal-title">
+    <ModalShell open={open} onClose={onClose} labelledBy="v3-arch-title">
       <div className="bg-white p-5 sm:p-8 space-y-5">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5 min-w-0">
             <h3
-              id="arch-modal-title"
+              id="v3-arch-title"
               className="font-display text-xl sm:text-3xl text-[#1a0405] leading-snug"
             >
               Multi-Tenant Row-Level Security
@@ -411,13 +448,13 @@ export const ArchitectureBlueprintModal: React.FC<SimpleModalProps> = ({ open, o
 };
 
 export const QuickPilotModal: React.FC<SimpleModalProps> = ({ open, onClose }) => (
-  <ModalShell open={open} onClose={onClose} labelledBy="quick-pilot-title" maxWidthClass="max-w-lg">
-    <div className="surface-dark px-5 sm:px-7 py-5 sm:py-6 flex items-start justify-between gap-3">
+  <ModalShell open={open} onClose={onClose} labelledBy="v3-pilot-title" maxWidthClass="max-w-lg">
+    <div className="surface-ruby px-5 sm:px-7 py-5 sm:py-6 flex items-start justify-between gap-3">
       <div className="space-y-1 min-w-0">
         <span className="font-data text-xs text-[var(--gold-bright)] block">
           Colombo Closed-Beta · Free Registration
         </span>
-        <h3 id="quick-pilot-title" className="font-display text-xl sm:text-2xl text-white">
+        <h3 id="v3-pilot-title" className="font-display text-xl sm:text-2xl text-white">
           Reserve Your Early-Access Slot
         </h3>
       </div>

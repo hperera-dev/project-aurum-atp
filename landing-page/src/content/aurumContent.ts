@@ -11,6 +11,16 @@ export interface VaultItem {
   hallmarkNote: string;
 }
 
+export interface ProvenancePhase {
+  num: string;
+  station: string;
+  title: string;
+  action: string;
+  outcome: string;
+  metric: string;
+  animKind: 'assay' | 'pin' | 'vault' | 'cbsl' | 'qr' | 'lineage';
+}
+
 export interface PrototypePlate {
   id: string;
   index: string;
@@ -22,6 +32,7 @@ export interface PrototypePlate {
   height: number;
   headline: string;
   highlights: string[];
+  callout: string;
 }
 
 export interface SimulatorRole {
@@ -81,15 +92,102 @@ export const HERO_VAULT_ITEMS: VaultItem[] = [
   },
   {
     id: 'AUR · 7721 · 9914',
-    title: "Grandmother's Twisted Bangle Pair",
-    issuer: 'Family Safe Record',
+    title: 'Heritage 22K Filigree Bangles',
+    issuer: 'Private Family Vault',
     location: 'Logged on Day 1',
     karat: '22K · 916',
     grossGrams: '20.05 g',
     netGrams: '20.05 g',
     badge: 'Owner-Reported',
-    invoiceStatus: 'Macro Photo + Locker Note Saved',
+    invoiceStatus: 'Macro Assay Photo + Vault Note Sealed',
     hallmarkNote: 'Ready for Parent → Child bridal lineage',
+  },
+];
+
+export const SCISSORS_STATS = [
+  {
+    id: 'stat-cut',
+    numEnd: 5,
+    prefix: '2%–',
+    suffix: '%',
+    title: 'Unverified cutting deduction',
+    detail: 'Lost at bridal trade-in when original stone vs. net gold proof is missing.',
+    source: 'Colombo & Sea Street retail trade-in benchmark',
+  },
+  {
+    id: 'stat-precision',
+    numEnd: 1,
+    prefix: '0.00',
+    suffix: ' g',
+    title: 'Milligram assay separation',
+    detail: 'Gross weight, stone weight, and pure gold weight sealed permanently at checkout.',
+    source: 'Digital Jewellery Passport schema',
+  },
+  {
+    id: 'stat-addresses',
+    numEnd: 0,
+    prefix: '',
+    suffix: ' Columns',
+    title: 'Residential street addresses',
+    detail: 'Zero home address, postal code, or GPS columns exist anywhere in AURUM.',
+    source: 'Sri Lanka PDPA No. 9 of 2022 privacy-by-design',
+  },
+];
+
+export const PROVENANCE_PHASES: ProvenancePhase[] = [
+  {
+    num: '01',
+    station: 'Assay',
+    title: 'Milligram Assay Separation',
+    action: 'Showroom records exact Gross Weight (4.80 g) alongside pure Net Gold (4.20 g) and stones (0.60 g).',
+    outcome: 'Eliminates destructive touchstone scraping and stone-prying disputes decades later.',
+    metric: '4.80 g Gross → 4.20 g Pure',
+    animKind: 'assay',
+  },
+  {
+    num: '02',
+    station: '8s Seal',
+    title: '8-Second Counter Handover',
+    action: 'One barcode scan triggers a Live 4-Digit PIN, SIM-bound gift SMS, bridal batch, or Nokia receipt.',
+    outcome: 'Zero ERP replacement and zero queue slowdown at peak bridal counters.',
+    metric: '4 Showroom Handover Modes',
+    animKind: 'pin',
+  },
+  {
+    num: '03',
+    station: 'Vault',
+    title: 'Biometric Family Vault',
+    action: 'Verified showroom passports sit beside Day-1 Owner-Reported home-safe and bank-locker heirlooms.',
+    outcome: 'One cross-shop portfolio without exposing a single home address or rival purchase.',
+    metric: 'AES-256 + Biometric Key',
+    animKind: 'vault',
+  },
+  {
+    num: '04',
+    station: 'CBSL Hub',
+    title: 'Weekly Wealth & Hallmark Hub',
+    action: 'Multiplies live LKR metal value locally on-device using daily official CBSL 22K & 24K rates.',
+    outcome: 'Turns a rare purchase receipt into a calm weekly wealth utility with zero store spam.',
+    metric: '22K: LKR 36,640/g · 24K: 40,000/g',
+    animKind: 'cbsl',
+  },
+  {
+    num: '05',
+    station: '15m Pass',
+    title: 'Customer-Present Counter Pass',
+    action: 'Owner taps a 15-minute expiring QR at the issuing counter for polishing or bridal exchange.',
+    outcome: 'Terminal automatically re-seals customer phone and invoice history once checkout closes.',
+    metric: 'Ephemeral 900s Session Token',
+    animKind: 'qr',
+  },
+  {
+    num: '06',
+    station: 'Lineage',
+    title: 'Parent → Child Melting Graph',
+    action: 'When ancestral bangles are melted to craft a wedding necklace, Parent passports link to the Child.',
+    outcome: 'Generational Sri Lankan bridal provenance stays mathematically unbroken forever.',
+    metric: 'Immutable Directed Acyclic Graph',
+    animKind: 'lineage',
   },
 ];
 
@@ -110,6 +208,7 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
       'AES-256 Original VAT Invoice PDF',
       '15-Minute Ephemeral Counter Pass QR',
     ],
+    callout: 'AUR · 0842 · 6190 · Verified Seal',
   },
   {
     id: 'gold-news',
@@ -127,6 +226,7 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
       '24K / 999: LKR 40,000/g · 320,000/Sovereign',
       'Zero Promotional Push Spam Policy',
     ],
+    callout: 'On-Device LKR Valuation · 0 Analytics Leakage',
   },
   {
     id: 'retailer-pos',
@@ -144,6 +244,7 @@ export const PROTOTYPE_PLATES: PrototypePlate[] = [
       'Multi-Item Bridal Batching: Group rings, chains, and pendants (12.20 g combined net gold) under one 1-tap bride handover',
       'Customer-Present Lock: Masks mobile numbers (+94 •• ••• 4821) and seals historical invoices the second checkout closes',
     ],
+    callout: 'aurum.partner · Shared-Screen Privacy Lock',
   },
 ];
 
@@ -246,6 +347,75 @@ export const SIMULATOR_ROLES: SimulatorRole[] = [
         state: 'visible',
       },
     ],
+  },
+];
+
+export const RLS_SQL_SNIPPET = `-- Project AURUM: Strict Multi-Tenant PostgreSQL RLS Policy
+ALTER TABLE jewellery_passports ENABLE ROW LEVEL SECURITY;
+
+-- 1. Families view all their own pieces across every showroom
+CREATE POLICY owner_full_vault_access ON jewellery_passports
+  FOR SELECT USING (auth.uid() = owner_user_id);
+
+-- 2. Showrooms view STRICTLY their own issued rows; rivals get 0 rows (HTTP 403)
+CREATE POLICY issuer_isolated_ledger ON jewellery_passports
+  FOR SELECT USING (
+    current_setting('app.tenant_id', true)::uuid = issuing_showroom_id
+  );
+
+-- 3. Schema Guarantee: ZERO residential address or GPS columns exist`;
+
+export const FAMILY_BENEFITS = [
+  {
+    num: '01',
+    title: 'Log existing home heirlooms on Day 1',
+    note: 'Photograph and record older family bangles already in your safe alongside verified showroom purchases.',
+    tag: 'Day-1 Safe Log',
+  },
+  {
+    num: '02',
+    title: 'Keep full own-gold exchange weight',
+    note: 'Separated 4.80 g gross / 4.20 g pure gold proof stops unverified 2%–5% cutting deductions.',
+    tag: '0.001 g Net Proof',
+  },
+  {
+    num: '03',
+    title: 'Mother-to-daughter melting lineage',
+    note: 'Melted heirloom bangles link permanently as Parent → Child records when crafting bridal sets.',
+    tag: 'Provenance DAG',
+  },
+  {
+    num: '04',
+    title: '10-second police & insurance dossier',
+    note: 'AES-256 encrypted original VAT invoice PDFs outlast fading thermal bills during emergencies.',
+    tag: 'AES-256 Sealed',
+  },
+];
+
+export const SHOWROOM_BENEFITS = [
+  {
+    num: '01',
+    title: 'Lifetime retention, zero rival poaching',
+    note: 'PostgreSQL RLS blocks rivals mathematically—customers return to your counter to preserve their seal.',
+    tag: 'HTTP 403 Lock',
+  },
+  {
+    num: '02',
+    title: 'Close bridal trade-ins in 2 minutes',
+    note: 'Read exact original net gold weight instantly without scraping or prying delicate Kundan stones.',
+    tag: 'Zero Scraping',
+  },
+  {
+    num: '03',
+    title: 'Stop warranty swaps & 0.25 g shaving',
+    note: '±1.5% natural wear weight gates catch lookalike swaps and workshop polish pilferage.',
+    tag: '±1.5% Audit Gate',
+  },
+  {
+    num: '04',
+    title: '8-second handover beside your ERP',
+    note: 'Keep existing tray tags untouched across PIN, gift SMS, bridal batch, and button-phone modes.',
+    tag: '4 POS Modes',
   },
 ];
 

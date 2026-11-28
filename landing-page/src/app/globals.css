@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  /* Posh Ruby Velvet / Oxblood Grounds (sampled from hero portrait) */
-  --obsidian-950: #1a0304;
-  --obsidian-900: #2b0608;
-  --obsidian-850: #3d090c;
-  --obsidian-750: #590e13;
+  /* Posh Ruby Velvet / Haute-Joaillerie Oxblood (Dark Default) */
+  --ruby-0: #120203;
+  --ruby-1: #1a0304;
+  --ruby-2: #2b0608;
+  --ruby-3: #3d090c;
+  --ruby-4: #590e13;
+  --ruby-accent: #7d1117;
 
-  /* Light Alabaster & Silk Stone Grounds */
-  --paper-pure: #ffffff;
-  --paper-mineral: #fbf7f6;
-  --paper-stone: #f2ebe9;
+  /* Warm Alabaster Contrast Chapters */
+  --paper-0: #ffffff;
+  --paper-1: #fbf7f6;
+  --paper-2: #f2ebe9;
   --hairline-light: #e6dbd9;
   --hairline-strong: #d1bfbc;
 
-  /* Solid Inks */
+  /* Inks */
   --ink-dark-1: #fffaf6;
   --ink-dark-2: #ebd7d8;
   --ink-dark-3: #ccaeb0;
@@ -22,31 +24,33 @@
   --ink-light-2: #4a2c2e;
   --ink-light-3: #6e4f51;
 
-  /* 22K Champagne Gold & Semantic Status */
+  /* 22K Liquid Bullion Gold & Semantic Status */
   --gold-bright: #f7dfa3;
   --gold-bullion: #e5be6a;
+  --gold-deep: #9c6c22;
   --bronze-ink: #7d500d;
   --ok-dark: #74e3ad;
   --ok-light: #0f6b45;
+  --warn-dark: #f2c97d;
   --err-dark: #ff9c94;
   --err-light: #8f141c;
   --err-surface-light: #fdf1f1;
 
-  /* Typography & Fluid Scale */
+  /* Typography & Scale */
   --font-display: 'Sentient', Georgia, 'Times New Roman', serif;
   --font-sans: 'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'Azeret Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --text-hero: clamp(2.05rem, 1.25rem + 3.3vw, 4.35rem);
-  --text-h2: clamp(1.75rem, 1.2rem + 2vw, 3.15rem);
-  --text-manifesto: clamp(1.85rem, 1.15rem + 2.6vw, 3.85rem);
+  --text-hero: clamp(2.15rem, 1.3rem + 3.5vw, 4.65rem);
+  --text-h2: clamp(1.8rem, 1.2rem + 2.1vw, 3.25rem);
+  --text-manifesto: clamp(1.9rem, 1.2rem + 2.7vw, 3.95rem);
   --text-h3: clamp(1.18rem, 1.02rem + 0.45vw, 1.55rem);
   --text-monument: clamp(4.25rem, 18.5vw, 17.5rem);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
-  background-color: var(--obsidian-950);
-  color: var(--ink-light-1);
+  background-color: var(--ruby-0);
+  color: var(--ink-dark-1);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.62;
@@ -59,8 +63,8 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--paper-mineral);
-  color: var(--ink-light-1);
+  background-color: var(--ruby-1);
+  color: var(--ink-dark-1);
   overflow-x: clip;
 }
 
@@ -77,7 +81,7 @@ body {
   padding: 0.75rem 1.25rem;
   border-radius: 9999px;
   background-color: var(--gold-bullion);
-  color: var(--obsidian-950);
+  color: var(--ruby-0);
   font-weight: 600;
   font-size: 0.875rem;
   text-decoration: none;
@@ -93,17 +97,17 @@ body {
   width: auto;
   height: auto;
   overflow: visible;
-  outline: 2px solid var(--ink-light-1);
+  outline: 2px solid var(--gold-bright);
   outline-offset: 2px;
 }
 
 :focus-visible {
-  outline: 2px solid var(--bronze-ink);
+  outline: 2px solid var(--gold-bright);
   outline-offset: 3px;
 }
 
-.surface-dark :focus-visible {
-  outline-color: var(--gold-bright);
+.surface-light :focus-visible {
+  outline-color: var(--ruby-accent);
 }
 
 /* Typography */
@@ -129,74 +133,166 @@ body {
 
 .heading-hero {
   font-size: var(--text-hero);
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  line-height: 1.07;
+  letter-spacing: -0.018em;
 }
 
 .heading-section {
   font-size: var(--text-h2);
-  line-height: 1.14;
-  letter-spacing: -0.012em;
+  line-height: 1.13;
+  letter-spacing: -0.014em;
 }
 
 .heading-manifesto {
   font-size: var(--text-manifesto);
   line-height: 1.16;
-  letter-spacing: -0.014em;
+  letter-spacing: -0.015em;
 }
 
 .heading-card {
   font-size: var(--text-h3);
-  line-height: 1.3;
+  line-height: 1.28;
   letter-spacing: -0.005em;
 }
 
-/* Surfaces & Double-Bezels */
-.surface-dark {
-  background-color: var(--obsidian-950);
+/* 22K Liquid Bullion Gold Specular Sweep */
+@keyframes goldSpecularSweep {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: -100% 50%;
+  }
+}
+
+.gold-foil-sweep {
+  background-image: linear-gradient(
+    110deg,
+    #f7dfa3 0%,
+    #e5be6a 22%,
+    #fffdf7 46%,
+    #b68432 64%,
+    #f7dfa3 84%,
+    #fff6da 100%
+  );
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: goldSpecularSweep 7.5s linear infinite;
+}
+
+.gold-foil-sweep:hover {
+  animation-duration: 3.4s;
+}
+
+/* Chapter Surfaces & Subtle Technical Assay Grid */
+.surface-ruby {
+  background-color: var(--ruby-1);
   background-image:
     radial-gradient(
-      ellipse 72% 64% at 74% 26%,
-      rgba(120, 17, 24, 0.56),
-      rgba(61, 9, 12, 0.28) 48%,
-      transparent 78%
+      ellipse 72% 62% at 74% 24%,
+      rgba(125, 17, 23, 0.5),
+      rgba(61, 9, 12, 0.25) 50%,
+      transparent 80%
     ),
-    linear-gradient(180deg, #2b0608 0%, #1a0304 100%);
+    linear-gradient(180deg, #240406 0%, #140203 100%);
   color: var(--ink-dark-1);
 }
 
-.studio-card {
-  background-color: var(--paper-pure);
-  border: 1px solid var(--hairline-light);
-  box-shadow: 0 1px 2px rgba(26, 4, 5, 0.04), 0 18px 42px -18px rgba(48, 8, 12, 0.12);
-  transition: border-color 200ms var(--ease-out), box-shadow 220ms var(--ease-out);
+.surface-light {
+  color: var(--ink-light-1);
 }
 
-.studio-card:hover {
-  border-color: var(--hairline-strong);
-  box-shadow: 0 2px 4px rgba(26, 4, 5, 0.05), 0 26px 56px -20px rgba(48, 8, 12, 0.16);
+.assay-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(247, 223, 163, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(247, 223, 163, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
+/* Apple-Style Liquid Ruby & Alabaster Glass + Specular Conic Gold Rim */
+.aurum-glass {
+  --mx: 50%;
+  --my: 0%;
+  --rim-angle: 135deg;
+  position: relative;
+  isolation: isolate;
+}
+
+.aurum-glass-dark {
+  background: linear-gradient(160deg, rgba(59, 8, 11, 0.66) 0%, rgba(22, 3, 4, 0.78) 100%);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(247, 223, 163, 0.22),
+    inset 0 -1px 0 rgba(12, 1, 2, 0.55),
+    0 24px 60px -22px rgba(8, 0, 2, 0.78);
+}
+
+.aurum-glass-light {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.92) 0%, rgba(251, 247, 246, 0.84) 100%);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 20px 50px -22px rgba(48, 8, 12, 0.14);
+}
+
+.aurum-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--rim-angle) at var(--mx) var(--my),
+    rgba(247, 223, 163, 0.62) 0deg,
+    rgba(247, 223, 163, 0.14) 75deg,
+    rgba(125, 17, 23, 0.28) 180deg,
+    rgba(247, 223, 163, 0.12) 285deg,
+    rgba(247, 223, 163, 0.62) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.aurum-glass-light::before {
+  background: conic-gradient(
+    from var(--rim-angle) at var(--mx) var(--my),
+    rgba(156, 108, 34, 0.45) 0deg,
+    rgba(209, 191, 188, 0.55) 95deg,
+    rgba(125, 17, 23, 0.24) 195deg,
+    rgba(209, 191, 188, 0.55) 290deg,
+    rgba(156, 108, 34, 0.45) 360deg
+  );
+}
+
+/* Double-Bezels */
 .bezel-light-outer {
   padding: 6px;
   border-radius: 1.75rem;
-  background-color: var(--paper-stone);
+  background-color: var(--paper-2);
   border: 1px solid var(--hairline-light);
   box-shadow: 0 1px 2px rgba(26, 4, 5, 0.04), 0 24px 54px -22px rgba(48, 8, 12, 0.14);
 }
 
 .bezel-light-inner {
   border-radius: calc(1.75rem - 6px);
-  background-color: var(--paper-pure);
+  background-color: var(--paper-0);
   border: 1px solid rgba(26, 4, 5, 0.06);
 }
 
 .modal-bezel-shell {
   padding: 4px;
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 36px 80px -24px rgba(12, 2, 4, 0.74);
+  background: linear-gradient(145deg, rgba(247, 223, 163, 0.28), rgba(255, 255, 255, 0.1));
+  border: 1px solid rgba(247, 223, 163, 0.34);
+  box-shadow: 0 36px 84px -24px rgba(8, 0, 2, 0.85);
 }
 
 .modal-bezel-core {
@@ -216,15 +312,7 @@ body {
   }
 }
 
-.editorial-row {
-  transition: background-color 180ms var(--ease-out);
-}
-
-.editorial-row:hover {
-  background-color: var(--paper-mineral);
-}
-
-/* Buttons */
+/* Brushed 22K Bullion & Ruby Satin Buttons */
 .btn-primary-gold,
 .btn-primary-dark {
   display: inline-flex;
@@ -241,40 +329,41 @@ body {
   cursor: pointer;
   text-decoration: none;
   transition:
-    background-color 180ms var(--ease-out),
-    transform 180ms var(--ease-out),
-    box-shadow 180ms var(--ease-out);
+    background-color 200ms var(--ease-expo),
+    transform 200ms var(--ease-expo),
+    box-shadow 200ms var(--ease-expo);
 }
 
 .btn-primary-gold {
-  background-color: var(--gold-bullion);
-  color: var(--obsidian-950);
-  border: 1px solid rgba(247, 223, 163, 0.78);
-  box-shadow: 0 12px 30px -10px rgba(229, 190, 106, 0.46);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.09) 0px,
+      rgba(255, 255, 255, 0) 2px,
+      rgba(156, 108, 34, 0.08) 4px
+    ),
+    linear-gradient(135deg, #f3d48c 0%, #e1b860 52%, #f7dfa3 100%);
+  color: var(--ruby-0);
+  border: 1px solid rgba(255, 246, 218, 0.82);
+  box-shadow: 0 12px 32px -10px rgba(229, 190, 106, 0.5);
 }
 
 .btn-primary-gold:hover {
-  background-color: var(--gold-bright);
   transform: translateY(-1.5px);
-  box-shadow: 0 16px 36px -10px rgba(229, 190, 106, 0.65);
+  box-shadow: 0 18px 38px -10px rgba(247, 223, 163, 0.68);
 }
 
 .btn-primary-dark {
   background-color: #430a0e;
-  color: var(--paper-pure);
+  color: var(--paper-0);
   border: 1px solid #6b1117;
-  box-shadow: 0 12px 28px -12px rgba(67, 10, 14, 0.48);
+  box-shadow: 0 12px 28px -12px rgba(67, 10, 14, 0.5);
 }
 
 .btn-primary-dark:hover {
   background-color: #5e0f15;
   transform: translateY(-1.5px);
-  box-shadow: 0 16px 34px -12px rgba(67, 10, 14, 0.6);
-}
-
-.btn-primary-gold:active,
-.btn-primary-dark:active {
-  transform: translateY(0) scale(0.985);
+  box-shadow: 0 16px 34px -12px rgba(67, 10, 14, 0.64);
 }
 
 .btn-pill-badge-dark,
@@ -289,17 +378,17 @@ body {
 }
 
 .btn-pill-badge-dark {
-  background-color: var(--obsidian-950);
+  background-color: var(--ruby-0);
   color: var(--gold-bright);
 }
 
 .btn-pill-badge-gold {
   background-color: var(--gold-bullion);
-  color: var(--obsidian-950);
+  color: var(--ruby-0);
 }
 
 .btn-pill-icon {
-  transition: transform 180ms var(--ease-out);
+  transition: transform 200ms var(--ease-expo);
 }
 
 .btn-primary-gold:hover .btn-pill-icon,
@@ -317,45 +406,46 @@ body {
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 180ms var(--ease-out), border-color 180ms var(--ease-out);
+  transition: background-color 200ms var(--ease-expo), border-color 200ms var(--ease-expo);
 }
 
 .btn-ghost-dark {
   min-height: 3.25rem;
   padding: 0.625rem 1.4rem;
-  background-color: rgba(59, 8, 11, 0.78);
+  background-color: rgba(59, 8, 11, 0.68);
+  backdrop-filter: blur(16px);
   color: var(--ink-dark-1);
-  border: 1px solid rgba(247, 223, 163, 0.34);
+  border: 1px solid rgba(247, 223, 163, 0.36);
   font-size: 0.9375rem;
 }
 
 .btn-ghost-dark:hover {
-  background-color: var(--obsidian-850);
-  border-color: rgba(247, 223, 163, 0.76);
+  background-color: rgba(89, 14, 19, 0.82);
+  border-color: rgba(247, 223, 163, 0.78);
 }
 
 .btn-ghost-light {
   min-height: 2.875rem;
   padding: 0.5rem 1.25rem;
-  background-color: var(--paper-pure);
+  background-color: var(--paper-0);
   color: var(--ink-light-1);
   border: 1px solid var(--hairline-strong);
   font-size: 0.875rem;
 }
 
 .btn-ghost-light:hover {
-  background-color: var(--paper-mineral);
+  background-color: var(--paper-1);
   border-color: #590e13;
 }
 
-/* Range Input & Native Dialog */
+/* Range Slider & Native Dialog */
 .aurum-range-light {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
   height: 0.45rem;
   border-radius: 9999px;
-  background: var(--paper-stone);
+  background: var(--paper-2);
   border: 1px solid var(--hairline-light);
   cursor: pointer;
 }
@@ -367,9 +457,9 @@ body {
   height: 1.5rem;
   border-radius: 9999px;
   background: #430a0e;
-  border: 3px solid var(--paper-pure);
-  box-shadow: 0 0 0 1.5px #430a0e, 0 4px 12px rgba(67, 10, 14, 0.3);
-  transition: transform 160ms var(--ease-out);
+  border: 3px solid var(--paper-0);
+  box-shadow: 0 0 0 1.5px #430a0e, 0 4px 12px rgba(67, 10, 14, 0.32);
+  transition: transform 160ms var(--ease-expo);
 }
 
 .aurum-range-light::-webkit-slider-thumb:hover {
@@ -381,17 +471,21 @@ body {
   height: 1.5rem;
   border-radius: 9999px;
   background: #430a0e;
-  border: 3px solid var(--paper-pure);
-  box-shadow: 0 0 0 1.5px #430a0e, 0 4px 12px rgba(67, 10, 14, 0.3);
+  border: 3px solid var(--paper-0);
+  box-shadow: 0 0 0 1.5px #430a0e, 0 4px 12px rgba(67, 10, 14, 0.32);
 }
 
 dialog.aurum-dialog::backdrop {
-  background-color: rgba(26, 3, 4, 0.8);
-  backdrop-filter: blur(8px);
+  background-color: rgba(18, 2, 3, 0.82);
+  backdrop-filter: blur(10px);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .gold-foil-sweep {
+    animation: none;
+    background-position: 50% 50%;
   }
 }

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#2b0608',
+  themeColor: '#1a0304',
   width: 'device-width',
   initialScale: 1,
 };
@@ -69,7 +69,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         <link
-          href="https://api.fontshare.com/v2/css?f[]=sentient@400,500,700&f[]=switzer@400,500,600,700&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=sentient@400,401,500,501,700&f[]=switzer@400,500,600,700&display=swap"
           rel="stylesheet"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

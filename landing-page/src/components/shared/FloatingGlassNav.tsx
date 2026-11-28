@@ -5,54 +5,67 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, List, X } from '@phosphor-icons/react';
 
 const NAV_LINKS = [
-  { href: '#problem', label: 'The Blind Spot', sectionId: 'problem' },
-  { href: '#value', label: 'Benefits', sectionId: 'value' },
+  { href: '#problem', label: 'Blind Spot', sectionId: 'problem' },
+  { href: '#how-it-works', label: 'Loop', sectionId: 'how-it-works' },
   { href: '#prototype', label: 'Screens', sectionId: 'prototype' },
-  { href: '#solution', label: 'Privacy RLS', sectionId: 'solution' },
+  { href: '#solution', label: 'RLS Firewall', sectionId: 'solution' },
+  { href: '#value', label: 'Audiences', sectionId: 'value' },
   { href: '#team', label: 'Team', sectionId: 'team' },
 ];
 
 const TRACKED_IDS = [
   'top',
   'problem',
-  'value',
+  'how-it-works',
   'prototype',
   'solution',
-  'how-it-works',
-  'faq',
+  'lineage',
+  'value',
   'team',
   'waitlist',
   'contact',
 ];
 const NAV_ID_SET = new Set(['top', ...NAV_LINKS.map((l) => l.sectionId)]);
-const DARK_SECTIONS = new Set(['top', 'solution', 'contact']);
+const DARK_SECTIONS = new Set(['top', 'problem', 'how-it-works', 'solution', 'lineage', 'contact']);
 
-interface FloatingNavProps {
+interface FloatingGlassNavProps {
   onOpenPilot: () => void;
 }
 
-export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
+export const FloatingGlassNav: React.FC<FloatingGlassNavProps> = ({ onOpenPilot }) => {
   const [activeSection, setActiveSection] = useState('top');
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [overDark, setOverDark] = useState(true);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const els = TRACKED_IDS.map((id) => ({ id, el: document.getElementById(id) }));
+    let lastY = window.scrollY;
     let prevDark = true;
     let prevActive = 'top';
+    let prevHidden = false;
     let rafId = 0;
 
-    const updateNav = () => {
+    const update = () => {
       rafId = 0;
-      const probeY = 90;
-      for (const { id, el } of els) {
-        const node = el ?? document.getElementById(id);
+      const y = window.scrollY;
+      const delta = y - lastY;
+      lastY = y;
+
+      const nextHidden = y > 260 && delta > 6 ? true : delta < -5 || y <= 260 ? false : prevHidden;
+      if (nextHidden !== prevHidden) {
+        prevHidden = nextHidden;
+        setHidden(nextHidden);
+      }
+
+      const probeY = 92;
+      for (const id of TRACKED_IDS) {
+        const node = document.getElementById(id);
         if (!node) continue;
-        const rect = node.getBoundingClientRect();
-        if (rect.top <= probeY && rect.bottom >= probeY) {
+        const r = node.getBoundingClientRect();
+        if (r.top <= probeY && r.bottom >= probeY) {
           const nextDark = DARK_SECTIONS.has(id);
           if (nextDark !== prevDark) {
             prevDark = nextDark;
@@ -68,10 +81,10 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
     };
 
     const onScroll = () => {
-      if (!rafId) rafId = requestAnimationFrame(updateNav);
+      if (!rafId) rafId = requestAnimationFrame(update);
     };
 
-    updateNav();
+    update();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
@@ -94,14 +107,18 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
 
   return (
     <>
-      <header className="fixed top-4 inset-x-0 z-50 px-4 sm:px-6 pointer-events-none">
+      <header
+        className={`fixed top-4 inset-x-0 z-50 px-4 sm:px-6 pointer-events-none transition-transform duration-300 ${
+          hidden ? '-translate-y-24' : 'translate-y-0'
+        }`}
+      >
         <nav
           aria-label="Primary navigation"
           onMouseLeave={() => setHoveredNav(null)}
-          className={`pointer-events-auto mx-auto max-w-5xl rounded-full px-3 py-1.5 backdrop-blur-md flex items-center justify-between gap-2 transition-colors duration-200 ${
+          className={`pointer-events-auto mx-auto max-w-5xl rounded-full px-3 py-1.5 flex items-center justify-between gap-2 transition-colors duration-200 aurum-glass ${
             overDark
-              ? 'bg-[#2b0608]/88 text-[var(--ink-dark-1)] border border-[#6b1117] shadow-[0_14px_38px_-12px_rgba(14,1,3,0.82)]'
-              : 'bg-white/92 text-[var(--ink-light-1)] border border-[#e6dbd9] shadow-[0_12px_34px_-12px_rgba(48,8,12,0.16)]'
+              ? 'aurum-glass-dark text-[var(--ink-dark-1)]'
+              : 'aurum-glass-light text-[var(--ink-light-1)]'
           }`}
         >
           <a
@@ -118,7 +135,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
             <span className="font-display text-lg tracking-wide">AURUM</span>
           </a>
 
-          <ul className="hidden md:flex items-center gap-0.5">
+          <ul className="hidden lg:flex items-center gap-0.5">
             {NAV_LINKS.map((link) => {
               const isHighlighted = highlightId === link.sectionId;
               return (
@@ -126,7 +143,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
                   <a
                     href={link.href}
                     onMouseEnter={() => setHoveredNav(link.sectionId)}
-                    className={`relative inline-flex items-center min-h-[44px] px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors duration-150 ${
+                    className={`relative inline-flex items-center min-h-[42px] px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors duration-150 ${
                       overDark
                         ? isHighlighted
                           ? 'text-[var(--gold-bright)]'
@@ -138,7 +155,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
                   >
                     {isHighlighted && (
                       <motion.span
-                        layoutId="nav-active-pill"
+                        layoutId="v3-nav-pill"
                         transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
                         className={`absolute inset-0 -z-10 rounded-full ${
                           overDark ? 'bg-[#500c10]' : 'bg-[#f2ebe9]'
@@ -155,10 +172,11 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
           <div className="flex items-center gap-2">
             <button
               type="button"
+              data-cursor="Join"
               onClick={onOpenPilot}
-              className={`hidden sm:inline-flex items-center gap-2 min-h-[44px] pl-4 pr-1.5 py-1 rounded-full text-sm font-semibold cursor-pointer transition-colors duration-150 ${
+              className={`hidden sm:inline-flex items-center gap-2 min-h-[42px] pl-4 pr-1.5 py-1 rounded-full text-sm font-semibold cursor-pointer transition-colors duration-150 ${
                 overDark
-                  ? 'bg-[var(--gold-bullion)] hover:bg-[var(--gold-bright)] text-[var(--obsidian-950)]'
+                  ? 'bg-[var(--gold-bullion)] hover:bg-[var(--gold-bright)] text-[var(--ruby-0)]'
                   : 'bg-[#430a0e] hover:bg-[#5e0f15] text-white'
               }`}
             >
@@ -166,8 +184,8 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
               <span
                 className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${
                   overDark
-                    ? 'bg-[var(--obsidian-950)] text-[var(--gold-bright)]'
-                    : 'bg-[var(--gold-bullion)] text-[var(--obsidian-950)]'
+                    ? 'bg-[var(--ruby-0)] text-[var(--gold-bright)]'
+                    : 'bg-[var(--gold-bullion)] text-[var(--ruby-0)]'
                 }`}
                 aria-hidden="true"
               >
@@ -180,9 +198,9 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
               type="button"
               onClick={openMenu}
               aria-expanded={mobileOpen}
-              aria-controls="mobile-nav-dialog"
+              aria-controls="v3-mobile-nav"
               aria-label="Open navigation menu"
-              className={`md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full cursor-pointer transition-colors ${
+              className={`lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full cursor-pointer transition-colors ${
                 overDark
                   ? 'bg-[#3d090c] text-[var(--ink-dark-1)] border border-[#6b1117]'
                   : 'bg-[#f2ebe9] text-[var(--ink-light-1)] border border-[#e6dbd9]'
@@ -195,7 +213,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ onOpenPilot }) => {
       </header>
 
       <dialog
-        id="mobile-nav-dialog"
+        id="v3-mobile-nav"
         ref={dialogRef}
         onClose={() => setMobileOpen(false)}
         onClick={(e) => {

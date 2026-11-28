@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useId, useState } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowUpRight, LockSimple, WarningCircle } from '@phosphor-icons/react';
-import { MagneticCTA } from './MagneticCTA';
+import { MagneticCTA } from '../motion/Magnetic';
 
 type PilotRole = 'Jewellery Owner / Family' | 'Retail Jeweller / Showroom Manager';
 
@@ -12,7 +13,7 @@ interface PilotWaitlistFormProps {
 }
 
 const INPUT_CLASS =
-  'w-full min-h-[46px] px-3.5 rounded-xl bg-[var(--paper-mineral)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]';
+  'w-full min-h-[46px] px-3.5 rounded-xl bg-[var(--paper-1)] border border-[var(--hairline-strong)] text-base text-[var(--ink-light-1)] placeholder:text-[var(--ink-light-3)]';
 
 export const PilotWaitlistForm: React.FC<PilotWaitlistFormProps> = ({
   variant = 'embedded',
@@ -88,9 +89,28 @@ export const PilotWaitlistForm: React.FC<PilotWaitlistFormProps> = ({
       <div
         role="status"
         aria-live="polite"
-        className="rounded-2xl bg-[#eef7f2] border border-[#b7dec9] p-5 sm:p-6 space-y-3"
+        className="rounded-2xl bg-[#eef7f2] border border-[#b7dec9] p-6 space-y-3.5"
       >
-        <p className="text-base font-semibold text-[var(--ok-light)]">Pilot invitation reserved.</p>
+        <div className="flex items-center gap-3">
+          {/* Self-drawing SVG checkmark */}
+          <svg viewBox="0 0 36 36" className="w-9 h-9 shrink-0" fill="none" aria-hidden="true">
+            <circle cx="18" cy="18" r="17" stroke="#0f6b45" strokeWidth="1.6" fill="white" />
+            <motion.path
+              d="M11 18.5 L15.8 23.2 L25.5 13.5"
+              stroke="#0f6b45"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+            />
+          </svg>
+          <p className="text-base font-semibold text-[var(--ok-light)]">
+            Pilot invitation reserved.
+          </p>
+        </div>
+
         <p className="text-sm text-[var(--ink-light-2)]">
           Recorded under Sri Lanka PDPA guidelines. Questions? Email{' '}
           <a
@@ -149,7 +169,7 @@ export const PilotWaitlistForm: React.FC<PilotWaitlistFormProps> = ({
                 className={`min-h-[44px] px-2.5 py-2 rounded-xl text-xs font-semibold text-center border cursor-pointer transition-colors ${
                   role === r
                     ? 'bg-[#430a0e] text-white border-[#430a0e]'
-                    : 'bg-[var(--paper-mineral)] text-[var(--ink-light-2)] border-[var(--hairline-light)] hover:border-[#430a0e]'
+                    : 'bg-[var(--paper-1)] text-[var(--ink-light-2)] border-[var(--hairline-light)] hover:border-[#430a0e]'
                 }`}
               >
                 {r === 'Jewellery Owner / Family' ? 'Family Vault' : 'Retail Showroom'}
@@ -299,6 +319,7 @@ export const PilotWaitlistForm: React.FC<PilotWaitlistFormProps> = ({
       <MagneticCTA
         type="submit"
         variant="dark"
+        cursorLabel="Reserve"
         disabled={status === 'submitting'}
         className="w-full"
       >

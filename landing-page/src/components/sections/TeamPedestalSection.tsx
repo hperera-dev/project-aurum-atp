@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from '@phosphor-icons/react';
-import { TEAM_MEMBERS } from '../data/aurumData';
+import { TEAM_MEMBERS } from '../../content/aurumContent';
+import { SplitReveal } from '../motion/SplitReveal';
 
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-export const TeamShowcaseSection: React.FC = () => {
+export const TeamPedestalSection: React.FC = () => {
   const [activeId, setActiveId] = useState<string>(TEAM_MEMBERS[0].id);
   const activeMember = TEAM_MEMBERS.find((m) => m.id === activeId) ?? TEAM_MEMBERS[0];
 
@@ -15,17 +16,21 @@ export const TeamShowcaseSection: React.FC = () => {
     <section
       id="team"
       aria-labelledby="team-heading"
-      className="bg-[var(--paper-pure)] text-[var(--ink-light-1)] py-20 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
+      className="surface-light bg-white text-[var(--ink-light-1)] py-20 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-8 border-t border-[var(--hairline-light)]"
     >
       <div className="mx-auto max-w-6xl space-y-10 lg:space-y-14">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-2.5 max-w-2xl">
             <p className="font-data text-xs text-[#8b141b] uppercase tracking-[0.08em]">
-              Group SE-10 · Level 5 ATP Engineering Team
+              08 · Group SE-10 · Level 5 ATP Engineering Team
             </p>
-            <h2 id="team-heading" className="heading-section text-[var(--ink-light-1)]">
-              Engineered in Colombo by <span className="text-[#7d1117]">Group SE-10</span>.
-            </h2>
+            <SplitReveal
+              as="h2"
+              id="team-heading"
+              scrollTrigger
+              text="Engineered in Colombo by Group SE-10."
+              className="heading-section text-[var(--ink-light-1)]"
+            />
           </div>
           <p className="text-sm font-medium text-[var(--ink-light-2)] max-w-sm leading-relaxed">
             Informatics Institute of Technology (IIT Sri Lanka) × University of Westminster.
@@ -44,7 +49,7 @@ export const TeamShowcaseSection: React.FC = () => {
                       initial={{ opacity: 0, scale: 1.03 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
-                      transition={{ duration: 0.22, ease: EASE_OUT }}
+                      transition={{ duration: 0.22, ease: EASE_EXPO }}
                       className="absolute inset-0"
                     >
                       <img
@@ -90,7 +95,7 @@ export const TeamShowcaseSection: React.FC = () => {
                   </AnimatePresence>
                 </div>
 
-                <div className="px-5 py-3.5 bg-[var(--paper-pure)] border-t border-[var(--hairline-light)] flex items-center justify-between gap-4">
+                <div className="px-5 py-3.5 bg-white border-t border-[var(--hairline-light)] flex items-center justify-between gap-4">
                   <span className="text-xs font-medium text-[var(--ink-light-2)]">
                     Hover or select a member to inspect role
                   </span>
@@ -110,14 +115,15 @@ export const TeamShowcaseSection: React.FC = () => {
                 <button
                   key={member.id}
                   type="button"
+                  data-cursor="Select"
                   aria-pressed={isActive}
                   onMouseEnter={activate}
                   onFocus={activate}
                   onClick={activate}
                   className={`group relative w-full text-left py-5 px-4 sm:px-5 flex items-start gap-4 cursor-pointer transition-colors duration-200 ${
                     isActive
-                      ? 'bg-[var(--paper-mineral)]'
-                      : 'bg-[var(--paper-pure)] hover:bg-[var(--paper-mineral)]/60'
+                      ? 'bg-[var(--paper-1)]'
+                      : 'bg-white hover:bg-[var(--paper-1)]/70'
                   }`}
                 >
                   <span
@@ -139,7 +145,7 @@ export const TeamShowcaseSection: React.FC = () => {
                     <div
                       className={`w-14 h-14 rounded-full overflow-hidden shrink-0 border transition-colors duration-200 ${
                         isActive
-                          ? 'border-[#7d1117] ring-2 ring-[#7d1117]/20 ring-offset-2 ring-offset-[var(--paper-mineral)]'
+                          ? 'border-[#7d1117] ring-2 ring-[#7d1117]/20 ring-offset-2 ring-offset-[var(--paper-1)]'
                           : 'border-[var(--hairline-strong)]'
                       }`}
                     >
@@ -192,7 +198,7 @@ export const TeamShowcaseSection: React.FC = () => {
           {TEAM_MEMBERS.map((member) => (
             <article
               key={member.id}
-              className="studio-card rounded-2xl overflow-hidden flex flex-col"
+              className="rounded-2xl bg-white border border-[var(--hairline-light)] shadow-[0_14px_34px_-18px_rgba(48,8,12,0.14)] overflow-hidden flex flex-col"
             >
               <div className="relative aspect-[5/6] w-full overflow-hidden bg-[#1a0304]">
                 <img
@@ -214,7 +220,7 @@ export const TeamShowcaseSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-5 flex-1 flex flex-col justify-between gap-3 bg-[var(--paper-pure)]">
+              <div className="p-5 flex-1 flex flex-col justify-between gap-3">
                 <div className="space-y-1">
                   <h3 className="text-base font-semibold text-[var(--ink-light-1)] leading-snug">
                     {member.name}
